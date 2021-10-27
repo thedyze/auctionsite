@@ -17,15 +17,15 @@ public class Message {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
-    private Long senderId;
+    private long senderId;
 
     @ManyToOne
-    private Long receiverId;
+    private long receiverId;
 
-    private Long timestamp;
+    private long timestamp;
     private String messageContent;
 
 }

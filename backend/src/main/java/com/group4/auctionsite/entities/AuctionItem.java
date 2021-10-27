@@ -17,21 +17,21 @@ public class AuctionItem {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
-    private Long userId;
+    private long userId;
 
     @OneToMany
-    private Long categoryId;
+    private long categoryId;
 
     private String description;
     private String title;
-    private Long startTime;
-    private Long endTime;
-    private Integer currentBid;
-    private Integer startPrice;
-    private Integer currentViews;
-    private Integer numberOfBids;
+    private long startTime;
+    private long endTime;
+    private int currentBid;
+    private int startPrice;
+    private int currentViews;
+    private int numberOfBids;
 
 }

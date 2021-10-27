@@ -17,10 +17,10 @@ public class Image {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
-    private Long itemId;
+    private long itemId;
 
     private boolean isPrimary;
 

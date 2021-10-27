@@ -17,14 +17,14 @@ public class Notification {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
-    private Long itemId;
+    private long itemId;
 
     @ManyToOne
-    private Long messageId;
+    private long messageId;
 
     @ManyToOne
-    private Long userId;
+    private long userId;
 }
