@@ -2,6 +2,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { useUser } from "./context/UserContext";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -14,7 +15,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+
+
 export default function Navbar() {
+  
+  const isIn= useUser()
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -71,7 +77,11 @@ export default function Navbar() {
                   className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  {isIn ? (
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <span className="text-red-400">NOPE</span>
+                  )}
                 </button>
 
                 {/* Profile dropdown */}

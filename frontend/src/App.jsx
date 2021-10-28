@@ -1,11 +1,14 @@
 import { Content } from "./Content";
 import Navbar from "./Navbar";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <Content />
+      <UserProvider>
+        <Navbar />
+        <Content />
+      </UserProvider>
     </div>
   );
 }
