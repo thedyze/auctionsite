@@ -1,0 +1,15 @@
+[
+  {
+    "id": 3,
+    "userId": 2,
+    "categoryId": 1,
+    "description": "beautiful shoes",
+    "title": "Hugos gamla sneakers",
+    "startTime": 1700000000,
+    "endTime": 1800000000,
+    "currentBid": 5000,
+    "startPrice": 100,
+    "currentViews": 50,
+    "numberOfBids": 22
+  }
+]

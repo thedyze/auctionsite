@@ -2,7 +2,7 @@ package com.group4.auctionsite.controllers;
 import com.group4.auctionsite.entities.User;
 import com.group4.auctionsite.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 

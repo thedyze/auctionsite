@@ -19,9 +19,7 @@ public class Image {
     @GeneratedValue
     private long id;
 
-    @ManyToOne
     private long itemId;
-
     private boolean isPrimary;
 
 }

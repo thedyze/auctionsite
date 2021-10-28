@@ -18,11 +18,7 @@ public class AuctionItem {
     @Id
     @GeneratedValue
     private long id;
-
-    @ManyToOne
     private long userId;
-
-    @OneToMany
     private long categoryId;
 
     private String description;

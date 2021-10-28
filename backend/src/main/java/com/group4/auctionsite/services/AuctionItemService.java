@@ -22,7 +22,7 @@ public class AuctionItemService {
     }
 
     public AuctionItem createAuctionItem(AuctionItem auctionItem) {
-        return auctionItem;
+        return auctionItemRepository.save(auctionItem);
     }
 
     public List<AuctionItem> getFilteredAuctionItems(String filter) {

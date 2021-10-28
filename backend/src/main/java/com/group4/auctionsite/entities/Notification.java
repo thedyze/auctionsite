@@ -19,12 +19,7 @@ public class Notification {
     @GeneratedValue
     private long id;
 
-    @ManyToOne
     private long itemId;
-
-    @ManyToOne
     private long messageId;
-
-    @ManyToOne
     private long userId;
 }

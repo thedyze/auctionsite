@@ -19,12 +19,8 @@ public class Message {
     @GeneratedValue
     private long id;
 
-    @ManyToOne
     private long senderId;
-
-    @ManyToOne
     private long receiverId;
-
     private long timestamp;
     private String messageContent;
 
