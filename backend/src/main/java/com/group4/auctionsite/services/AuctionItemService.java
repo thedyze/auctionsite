@@ -5,6 +5,7 @@ import com.group4.auctionsite.repositories.AuctionItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,15 @@ public class AuctionItemService {
 
     public AuctionItem createAuctionItem(AuctionItem auctionItem) {
         return auctionItemRepository.save(auctionItem);
+    }
+
+    public List<AuctionItem> createAuctionItems(List<AuctionItem> auctionItems) {
+        List<AuctionItem> auctionItemsx = new ArrayList<>();
+        for(AuctionItem ai : auctionItems) {
+            var c = auctionItemRepository.save(ai);
+            auctionItemsx.add(c);
+        }
+        return  auctionItemsx;
     }
 
     public List<AuctionItem> getFilteredAuctionItems(String filter) {

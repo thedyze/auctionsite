@@ -27,6 +27,11 @@ public class AuctionItemController {
         return auctionItemService.createAuctionItem(auctionItem);
     }
 
+    @PostMapping("/s")
+    public List<AuctionItem> createAuctionItems(@RequestBody List<AuctionItem> auctionItems) {
+        return auctionItemService.createAuctionItems(auctionItems);
+    }
+
     @GetMapping("/filtered/{filter}")
     public List<AuctionItem> getFilteredAuctionItems(@PathVariable String filter) {
         return auctionItemService.getFilteredAuctionItems(filter);

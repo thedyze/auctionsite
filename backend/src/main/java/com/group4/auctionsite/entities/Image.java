@@ -20,6 +20,6 @@ public class Image {
     private long id;
 
     private long itemId;
-    private boolean isPrimary;
+    private boolean pinned;
 
 }
