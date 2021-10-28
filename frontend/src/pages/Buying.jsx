@@ -1,6 +1,3 @@
-import React from 'react';
 export const Buying = () => {
-    return (
-        <div>Buying</div>
-    )
-}
+  return <div>Buying</div>;
+};
