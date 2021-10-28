@@ -7,28 +7,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("rest/auction_item")
+@RequestMapping("rest/auctionItem")
 public class AuctionItemController {
     @Autowired
     private AuctionItemService auctionItemService;
 
     @GetMapping
     public List<AuctionItem> getAllAuctionItems() {
-        return AuctionItemService.getAllAuctionItems();
+        return auctionItemService.getAllAuctionItems();
     }
 
     @GetMapping("/{id}")
     public Optional<AuctionItem> getAuctionItemById(@PathVariable long id) {
-        return AuctionItemService.getById(id);
+        return auctionItemService.getById(id);
     }
 
     @PostMapping
     public AuctionItem createAuctionItem(@RequestBody AuctionItem auctionItem) {
-        return AuctionItemService.createAuctionItem(auctionItem);
+        return auctionItemService.createAuctionItem(auctionItem);
     }
 
-    /*@GetMapping("/filtered/{filter}, method = GET")
-    public List<AuctionItem> getFilteredAuctionItems(@RequestParam(required = false)) {
-        return AuctionItemService.getFilteredAuctionItems();
-    }*/
+    @GetMapping("/filtered/{filter}")
+    public List<AuctionItem> getFilteredAuctionItems(@PathVariable String filter) {
+        return auctionItemService.getFilteredAuctionItems(filter);
+    }
 }
