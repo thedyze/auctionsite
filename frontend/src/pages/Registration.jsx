@@ -26,7 +26,7 @@ export const Registration = () => {
       </div>
       <div className={formElementStyle}>
         <label>Email </label>
-        <input className={inputStyle} type="email" placeholder="Email adress" required></input>
+        <input className={inputStyle} type="email" placeholder="Your email adress" required></input>
       </div>
       <div className={formElementStyle}>
         <label>Password</label>

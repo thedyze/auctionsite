@@ -24,26 +24,35 @@ class RegOrg extends Component {
     const { toggle } = this.state;
 
     return (
-      <> <div className={`flex justify-evenly w-full px-16 mt-8 my-8`}>
-        <label>Private </label>
-        <input type="radio" name="private" checked={!this.state.toggle} onChange={this.toggleState} />
-        <label>Organization </label>
-        <input type="radio" name="organization" checked={this.state.toggle} onChange={this.toggleState} />
+      <> <div className='flex justify-evenly w-full px-16 mt-8 my-8'>
+        <div className='px-2 flex content-start'>
+          <div>Personal </div>
+          <div className='px-2 flex content-justify'>
+            <input type="radio" name="personal" checked={!this.state.toggle} onChange={this.toggleState} />
+          </div>
+        </div>
+        <div className='px-2 flex content-justify'>
+          <div>Organization </div>
+          <div className='px-2 flex content-justify'>
+            <input type="radio" name="organization" checked={this.state.toggle} onChange={this.toggleState} />
+          </div>
+        </div>
       </div>
         { toggle && this.OrgInput() }
       </>
     );
   }
 
-  OrgInput = function () {
+
+  OrgInput() {
     return <>
       <div className={`w-full`}>
-        <label>Organization name</label>
-        <input className={inputStyle} type="org-name" placeholder="Organization name" required></input>
+        <label>Organization name </label>
+        <input className={inputStyle} type="org-name" placeholder="Organization name"></input>
       </div>
       <div className={`w-full`}>
-        <label>Organization number</label>
-        <input className={inputStyle} type="org-nr" placeholder="Organization number" required></input>
+        <label>Organization number </label>
+        <input className={inputStyle} type="org-nr" placeholder="Organization number"></input>
       </div>
     </>
   }
