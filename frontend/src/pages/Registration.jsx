@@ -10,7 +10,7 @@ export const Registration = () => {
 
   const formStyle = `flex flex-col justify-center items-center px-8`
   const formElementStyle = `w-full`
-  const inputStyle = `w-full py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `
+  const inputStyle = `w-full px-2 py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `
   const buttonStyle = `bg-blue-500 hover:bg-blue-700 my-2 py-2 px-8 text-sm text-white rounded border border-green focus:outline-none focus:border-green-dark`
   const h1 = `font-bold text-xl items-center p-4 mt-8 `
 

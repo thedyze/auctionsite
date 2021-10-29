@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-const inputStyle = `w-full py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `
+const inputStyle = `w-full px-2 py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `
 
 class RegOrg extends Component {
   constructor(props) {
@@ -30,21 +30,25 @@ class RegOrg extends Component {
         <label>Organization </label>
         <input type="radio" name="organization" checked={this.state.toggle} onChange={this.toggleState} />
       </div>
-        {toggle &&
-          <>
-            <div className={`w-full`}>
-              <label>Organization name</label>
-              <input className={inputStyle} type="org-name" placeholder="Organization name" required></input>
-            </div>
-            <div className={`w-full`}>
-              <label>Organization number</label>
-              <input className={inputStyle} type="org-nr" placeholder="Organization number" required></input>
-            </div>
-          </>
-        }
+        { toggle && this.OrgInput() }
       </>
     );
   }
+
+  OrgInput = function () {
+    return <>
+      <div className={`w-full`}>
+        <label>Organization name</label>
+        <input className={inputStyle} type="org-name" placeholder="Organization name" required></input>
+      </div>
+      <div className={`w-full`}>
+        <label>Organization number</label>
+        <input className={inputStyle} type="org-nr" placeholder="Organization number" required></input>
+      </div>
+    </>
+  }
+
+
 }
 
 export default RegOrg;
