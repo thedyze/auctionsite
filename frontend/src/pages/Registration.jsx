@@ -7,16 +7,18 @@ export const Registration = () => {
 
   };
 
-  const formStyle = `h-screen flex flex-col justify-center items-center p-4 mt-8 my-8`
+  const formStyle = `h-screen flex flex-col justify-center items-center p-4 mt-12 my-12`
   const formElementStyle = `w-full`
-  const btnElementStyle = `flex justify-between w-full px-8`
+  const radioElementStyle = `flex justify-between w-full px-16 mt-8 my-8`
   const inputStyle = `w-full py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `
-  const buttonStyle = `bg-blue-500 hover:bg-blue-700 py-2 px-4 text-sm text-white rounded border border-green focus:outline-none focus:border-green-dark`
+  const buttonStyle = `bg-blue-500 hover:bg-blue-700 my-4 py-2 px-4 text-sm text-white rounded border border-green focus:outline-none focus:border-green-dark`
+  const h1 = `font-bold text-xl items-center p-4 pt-12 mt-12 `
 
 
   return <div>
 
     <form className={formStyle} onSubmit={handleFormSubmit}>
+      <h1 className={h1}>Register new account</h1>
       <div className={formElementStyle}>
         <label for="username">Username </label>
         <input className={inputStyle} type="username" placeholder="Your username" required></input>
@@ -36,14 +38,17 @@ export const Registration = () => {
 
       <div className={formElementStyle}>
         <label for="account">Account type </label>
-        <div className={btnElementStyle}>
+        <div className={radioElementStyle}>
+          <div>
           <label class="container">Private </label>
           <input type="radio" checked={true} />
           <span class="checkmark"></span>
-
+          </div>
+          <div>
           <label class="container">Organization </label>
           <input type="radio" />
           <span class="checkmark"></span>
+          </div>
         </div>
       </div>
 
