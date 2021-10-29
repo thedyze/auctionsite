@@ -45,7 +45,7 @@ export const Registration = () => {
       </div>
 
       <div className='flex justify-center items-center pb-8'>
-        <button className={buttonStyle}>Create Account</button>
+        <button type="submit" className={buttonStyle}>Create Account</button>
       </div>
       <div className='min-h-200'>&nbsp;</div>
     </form>
