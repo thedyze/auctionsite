@@ -1,32 +1,31 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext();
-const UserUpdateContext =createContext()
 
 
-export const useUser=()=>{
+
+export const isLoggedIn=()=>{
   return useContext(UserContext)
 }
 
-export const useUserUpdate = () => {
-  return useContext(UserUpdateContext);
-};
 
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(true);
-
-  const toggleUser=()=>{
+  const [user, setUser] = useState(false);
+  
+ const  toggle=(()=>{
     setUser(!user)
+  })
+
+  const values={
+    user,
+    toggle
   }
 
 
-
   return(
-    <UserContext.Provider value={user}>
-      <UserUpdateContext.Provider value={toggleUser}>
+    <UserContext.Provider value={values}> 
       {children}
-      </UserUpdateContext.Provider>
     </UserContext.Provider>
   )
 };
