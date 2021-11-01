@@ -14,14 +14,14 @@
 	<name>auctionsite</name>
 	<description>Spring boot auction site</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>15</java.version>
 	</properties>
 
 	<dependencies>
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>-->
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
