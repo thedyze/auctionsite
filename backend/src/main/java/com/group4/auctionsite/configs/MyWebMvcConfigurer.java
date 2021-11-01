@@ -24,15 +24,16 @@ class MyWebMvcConfigurer implements WebMvcConfigurer {
                 .addResourceLocations("file:src/main/resources/static/")
                 .setCacheControl(CacheControl.noCache())
                 .resourceChain(false)
-                .addResolver(new PathResourceResolver() {
-                    @Override
-                    protected Resource getResource(String resourcePath,
-                                                   Resource location) throws IOException {
-                        Resource requestedResource = location.createRelative(resourcePath);
-                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
-                                : new ClassPathResource("/static/index.html");
-                    }
-                });
+               .addResolver(new PathResourceResolver() {
+                   @Override
+                   protected Resource getResource(String resourcePath,
+                                                  Resource location) throws IOException {
+                       Resource requestedResource = location.createRelative(resourcePath);
+                       return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
+                               : new ClassPathResource("/static/index.html");
+                   }
+               }
+                );
     }
 
     // this will enable CORS for all origins
