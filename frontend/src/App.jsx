@@ -1,5 +1,6 @@
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useEffect } from "react";
+
 import Navbar from "./components/Navbar";
 import { Home } from "./pages/Home";
 import { AuctionDetails } from "./pages/AuctionDetails";
@@ -10,6 +11,7 @@ import { CreateListing } from "./pages/CreateListing";
 import { About } from "./pages/About";
 import { NotFound404 } from "./pages/NotFound404";
 import { UserProvider } from "./context/UserContext";
+import AuctionContextProvider from "./contexts/AuctionContextProvider";
 
 function App() {
   
@@ -17,6 +19,7 @@ function App() {
   return (
     <div>
       <UserProvider>
+      <AuctionContextProvider>
         <Router>
           <Navbar />
           <Switch>
@@ -34,6 +37,7 @@ function App() {
             <Route path="*" component={NotFound404} />
           </Switch>
         </Router>
+        </AuctionContextProvider>
       </UserProvider>
     </div>
   );
