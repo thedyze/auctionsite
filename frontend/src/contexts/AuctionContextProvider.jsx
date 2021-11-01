@@ -1,15 +1,23 @@
 import { createContext, useState, useEffect } from "react";
 
-export const AuctionContextProvider = createContext();
+export const AuctionContext = createContext();
 
 export default function AuctionContextProvider(props) {
 
-    const [auctions, setAuctions] = useState();
+    const [auctions, setAuctions] = useState([]);
 
     const fetchAuctions = async () => {
         let res = await fetch("rest/auctionItem");
-        res = await res.json();
-        setAuctions(res)
+
+        try {
+            res = await res.json();
+            if(res){
+                setAuctions(res)
+            }
+            console.log(res)
+        } catch {
+            console.log("fetchAuction() failed")
+        }
     }
 
     useEffect(() => {
@@ -22,7 +30,7 @@ export default function AuctionContextProvider(props) {
     }
 
     return (
-        <AuctionContext.Provider values={values}>
+        <AuctionContext.Provider value={values}>
             {props.children}
         </AuctionContext.Provider>
     );
