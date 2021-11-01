@@ -17,7 +17,7 @@ export const HomeAuctionList = () => {
       });
     
     return (
-        <div className="h-auto">
+        <div className="h-auto grid grid-cols-2">
             {renderedAuctionItems}
         </div>
     );
