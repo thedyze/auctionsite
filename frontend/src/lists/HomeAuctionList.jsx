@@ -10,17 +10,15 @@ export const HomeAuctionList = () => {
         return (
             <AuctionCard
             className={"h-12 w-20 border-solid border-gray-200 border-2"}
-            product={auction}
+            auction={auction}
             key={i}
           />
         );
       });
     
     return (
-    <div className="searchResult">
-        <div>
-            <div>{renderedAuctionItems}</div>
+        <div className="h-auto">
+            {renderedAuctionItems}
         </div>
-    </div>
     );
 }
