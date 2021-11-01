@@ -1,6 +1,15 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useEffect } from "react";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+
+//contexts
+import AuctionDetailsContextProvider from "./contexts/AuctionDetailsContext";
+import TagContextProvider from "./contexts/TagContext";
+import UserContextProvider from "./contexts/UserContext";
+
+
+//components
 import Navbar from "./components/Navbar";
+
+//pages
 import { Home } from "./pages/Home";
 import { AuctionDetails } from "./pages/AuctionDetails";
 import { Registration } from "./pages/Registration";
@@ -17,23 +26,25 @@ function App() {
   return (
     <div>
       <UserProvider>
+      <AuctionDetailsContextProvider>
+      <TagContextProvider>
+      <UserContextProvider>
         <Router>
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route
-              exact
-              path="/auction-details/{id}"
-              component={AuctionDetails}
-            />
+            <Route exact path="/auction-details/:id" component={AuctionDetails} />
             <Route exact path="/registration" component={Registration} />
             <Route exact path="/buying" component={Buying} />
             <Route exact path="/selling" component={Selling} />
             <Route exact path="/create-listing" component={CreateListing} />
-            <Route path="/about" component={About} />
+            <Route exact path="/about" component={About} />
             <Route path="*" component={NotFound404} />
           </Switch>
         </Router>
+      </UserContextProvider>
+      </TagContextProvider>
+      </AuctionDetailsContextProvider>
       </UserProvider>
     </div>
   );
