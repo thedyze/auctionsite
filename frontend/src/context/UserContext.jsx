@@ -1,32 +1,35 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
-
-
-export const isLoggedIn=()=>{
-  return useContext(UserContext)
-}
-
-
+// export const isLoggedIn = () => {
+//   return useContext(UserContext);
+// };
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(false);
-  
- const  toggle=(()=>{
-    setUser(!user)
-  })
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const values={
-    user,
-    toggle
-  }
+  useEffect(() => {
+    currentUser();
+  }, []);
 
+  const currentUser = async () => {
+    let res = await fetch("/api/whoami");
+    try {
+      let usuario = await res.json();
+      if (usuario) {
+        console.log("yes");
+        setIsLoggedIn(true);
+      }
+      console.log(usuario, isLoggedIn);
+    } catch {
+      console.log("No User yet");
+    }
+  };
 
-  return(
-    <UserContext.Provider value={values}> 
-      {children}
-    </UserContext.Provider>
-  )
+  const values = {
+    isLoggedIn,
+  };
+
+  return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };
-

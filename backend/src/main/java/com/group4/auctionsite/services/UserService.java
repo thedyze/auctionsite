@@ -51,8 +51,9 @@ public class UserService {
     public User findCurrentUser() {
         // the login session is stored between page reloads,
         // and we can access the current authenticated user with this
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByUsername(username);
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("findCurrentUser(): " + userEmail);
+        return userRepository.findByEmail(userEmail);
     }
 
     public User createUser(User user) {
@@ -62,6 +63,7 @@ public class UserService {
     }
 
     public User login(User user, HttpServletRequest req) {
+        System.out.println("login(): " + user.getEmail());
         try {
             // Let Spring Security handle authentication of credentials
             UsernamePasswordAuthenticationToken authReq

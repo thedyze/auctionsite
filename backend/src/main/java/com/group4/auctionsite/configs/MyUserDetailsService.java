@@ -23,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService {
     // remove default user in production
     @PostConstruct
     private void createDefaultUsers(){
-        if (userRepo.findByUsername("user") == null) {
+        if (userRepo.findByEmail("email") == null) {
             User user = User.builder()
                     .email("jack@gmail.com")
                     .username("jack")
@@ -35,10 +35,10 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepo.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found by name: " + username);
+            throw new UsernameNotFoundException("User not found by name: " + email);
         }
         return toUserDetails(user);
     }
@@ -57,7 +57,7 @@ public class MyUserDetailsService implements UserDetailsService {
         // If you have a User entity you have to
         // use the userdetails User for this to work
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
+                .withUsername(user.getEmail())
                 .password(user.getPassword())
                 .roles("USER").build();
     }

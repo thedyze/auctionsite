@@ -2,8 +2,10 @@
 
 import { Disclosure, Menu,  } from "@headlessui/react";
 import { BellIcon,UserCircleIcon } from "@heroicons/react/outline";
-import { isLoggedIn } from "../context/UserContext";
 import { LoginTemplate } from "../components/LoginForm";
+import {useState,useContext} from 'react'
+import {UserContext} from "../context/UserContext"
+import {useHistory} from 'react-router-dom'
 
 
 function classNames(...classes) {
@@ -11,14 +13,18 @@ function classNames(...classes) {
 }
 
 
-
 export default function Navbar() {
+  let  history = useHistory()
   
-const loginFalse = isLoggedIn().toggle;
+const {isLoggedIn} = useContext(UserContext)
 
-  const isIn= isLoggedIn().user.lengt >1
+  console.log(isLoggedIn);
 
-  console.log(isIn);
+  const logout =async ()=>{
+    await fetch ('/logout')
+    window.location.reload(false);
+
+  }
  
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -48,7 +54,7 @@ const loginFalse = isLoggedIn().toggle;
                   className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 >
                   <span className="sr-only">View notifications</span>
-                  {isIn ? (
+                  {isLoggedIn ? (
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   ) : (
                     <div>Nope</div>
@@ -65,7 +71,7 @@ const loginFalse = isLoggedIn().toggle;
                       />
                     </Menu.Button>
                   </div>
-                  {isIn ? (
+                  {isLoggedIn ? (
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
@@ -96,7 +102,7 @@ const loginFalse = isLoggedIn().toggle;
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            onClick={loginFalse}
+                            onClick={logout}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
