@@ -28,7 +28,6 @@ export const LoginTemplate = () => {
     );
 
 
-
     let user = await response.json();
 
     if (response.status == 403) {
@@ -36,7 +35,6 @@ export const LoginTemplate = () => {
     }
     if (response.status == 200) {
       console.log(user);
-
       window.location.reload(false);
     }
   }
