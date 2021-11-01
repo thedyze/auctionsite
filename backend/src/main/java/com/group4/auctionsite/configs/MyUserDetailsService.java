@@ -48,6 +48,9 @@ public class MyUserDetailsService implements UserDetailsService {
         try {
             return userRepo.save(user);
         } catch (Exception ex) {
+            System.out.println("Whats this?..");
+            // try to get the error later
+            ex.getCause();
             ex.printStackTrace();
         }
         return null;

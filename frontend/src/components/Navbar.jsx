@@ -1,31 +1,29 @@
 /* This example requires Tailwind CSS v2.0+ */
 
-import { Disclosure, Menu,  } from "@headlessui/react";
-import { BellIcon,UserCircleIcon } from "@heroicons/react/outline";
+import { Disclosure, Menu } from "@headlessui/react";
+import { BellIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { LoginTemplate } from "../components/LoginForm";
-import {useState,useContext} from 'react'
-import {UserContext} from "../context/UserContext"
-import {useHistory} from 'react-router-dom'
-
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-
 export default function Navbar() {
-  let  history = useHistory()
-  
-const {isLoggedIn} = useContext(UserContext)
+  let history = useHistory();
+
+  const { isLoggedIn } = useContext(UserContext);
 
   console.log(isLoggedIn);
 
-  const logout =async ()=>{
-    await fetch ('/logout')
+  const logout = async () => {
+    await fetch("/logout");
+    history.push("/");
     window.location.reload(false);
+  };
 
-  }
- 
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (

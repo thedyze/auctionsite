@@ -27,7 +27,7 @@ export const LoginTemplate = () => {
     }
     );
 
-    //console.log(await response.text());
+
 
     let user = await response.json();
 
@@ -36,7 +36,7 @@ export const LoginTemplate = () => {
     }
     if (response.status == 200) {
       console.log(user);
-      history.push("/");
+
       window.location.reload(false);
     }
   }

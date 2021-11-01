@@ -1,63 +1,75 @@
-import React, { Component } from "react";
+import { useState } from "react";
 
-const inputStyle = `w-full px-2 py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `
+const INPUT_STYLE = `w-full px-2 py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `;
 
-class RegOrg extends Component {
-  constructor(props) {
 
-    super(props);
-    this.state = {
-      toggle: false
-    };
+export const RegOrg = ({callback}) => {
+  const [isPrivate, isSetPrivate] = useState(false);
+  
+const handleOrgName=(e)=>{
+    callback({ orgName: e.target.value});
+}
 
-    this.toggleState = this.toggleState.bind(this);
+const handleOrgNr = (e) => {
+  callback({ orgNr: e.target.value });
+};
 
-  }
-
-  toggleState() {
-    this.setState({
-      toggle: !this.state.toggle
-    });
-  }
-
-  render() {
-    const { toggle } = this.state;
-
-    return (
-      <> <div className='flex justify-evenly w-full px-16 mt-8 my-8'>
-        <div className='px-2 flex content-start'>
+  const toggleState = (e) => {
+    isSetPrivate(!isPrivate);
+    console.log(e.target.name);
+    callback({role:e.target.name});
+    
+  };
+  return (
+    <>
+      <div className="flex justify-evenly w-full px-16 mt-8 my-8">
+        <div className="px-2 flex content-start">
           <div>Personal </div>
-          <div className='px-2 flex content-justify'>
-            <input type="radio" name="personal" checked={!this.state.toggle} onChange={this.toggleState} />
+          <div className="px-2 flex content-justify">
+            <input
+              type="radio"
+              name="private"
+              checked={!isPrivate}
+              onChange={toggleState}
+              />
           </div>
         </div>
-        <div className='px-2 flex content-justify'>
+        <div className="px-2 flex content-justify">
           <div>Organization </div>
-          <div className='px-2 flex content-justify'>
-            <input type="radio" name="organization" checked={this.state.toggle} onChange={this.toggleState} />
+          <div className="px-2 flex content-justify">
+            <input
+              type="radio"
+              name="organization"
+              checked={isPrivate}
+              onChange={toggleState}
+              />
           </div>
         </div>
       </div>
-        { toggle && this.OrgInput() }
-      </>
-    );
-  }
-
-
-  OrgInput() {
-    return <>
+      {isPrivate && (
+    <>
       <div className={`w-full`}>
         <label>Organization name </label>
-        <input className={inputStyle} type="org-name" placeholder="Organization name"></input>
+        <input
+          className={INPUT_STYLE}
+          type="org-name"
+          placeholder="Organization name"
+          onChange={handleOrgName}
+          required
+        ></input>
       </div>
       <div className={`w-full`}>
         <label>Organization number </label>
-        <input className={inputStyle} type="org-nr" placeholder="Organization number"></input>
+        <input
+          className={INPUT_STYLE}
+          type="org-nr"
+          placeholder="Organization number"
+          onChange={handleOrgNr}
+          required
+        ></input>
       </div>
     </>
-  }
-
-
-}
-
-export default RegOrg;
+  )}
+    </>
+  );
+};
