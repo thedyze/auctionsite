@@ -6,5 +6,5 @@ export const Home = () => {
       <div className="text-yellow-500 text-4xl text-center">Hidden Gems</div>
       <HomeAuctionList/>
     </div>
-  );
+  )
 };
