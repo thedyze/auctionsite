@@ -1,3 +1,10 @@
+import { ImageUpload } from "../components/ImageUpload.jsx"
+
 export const CreateListing = () => {
-  return <div>CreateListing</div>;
+
+
+  return <div>
+  <div>CreateListing</div>
+    <ImageUpload />
+  </div>
 };
