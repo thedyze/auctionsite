@@ -5,8 +5,7 @@ import { BellIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { LoginTemplate } from "../components/LoginForm";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useHistory } from "react-router-dom";
-import { Sidebar } from "./Sidebar"
+import { useHistory, Link} from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -16,9 +15,10 @@ function classNames(...classes) {
 export default function Navbar() {
   let history = useHistory();
 
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, currentUser } = useContext(UserContext);
 
   console.log(isLoggedIn);
+  console.log(currentUser)
 
   const logout = async () => {
     await fetch("/logout");
@@ -69,13 +69,44 @@ export default function Navbar() {
                       />
                     </Menu.Button>
                   </div>
-                  {isLoggedIn ? (
-                    <Sidebar/>
-                  ) : (
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <LoginTemplate />
+                    <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
+                      <Menu.Item>
+                        {isLoggedIn ? (
+                            <div>
+                            <a className="bg-gray-100 block px-4 py-2 text-sm text-gray-700" href="/myPage">{currentUser.email}</a>
+                            hallå
+                            </div>
+                        ) : (
+                            <LoginTemplate />
+                        )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Settings
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              onClick={logout}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Log out
+                            </a>
+                          )}
+                        </Menu.Item>
                     </Menu.Items>
-                  )}
                 </Menu>
               </div>
             </div>

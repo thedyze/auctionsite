@@ -15,15 +15,11 @@ export const AuctionCard = (props) => {
 
     
     return(
-        <div onClick={goToAuctionDetails} className="h-40 flex bg-gray-200">
-            { true ? (
-                    <div>
-                        <img className="w-2/5 h-full  bg-yellow-300" src="../test-images/plick-sweater.tiff"></img>
-                    </div>
-                ) : (
-                    <div>
-                        <img className="w-2/5 h-full  bg-yellow-300" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"></img>
-                    </div>
+        <div onClick={goToAuctionDetails} className="h-30 flex bg-gray-200">
+            { false ? (
+                    <img src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"></img>
+                  ) : (
+                    <img className="w-3/5" src="" alt="Bild saknas"></img>
                   )}
             <div className="p-2 w-full bg-green-300">
                 <div className="text-white bg-green-500">{auction.title}</div>

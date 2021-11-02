@@ -8,18 +8,20 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
-    currentUser();
+    fetchCurrentUser();
   }, []);
 
-  const currentUser = async () => {
+  const fetchCurrentUser = async () => {
     let res = await fetch("/api/whoami");
     try {
       let usuario = await res.json();
       if (usuario) {
         console.log("yes");
         setIsLoggedIn(true);
+        setCurrentUser(usuario.email)
       }
       console.log(usuario, isLoggedIn);
     } catch {
@@ -29,6 +31,7 @@ export const UserProvider = ({ children }) => {
 
   const values = {
     isLoggedIn,
+    currentUser
   };
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
