@@ -25,6 +25,12 @@ export default function Navbar() {
     window.location.reload(false);
   };
 
+  const about = async () => {
+    await fetch("/about");
+    history.push("/");
+    window.location.reload(false);
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -108,6 +114,20 @@ export default function Navbar() {
                             )}
                           >
                             Log out
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="/about"
+                            // onClick={about}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            About us
                           </a>
                         )}
                       </Menu.Item>
