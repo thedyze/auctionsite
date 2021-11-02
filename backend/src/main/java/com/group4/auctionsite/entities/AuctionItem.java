@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "auction_item")
@@ -20,7 +21,6 @@ public class AuctionItem {
     private long id;
     private long userId;
     private long categoryId;
-
     private String description;
     private String title;
     private long startTime;
@@ -30,10 +30,7 @@ public class AuctionItem {
     private int currentViews;
     private int numberOfBids;
 
-
-    
-
-
-
-
+    private boolean isActive(){
+        return this.endTime > new Date().getTime();
+    }
 }
