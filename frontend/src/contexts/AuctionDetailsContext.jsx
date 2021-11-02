@@ -5,6 +5,8 @@ export const AuctionDetailsContext = createContext();
 export default function AuctionDetailsProvider(props) {
   const [auctionItem, setAuctionItem] = useState([])
   const [filteredAuctionItems, setFilteredAuctionItems] = useState([])
+  const [userSellingItems, setUserSellingItems] = useState([]);
+
 
   const fetchAuctionItem = async (id) => {
     let res = await fetch(`/rest/auctionItem/${id}`)
@@ -23,11 +25,21 @@ export default function AuctionDetailsProvider(props) {
     setFilteredAuctionItems(res)
   }
 
+  const fetchUserSellingItems = async (userId) =>{
+    let res = await fetch(`/rest/auctionItem/user/${userId}`);
+    res =await res.json()
+    setUserSellingItems(res)
+
+
+  }
+
   const values = {
     auctionItem,
-    fetchAuctionItem,
     filteredAuctionItems,
-    fetchFilteredAuctionItems
+    userSellingItems,
+    fetchAuctionItem,
+    fetchFilteredAuctionItems,
+    fetchUserSellingItems
   }
 
   return (
