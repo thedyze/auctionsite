@@ -2,8 +2,6 @@ export const AuctionCard = (props) => {
 
     const { auction } = props;
 
-
-    console.log(auction.isActive);
     
     return(
         <div className="h-40 flex bg-gray-200">
