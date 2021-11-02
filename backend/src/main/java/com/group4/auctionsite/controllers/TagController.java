@@ -23,4 +23,10 @@ public class TagController {
         return tagService.createTag(tag);
     }
 
+    @GetMapping("/{itemId}")
+    public List<Tag> getAllTagsOnAuctionItem(@PathVariable Long itemId) {
+        List<Long> tagIds = tagService.getAllTagIdsOnAuctionItem(itemId);
+        return tagService.getAllTagsByIds(tagIds);
+    }
+
 }
