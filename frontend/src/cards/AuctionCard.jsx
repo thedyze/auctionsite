@@ -7,7 +7,7 @@ export const AuctionCard = (props) => {
     const history = useHistory()
 
     const goToAuctionDetails = (e) => {
-        history.push(`/auctionItem/${auction.id}`)
+        history.push(`/auction-details/${auction.id}`)
     }
     
     return(
