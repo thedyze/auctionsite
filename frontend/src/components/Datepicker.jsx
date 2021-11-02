@@ -6,7 +6,7 @@ import { subDays,addDays } from 'date-fns';
 
 
 export default function Datepicker() {
-const [selectedDate, setSelectedDate] = useState("");
+const [selectedDate, setSelectedDate] = useState(new Date());
 
   return(
     <DatePicker
