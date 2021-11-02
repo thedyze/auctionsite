@@ -1,3 +1,9 @@
+import Datepicker from "../components/Datepicker";
+
 export const CreateListing = () => {
-  return <div>CreateListing</div>;
+  return(
+  <div>CreateListing
+  <Datepicker />
+  </div>
+  )
 };
