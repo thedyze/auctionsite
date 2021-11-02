@@ -12,18 +12,48 @@ import java.util.List;
 @Repository
 public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> {
 
-    @Query(value = "select i.* from auction_item as i, tag as t, itemXtag as x\n" +
-            "WHERE (x.item_id = i.id AND x.tag_id = t.id)\n" +
-            "AND LOWER(t.name) = LOWER('hugo')\n" +
-            "AND category_id IS 1\n" +
-            "AND current_bid BETWEEN 2000 AND 8000\n" +
-            "UNION \n" +
-            "select * from auction_item \n" +
-            "WHERE LOWER(title) LIKE LOWER('%hugo%')\n" +
-            "AND category_id IS 1\n" +
-            "AND current_bid BETWEEN 2000 AND 8000\n" +
-            "--ORDER BY number_of_bids DESC\n" +
-            "--ORDER BY start_time DESC\n" +
-            "ORDER BY end_time ASC", nativeQuery = true)
-    List<AuctionItem> getFilteredAuctionItems( String query);
+    @Query(value = "select i.* from auction_item as i, tag as t, itemXtag as x " +
+            "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
+            "AND LOWER(t.name) = LOWER(:search) " +
+            "AND category_id IS :categoryId " +
+            "AND current_bid BETWEEN :priceFrom AND :priceTo " +
+            "UNION " +
+            "select * from auction_item " +
+            "WHERE LOWER(title) LIKE LOWER(:search2) " +
+            "AND category_id IS :categoryId " +
+            "AND current_bid BETWEEN :priceFrom AND :priceTo " +
+            "ORDER BY number_of_bids DESC " +
+            "--ORDER BY start_time DESC " +
+            "--ORDER BY end_time ASC ", nativeQuery = true)
+    List<AuctionItem> getFilteredPopularAuctionItems(@Param("search") String search, @Param("search2") String search2, @Param("categoryId") String categoryId, @Param("priceFrom") String priceFrom, @Param("priceTo") String priceTo);
+
+    @Query(value = "select i.* from auction_item as i, tag as t, itemXtag as x " +
+            "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
+            "AND LOWER(t.name) = LOWER(:search) " +
+            "AND category_id IS :categoryId " +
+            "AND current_bid BETWEEN :priceFrom AND :priceTo " +
+            "UNION " +
+            "select * from auction_item " +
+            "WHERE LOWER(title) LIKE LOWER(:search2) " +
+            "AND category_id IS :categoryId " +
+            "AND current_bid BETWEEN :priceFrom AND :priceTo " +
+            "--ORDER BY number_of_bids DESC " +
+            "ORDER BY start_time DESC " +
+            "--ORDER BY end_time ASC ", nativeQuery = true)
+    List<AuctionItem> getFilteredLatestAuctionItems(@Param("search") String search, @Param("search2") String search2, @Param("categoryId") String categoryId, @Param("priceFrom") String priceFrom, @Param("priceTo") String priceTo);
+
+    @Query(value = "select i.* from auction_item as i, tag as t, itemXtag as x " +
+            "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
+            "AND LOWER(t.name) = LOWER(:search) " +
+            "AND category_id IS :categoryId " +
+            "AND current_bid BETWEEN :priceFrom AND :priceTo " +
+            "UNION " +
+            "select * from auction_item " +
+            "WHERE LOWER(title) LIKE LOWER(:search2) " +
+            "AND category_id IS :categoryId " +
+            "AND current_bid BETWEEN :priceFrom AND :priceTo " +
+            "--ORDER BY number_of_bids DESC " +
+            "--ORDER BY start_time DESC " +
+            "ORDER BY end_time ASC ", nativeQuery = true)
+    List<AuctionItem> getFilteredAuctionItems(@Param("search") String search, @Param("search2") String search2, @Param("categoryId") String categoryId, @Param("priceFrom") String priceFrom, @Param("priceTo") String priceTo);
 }

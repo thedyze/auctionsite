@@ -46,7 +46,7 @@ public class AuctionItemService {
 
     public List<AuctionItem> getFilteredAuctionItems(String filter) {
 
-        filter = filter.replace("P", "\"");
+        filter = filter.replace("^", "\"");
 
         FilterAuctionItem filterContent = new FilterAuctionItem();
         try{
@@ -55,9 +55,10 @@ public class AuctionItemService {
             System.out.println(e);
         }
 
-        List<AuctionItem> ais = auctionItemRepository.getFilteredAuctionItems(createQuery(filterContent));
-        var a = 0;
-        return ais;
+        String[] q = createQuery(filterContent);
+        if(q[4].equals("default")) return auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3]);
+        else if(q[4].equals("popular")) return auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3]);
+        return auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3]);
     }
 
     /*select i.* from auction_item as i, tag as t, itemXtag as x
@@ -81,10 +82,13 @@ ORDER BY end_time ASC
     String startTime;
     String endTime;*/
 
-    private String createQuery(FilterAuctionItem filterContent) {
-        var a = 0;
-        String query = "end_time";
-        //if(filterContent.categoryId != null) query += "AND category_id = " + filterContent.categoryId;
+    private String[] createQuery(FilterAuctionItem filterContent) {
+        String[] query = new String[5];
+        query[0] = filterContent.search;
+        query[1] = filterContent.categoryId != null ? filterContent.categoryId : "NOT NULL";
+        query[2] = filterContent.priceFrom != null ? filterContent.priceFrom : "0";
+        query[3] = filterContent.priceTo != null ? filterContent.priceTo : "2000000000";
+        query[4] = filterContent.buttonSelection;
 
         return query;
     }
