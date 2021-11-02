@@ -8,11 +8,11 @@ export const HomeAuctionList = () => {
 
   useEffect(() => {
     let obj = {
-      search: "hugo",
-      categoryId: "1",
-      priceFrom: "2000",
-      priceTo: "8000",
-      buttonSelection: "default"
+      search: null,
+      categoryId: null,
+      priceFrom: null,
+      priceTo: null  ,      
+      buttonSelection: "wefewfw   "
     }
     fetchFilteredAuctionItems(obj)
   }, [])

@@ -30,4 +30,10 @@ public class AuctionItem {
     private int currentViews;
     private int numberOfBids;
 
+
+    
+
+
+
+
 }

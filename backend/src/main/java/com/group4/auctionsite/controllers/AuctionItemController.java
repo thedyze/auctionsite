@@ -22,6 +22,11 @@ public class AuctionItemController {
         return auctionItemService.getById(id);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<AuctionItem> getAuctionItemsByUserId(@PathVariable long userId) {
+        return auctionItemService.getAuctionItemsByUserId(userId);
+    }
+
     @PostMapping
     public AuctionItem createAuctionItem(@RequestBody AuctionItem auctionItem) {
         return auctionItemService.createAuctionItem(auctionItem);

@@ -43,6 +43,10 @@ public class AuctionItemService {
         }
         return  auctionItemsx;
     }
+    public List<AuctionItem> getAuctionItemsByUserId(long userId) {
+        return auctionItemRepository.findAllByUserId(userId);
+    }
+
 
     public List<AuctionItem> getFilteredAuctionItems(String filter) {
 
@@ -56,9 +60,9 @@ public class AuctionItemService {
         }
 
         String[] q = createQuery(filterContent);
-        if(q[4].equals("default")) return auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3]);
-        else if(q[4].equals("popular")) return auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3]);
-        return auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3]);
+        if(q[5].equals("default")) return auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
+        else if(q[5].equals("popular")) return auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
+        return auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
     }
 
     /*select i.* from auction_item as i, tag as t, itemXtag as x
@@ -83,14 +87,15 @@ ORDER BY end_time ASC
     String endTime;*/
 
     private String[] createQuery(FilterAuctionItem filterContent) {
-        String[] query = new String[5];
-        query[0] = filterContent.search;
-        query[1] = filterContent.categoryId != null ? filterContent.categoryId : "NOT NULL";
-        query[2] = filterContent.priceFrom != null ? filterContent.priceFrom : "0";
-        query[3] = filterContent.priceTo != null ? filterContent.priceTo : "2000000000";
-        query[4] = filterContent.buttonSelection;
-
+        String[] query = new String[6];
+        query[0] = filterContent.search != null ? filterContent.search : "";
+        query[1] = filterContent.categoryId != null ? filterContent.categoryId : "0";
+        query[2] = filterContent.categoryId != null ? filterContent.categoryId : "200000000";
+        query[3] = filterContent.priceFrom != null ? filterContent.priceFrom : "0";
+        query[4] = filterContent.priceTo != null ? filterContent.priceTo : "2000000000";
+        query[5] = filterContent.buttonSelection != null ? filterContent.buttonSelection : "default";
         return query;
     }
+
 
 }
