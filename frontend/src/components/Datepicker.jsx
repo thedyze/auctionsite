@@ -3,9 +3,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { subDays,addDays } from 'date-fns';
 
-const [endDate, setEndDate] = useState(new Date());
+
 
 export default function Datepicker() {
+const [endDate, setEndDate] = useState(new Date());
   return(
     <DatePicker
     showPopperArrow={false}
