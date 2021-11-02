@@ -50,9 +50,10 @@ export const ImageUpload = () => {
 
   return (
     <div>
-      <input type="file" accept="image/*" multiple onChange={onFileLoad} />
+      <input type="file" id="files" name="files" accept="image/*" multiple onChange={onFileLoad} />
       <img src={preview} alt="" />
     </div>
+    
   )
 }
 

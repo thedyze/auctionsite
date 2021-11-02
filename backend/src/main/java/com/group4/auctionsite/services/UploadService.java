@@ -23,21 +23,25 @@ public class UploadService {
 
     // get current working directory
     String cwd = System.getProperty("user.dir");
-    String uploadFolder = cwd + "/src/main/resources/static";
+    String uploadFolder = cwd + "/src/main/resources/static/uploads/";
+    int fileNumber = 1;
 
     for (var file : files) {
       System.out.println(file.getOriginalFilename());
 
-      var uploadUrl = "/uploads/" + file.getOriginalFilename();
+      String fileName = Long.toString(loggedInUser.getId())+ "_" + fileNumber +".jpg";
+
+//      var uploadUrl = "/uploads/" + file.getOriginalFilename();
+      var uploadUrl = "/uploads/" + fileName;
 
       // create destination to save uploaded file
-      File toSave = new File(uploadFolder + uploadUrl);
-
+      File toSave = new File(uploadFolder + fileName);
+      fileNumber++;
       try {
         // move uploaded to uploads folder
         file.transferTo(toSave);
-
         uploadUrls.add(uploadUrl);
+
       } catch (Exception e) {
         e.printStackTrace();
       }
