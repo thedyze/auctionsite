@@ -6,12 +6,13 @@ import { subDays,addDays } from 'date-fns';
 
 
 export default function Datepicker() {
-const [endDate, setEndDate] = useState(new Date());
+const [selectedDate, setSelectedDate] = useState("");
+
   return(
     <DatePicker
     showPopperArrow={false}
-    selected={endDate}
-    onChange={(date) => setEndDate(date)}
+    selected={selectedDate}
+    onChange={(selectedDate) => setSelectedDate(selectedDate)}
     minDate={subDays(new Date(), -1)}
     maxDate={addDays(new Date(), 30)}
     dateFormat="dd/MM yyyy h:mm"
