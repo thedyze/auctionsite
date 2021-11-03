@@ -5,7 +5,7 @@ import { BellIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { LoginTemplate } from "../components/LoginForm";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -15,9 +15,10 @@ function classNames(...classes) {
 export default function Navbar() {
   let history = useHistory();
 
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, currentUser } = useContext(UserContext);
 
   console.log(isLoggedIn);
+  console.log("currentUser", currentUser)
 
   const logout = async () => {
     await fetch("/logout");
@@ -25,14 +26,10 @@ export default function Navbar() {
     window.location.reload(false);
   };
 
-  const about = async () => {
-    await fetch("/about");
-    history.push("/");
-    window.location.reload(false);
-  };
+  const goToHome = () => { history.push("/") }
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-gray-800 fixed w-screen -mt-16">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-white ">
@@ -41,13 +38,9 @@ export default function Navbar() {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   <img
+                    onClick={goToHome}
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                     alt="Workflow"
                   />
                 </div>
@@ -62,7 +55,7 @@ export default function Navbar() {
                   {isLoggedIn ? (
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   ) : (
-                    <div>Nope</div>
+                    <div></div>
                   )}
                 </button>
 
@@ -76,73 +69,67 @@ export default function Navbar() {
                       />
                     </Menu.Button>
                   </div>
-                  {isLoggedIn ? (
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
+                    {isLoggedIn ? (
+                      <div>
+                        <Menu.Item>
+                          <a className="bg-gray-100 block px-4 py-2 text-sm text-gray-700 text-center" href="/myPage">{currentUser}</a>
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/buying"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700 text-center"
+                              )}
+                            >
+                              Buying
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/selling"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700 text-center"
+                              )}
+                            >
+                              Selling
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              onClick={logout}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700 text-center"
+                              )}
+                            >
+                              Log out
+                            </a>
+                          )}
+                        </Menu.Item>
+                      </div>
+
+                    ) : (
                       <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Your Profile
-                          </a>
-                        )}
+                        <LoginTemplate />
                       </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            onClick={logout}
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Log out
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="/about"
-                            // onClick={about}
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            About us
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  ) : (
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <LoginTemplate />
-                    </Menu.Items>
-                  )}
+                    )}
+
+                  </Menu.Items>
                 </Menu>
               </div>
             </div>
           </div>
         </>
-      )}
-    </Disclosure>
+      )
+      }
+    </Disclosure >
   );
 }
