@@ -5,7 +5,7 @@ import { BellIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { LoginTemplate } from "../components/LoginForm";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useHistory, Link} from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -18,7 +18,7 @@ export default function Navbar() {
   const { isLoggedIn, currentUser } = useContext(UserContext);
 
   console.log(isLoggedIn);
-  console.log(currentUser)
+  console.log("currentUser", currentUser)
 
   const logout = async () => {
     await fetch("/logout");
@@ -26,7 +26,7 @@ export default function Navbar() {
     window.location.reload(false);
   };
 
-  const goToHome = () => {history.push("/")}
+  const goToHome = () => { history.push("/") }
 
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed w-screen">
@@ -69,27 +69,35 @@ export default function Navbar() {
                       />
                     </Menu.Button>
                   </div>
-                    <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
-                      <Menu.Item>
-                        {isLoggedIn ? (
-                            <div>
-                            <a className="bg-gray-100 block px-4 py-2 text-sm text-gray-700" href="/myPage">{currentUser.email}</a>
-                            hallå
-                            </div>
-                        ) : (
-                            <LoginTemplate />
-                        )}
+                  <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
+                    {isLoggedIn ? (
+                      <div>
+                        <Menu.Item>
+                          <a className="bg-gray-100 block px-4 py-2 text-sm text-gray-700 text-center" href="/myPage">{currentUser}</a>
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="/buying"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 text-center"
                               )}
                             >
-                              Settings
+                              Buying
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/selling"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700 text-center"
+                              )}
+                            >
+                              Selling
                             </a>
                           )}
                         </Menu.Item>
@@ -99,14 +107,22 @@ export default function Navbar() {
                               onClick={logout}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 text-center"
                               )}
                             >
                               Log out
                             </a>
                           )}
                         </Menu.Item>
-                    </Menu.Items>
+                      </div>
+
+                    ) : (
+                      <Menu.Item>
+                        <LoginTemplate />
+                      </Menu.Item>
+                    )}
+
+                  </Menu.Items>
                 </Menu>
               </div>
             </div>
