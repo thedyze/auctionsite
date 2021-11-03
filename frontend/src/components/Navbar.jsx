@@ -17,7 +17,7 @@ export default function Navbar() {
 
   const { isLoggedIn } = useContext(UserContext);
 
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   const logout = async () => {
     await fetch("/logout");

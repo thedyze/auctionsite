@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
     try {
       let usuario = await res.json();
       if (usuario) {
-        console.log("yes");
+        // console.log("yes");
         setIsLoggedIn(true);
       }
       console.log(usuario, isLoggedIn);

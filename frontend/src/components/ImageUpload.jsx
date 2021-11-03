@@ -5,29 +5,39 @@ import { useState } from 'react'
   // const [imgFile, setImgFile] = useState({
   //   file: '',
   // })
+// create a holder to store files
+let formData = new FormData()
+console.log("formdata1" + formData)
 
 export const ImageUpload = () => {
   const [preview, setPreview] = useState('')
-  const [images, setImages] = useState('')
+  // const [images, setImages] = useState('')
+
+
+
+  
 
   async function onFileLoad(e) {
     e.preventDefault()
-    let files = document.getElementById("images").files
-    // let files = e.target.files
-    console.log(files);
+    // let files = document.getElementById("image1").files
+    let file = e.target.files[0]
+    
+    console.log(file);
 
-    // create a holder to store files
-    let formData = new FormData()
 
     // add files to formData
-    for (let file of files) {
+    //  for (let file of files) {
       
-      let image = new Image()
-      image.src = URL.createObjectURL(file)
+    let image = new Image()
+    image.src = URL.createObjectURL(file)
+    
+    
+    console.log("imagesrc " +image.src)
 
       image.onload = async () => {
         let canvas = document.createElement('canvas')
         let ctx = canvas.getContext('2d')
+        
         canvas.width = image.width
         canvas.height = image.height
 
@@ -35,35 +45,49 @@ export const ImageUpload = () => {
 
         // compress image to 80% quality
         let compressedFile = dataURItoBlob(canvas.toDataURL('image/jpeg', 0.8))
-
+        
         // change file type to jpg
         formData.append('files', compressedFile, file.name.replace(/\.\w{3,5}$/, '.jpg'))
 
         // send files to server
-        let res = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData
-        })
+        // let res = await fetch('/api/upload', {
+        //   method: 'POST',
+        //   body: formData
+        // })
 
-        let filePaths = await res.json()
-        console.log(filePaths);
+        // let filePaths = await res.json()
+        // console.log(filePaths);
 
-         setPreview(filePaths)
+        setPreview(image.src)
+        console.log(formData);
         // clear input of files
         // e.target.value = ''
-      }
+      // }
 
     }
-
-    
-
   }
+
+  async function Upload(e) {
+    e.preventDefault()
+    console.log(formData);
+    let res = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    })
+    let filePaths = await res.json()
+    console.log(filePaths);
+  }
+
+
+
     return (
       <div>
-        <form className="" onSubmit={onFileLoad}>
-          <input accept="image/*" type="file" id="images" onChange={onFileLoad}/>
-          <img src={preview} alt="" />
-          {/* <button className="bg-blue-500 px-2" type="submit"> Upload Files </button> */}
+        <form className="" onSubmit={Upload}>
+          <input accept="image/*" type="file" id="image1" onChange={onFileLoad} />
+          <input accept="image/*" type="file" id="image2" onChange={onFileLoad} />
+          
+          <img className="max-h-32 " src={preview} alt="" />
+          <button className="bg-blue-500 px-2" type="submit"> Upload Files </button>
         </form>
       </div>
 
