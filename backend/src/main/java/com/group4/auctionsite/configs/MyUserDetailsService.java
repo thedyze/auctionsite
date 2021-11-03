@@ -23,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService {
     // remove default user in production
     @PostConstruct
     private void createDefaultUsers(){
-        if (userRepo.findByEmail("email") == null) {
+        if (userRepo.findByEmail("jack@gmail.com") == null) {
             User user = User.builder()
                     .email("jack@gmail.com")
                     .username("jack")

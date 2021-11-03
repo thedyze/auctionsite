@@ -1,12 +1,23 @@
 import {AuctionCard} from '../cards/AuctionCard'
-import { useContext } from 'react';
-import { AuctionContext } from '../contexts/AuctionContextProvider';
+import { useContext, useEffect, useState } from 'react';
+import { AuctionDetailsContext } from '../contexts/AuctionDetailsContext';
 
 export const HomeAuctionList = () => {
 
-    const {auctions} = useContext(AuctionContext) 
+  const { filteredAuctionItems, fetchFilteredAuctionItems } = useContext(AuctionDetailsContext)
 
-    const renderedAuctionItems = auctions.map((auction, i) => {
+  useEffect(() => {
+    let obj = {
+      search: null,
+      categoryId: null,
+      priceFrom: null,
+      priceTo: null  ,      
+      buttonSelection: "wefewfw   "
+    }
+    fetchFilteredAuctionItems(obj)
+  }, [])
+
+  const renderedAuctionItems = filteredAuctionItems.map((auction, i) => {
         return (
             <AuctionCard
             className={"h-12 w-20 border-solid border-gray-200 border-2"}

@@ -14,7 +14,7 @@ export default function AuctionContextProvider(props) {
             if(res){
                 setAuctions(res)
             }
-            console.log(res)
+           // console.log(res)
         } catch {
             console.log("fetchAuction() failed")
         }
