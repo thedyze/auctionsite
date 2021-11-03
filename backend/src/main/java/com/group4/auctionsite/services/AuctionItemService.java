@@ -64,6 +64,7 @@ public class AuctionItemService {
         if(auctionItem == null) return null;
 
         auctionItem.setCurrentBid(bid);
+        auctionItem.setNumberOfBids(auctionItem.getNumberOfBids() + 1);
         return auctionItemRepository.save(auctionItem);
     }
 
