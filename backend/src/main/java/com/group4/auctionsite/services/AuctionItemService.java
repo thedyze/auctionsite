@@ -6,6 +6,7 @@ import com.group4.auctionsite.entities.AuctionItem;
 import com.group4.auctionsite.entities.Tag;
 import com.group4.auctionsite.repositories.AuctionItemRepository;
 import com.group4.auctionsite.utils.FilterAuctionItem;
+import com.group4.auctionsite.utils.ObjectMapperHelper;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
@@ -14,14 +15,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 @Service
 public class AuctionItemService {
     @Autowired
     AuctionItemRepository auctionItemRepository;
+    ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
 
     public List<AuctionItem> getAllAuctionItems() {
         return auctionItemRepository.findAll();
@@ -47,6 +48,25 @@ public class AuctionItemService {
         return auctionItemRepository.findAllByUserId(userId);
     }
 
+    public AuctionItem placeBid(String bidx) {
+        LinkedHashMap placedBid = (LinkedHashMap) objectMapperHelper.objectMapper(bidx);
+        long itemId;
+        int bid;
+
+        try{
+            itemId = Long.parseLong(placedBid.get("itemId").toString());
+            bid = Integer.parseInt(placedBid.get("bid").toString());
+        } catch(NumberFormatException e) {
+            return null;
+        }
+
+        AuctionItem auctionItem = auctionItemRepository.findByIdAndCurrentBidLessThan(itemId, bid);
+        if(auctionItem == null) return null;
+
+        auctionItem.setCurrentBid(bid);
+        auctionItem.setNumberOfBids(auctionItem.getNumberOfBids() + 1);
+        return auctionItemRepository.save(auctionItem);
+    }
 
     public List<AuctionItem> getFilteredAuctionItems(String filter) {
 
@@ -96,6 +116,4 @@ ORDER BY end_time ASC
         query[5] = filterContent.buttonSelection != null ? filterContent.buttonSelection : "default";
         return query;
     }
-
-
 }
