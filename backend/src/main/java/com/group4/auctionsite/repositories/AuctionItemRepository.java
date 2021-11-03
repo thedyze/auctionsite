@@ -12,9 +12,11 @@ import java.util.List;
 @Repository
 public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> {
 
+    AuctionItem save(AuctionItem auctionItem);
 
     List<AuctionItem> findAllByUserId( long userId);
 
+    AuctionItem findByIdAndCurrentBidLessThan(long id, int bid);
 
     @Query(value = "select i.* from auction_item as i, tag as t, itemXtag as x " +
             "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +

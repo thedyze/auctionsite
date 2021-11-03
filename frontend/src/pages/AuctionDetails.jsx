@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { TagContext } from "../contexts/TagContext";
@@ -8,10 +8,33 @@ import { UserContext } from "../contexts/UserContext";
 export const AuctionDetails = () => {
 
   const { id } = useParams()
+  const [bid, setBid] = useState(0)
+  const [inputPlaceholder, setInputPlaceholder] = useState("Place bid")
 
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext)
   const { tags, fetchTags } = useContext(TagContext)
   const { user, fetchUser } = useContext(UserContext)
+
+  const placeBid = async () => {
+    let obj = {
+      itemId: id,
+      bid: bid
+    }
+
+    let res = await fetch("/api/placeBid", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(obj),
+    });
+
+    try {
+      res = await res.json();
+    } catch(ignore) {
+      setBid(0)
+      setInputPlaceholder("Bid is too low!");
+    }
+    fetchAuctionItem(id)
+  }
 
   useEffect(() => {
     fetchAuctionItem(id)
@@ -42,7 +65,11 @@ export const AuctionDetails = () => {
         </table>
       </div>
 
-      <button>Place bid</button>
+      <input id="placeBid"
+      placeholder={inputPlaceholder}
+      onChange={e => setBid(e.target.value)}
+      value={bid ? bid : ""}/>
+      <button onClick={placeBid}>Place bid</button>
 
       <div className="description-content">
         <h4>Description</h4>
