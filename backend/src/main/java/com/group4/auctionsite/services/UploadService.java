@@ -16,19 +16,6 @@ public class UploadService {
   @Autowired
   private UserService userService;
 
-private String generateString() {
-  int leftLimit = 48; // numeral '0'
-  int rightLimit = 122; // letter 'z'
-  int targetStringLength = 10;
-  Random random = new Random();
-
-  return random.ints(leftLimit, rightLimit + 1)
-          .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-          .limit(targetStringLength)
-          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-          .toString();
-}
-
   public List<String> saveFiles(List<MultipartFile> files) {
     User loggedInUser = userService.findCurrentUser();
     System.out.println(loggedInUser != null);
@@ -58,4 +45,18 @@ private String generateString() {
 
     return uploadUrls;
   }
+
+  private String generateString() {
+    int leftLimit = 48; // numeral '0'
+    int rightLimit = 122; // letter 'z'
+    int targetStringLength = 10;
+    Random random = new Random();
+
+    return random.ints(leftLimit, rightLimit + 1)
+            .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+            .limit(targetStringLength)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+  }
+
 }
