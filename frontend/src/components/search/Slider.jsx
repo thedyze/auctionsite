@@ -8,10 +8,10 @@ import { refType } from "@mui/utils";
 // }
 
 export default function RangeSlider({ filters, handleFilters }) {
-  const [value, setValue] = useState([0, 1000]);
+  const [value, setValue] = useState([0, 10000]);
 
   const handleChange = (event, newValue) => {
-    if (newValue[0] < -9 || newValue[1] > 1009) return;
+    if (newValue[0] < -9 || newValue[1] > 10009) return;
     setValue(newValue);
     handleFilters({ ...filters, priceFrom: newValue[0], priceTo: newValue[1] });
   };
@@ -19,9 +19,9 @@ export default function RangeSlider({ filters, handleFilters }) {
   return (
     <Box style={{zIndex:0}} sx={{ width: 200, alignItems: "center" }}>
       <Slider
-        max={1010}
+        max={10010}
         min={-10}
-        step={10}
+        step={50}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="off"
