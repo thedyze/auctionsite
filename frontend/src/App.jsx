@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 //contexts
 import AuctionDetailsContextProvider from "./contexts/AuctionDetailsContext";
 import TagContextProvider from "./contexts/TagContext";
-import UserContextProvider from "./contexts/UserContext";
+import { UserProvider } from "./contexts/UserContext";
 
 
 //components
@@ -12,22 +12,20 @@ import Navbar from "./components/Navbar";
 //pages
 import { Home } from "./pages/Home";
 import { AuctionDetails } from "./pages/AuctionDetails";
-import { Registration } from "./pages/Registration";
 import { Buying } from "./pages/Buying";
 import { Selling } from "./pages/Selling";
 import { CreateListing } from "./pages/CreateListing";
-import { About } from "./pages/About";
 import { NotFound404 } from "./pages/NotFound404";
-import { UserProvider } from "./context/UserContext";
 import AuctionContextProvider from "./contexts/AuctionContextProvider";
+import {Registration} from "./pages/Registration";
+import {About} from "./pages/About";
 
 function App() {
   
 
   return (
-    <div>
+    <div className="mt-16">
       <UserProvider>
-      <UserContextProvider>
       <AuctionContextProvider>
       <AuctionDetailsContextProvider>
       <TagContextProvider>
@@ -47,7 +45,6 @@ function App() {
       </TagContextProvider>
       </AuctionDetailsContextProvider>
       </AuctionContextProvider>
-      </UserContextProvider>
       </UserProvider>
     </div>
   );

@@ -1,24 +1,32 @@
-import {AuctionCard} from '../cards/AuctionCard'
-import { useContext } from 'react';
-import { AuctionContext } from '../contexts/AuctionContextProvider';
+import { useContext, useEffect } from 'react';
+import { AuctionCard } from "../cards/AuctionCard";
+import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 
-export const HomeAuctionList = () => {
+export const HomeAuctionList = ({ filters }) => {
+  const { filteredAuctionItems, fetchFilteredAuctionItems } = useContext(
+    AuctionDetailsContext
+  );
 
-    const {auctions} = useContext(AuctionContext) 
+  useEffect(() => {
+    setTimeout(() => {
+      fetchFilteredAuctionItems(filters);
+    }, 250);
+    return clearTimeout()
+  }, [filters]);
 
-    const renderedAuctionItems = auctions.map((auction, i) => {
-        return (
-            <AuctionCard
-            className={"h-12 w-20 border-solid border-gray-200 border-2"}
-            auction={auction}
-            key={i}
-          />
-        );
-      });
-    
+  const renderedAuctionItems = filteredAuctionItems.map((auction, i) => {
     return (
-        <div className="h-auto grid grid-cols-2">
-            {renderedAuctionItems}
-        </div>
+      <AuctionCard
+        className={"h-12 w-20 border-solid border-gray-200 border-2"}
+        auction={auction}
+        key={i}
+      />
     );
-}
+  });
+
+  return (
+    <>
+      <div className="h-auto grid grid-cols-2">{renderedAuctionItems}</div>;
+    </>
+  );
+};

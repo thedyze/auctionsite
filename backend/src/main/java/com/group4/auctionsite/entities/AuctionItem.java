@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "auction_item")
@@ -20,14 +21,30 @@ public class AuctionItem {
     private long id;
     private long userId;
     private long categoryId;
-
     private String description;
     private String title;
     private long startTime;
     private long endTime;
-    private int currentBid;
     private int startPrice;
     private int currentViews;
-    private int numberOfBids;
 
+    private boolean isActive(){
+        return this.endTime > new Date().getTime();
+    }
+
+    public String toJson(int highestBid, int numberOfBids) {
+        return "{" +
+                "\"id\":\""+this.id+"\", " +
+                "\"userId\":\""+this.userId+"\", " +
+                "\"categoryId\":\""+this.categoryId+"\", " +
+                "\"description\":\""+this.description+"\", " +
+                "\"title\":\""+this.title+"\", " +
+                "\"startTime\":\""+this.startTime+"\", " +
+                "\"endTime\":\""+this.endTime+"\", " +
+                "\"startPrice\":\""+this.startPrice+"\", " +
+                "\"currentViews\":\""+this.currentViews+"\", " +
+                "\"highestBid\":\""+highestBid+"\", " +
+                "\"numberOfBids\":\""+numberOfBids+"\"" +
+                "}";
+    }
 }
