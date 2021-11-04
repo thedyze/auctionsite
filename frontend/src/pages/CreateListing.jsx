@@ -7,25 +7,18 @@ export const CreateListing = () => {
   const [itemObj, setItemObj] = useState({
     title: "",
     description: "",
-    endTime: "",
+    startTime: "",
     categoryId: "",
     startPrice: "",
     endTime: new Date().getTime(),
   });
 
-  const handleChosenDate = (data) => {
-    setItemObj({ ...itemObj, endTime: data.getTime()});
-  };
-
-  useEffect(() => {
-    handleChosenDate;
-    console.log("Updated Info", itemObj);
-  }, [itemObj]);
+  console.log(itemObj.endTime)
 
   return (
     <div>
       CreateListing
-      <Datepicker callback={handleChosenDate} />
+      <Datepicker callback={setItemObj} callObj={itemObj} />
     </div>
   );
 };
