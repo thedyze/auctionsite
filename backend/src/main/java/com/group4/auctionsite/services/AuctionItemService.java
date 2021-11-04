@@ -88,27 +88,6 @@ public class AuctionItemService {
         return auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
     }
 
-    /*select i.* from auction_item as i, tag as t, itemXtag as x
-WHERE (x.item_id = i.id AND x.tag_id = t.id)
-AND LOWER(t.name) = LOWER('hugo')
---AND category_id = 1
-AND current_bid BETWEEN 2000 AND 8000
-UNION
-select * from auction_item
-WHERE LOWER(title) LIKE LOWER('%hugo%')
---AND category_id = 1
-AND current_bid BETWEEN 2000 AND 8000
---ORDER BY number_of_bids DESC
---ORDER BY start_time DESC
-ORDER BY end_time ASC
-
-    String search;
-    String categoryId;
-    String currentBid;
-    String numberOfBids;
-    String startTime;
-    String endTime;*/
-
     private String[] createQuery(FilterAuctionItem filterContent) {
         String[] query = new String[6];
         query[0] = filterContent.search != null ? filterContent.search : "";
