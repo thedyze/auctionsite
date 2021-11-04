@@ -1,7 +1,7 @@
 import RangeSlider from "./Slider";
 
 export const RangeFilter = ({ filters, handleFilters }) => {
-  console.log(filters.priceFrom, " Betweeen ", filters.priceTo);
+  //console.log(filters.priceFrom, " Betweeen ", filters.priceTo);
 
   return (
     <>

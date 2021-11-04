@@ -15,7 +15,7 @@ export const Home = () => {
   });
 
   //check current filter params
-  console.log(filterParams);
+  //console.log(filterParams);
 
   return (
     <div className="bg-gray-700 grid place-items-center h-screen">

@@ -11,21 +11,22 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-
 export default function Navbar() {
   let history = useHistory();
 
-  const {currentUser } = useContext(UserContext);
-
+  const { currentUser } = useContext(UserContext);
 
   const logout = async () => {
     await fetch("/logout");
     history.push("/");
     window.location.reload(false);
   };
-  
 
-  const goToHome = () => { history.push("/") }
+  const goToHome = () => {
+    history.push("/");
+   
+    window.location.reload(false);
+  };
 
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed w-screen -mt-16">
