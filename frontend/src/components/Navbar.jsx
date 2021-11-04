@@ -4,8 +4,8 @@ import { Disclosure, Menu } from "@headlessui/react";
 import { BellIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { LoginTemplate } from "../components/LoginForm";
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
-import { useHistory, Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -15,16 +15,15 @@ function classNames(...classes) {
 export default function Navbar() {
   let history = useHistory();
 
-  const { isLoggedIn, currentUser } = useContext(UserContext);
+  const {currentUser } = useContext(UserContext);
 
-  console.log(isLoggedIn);
-  console.log("currentUser", currentUser)
 
   const logout = async () => {
     await fetch("/logout");
     history.push("/");
     window.location.reload(false);
   };
+  
 
   const goToHome = () => { history.push("/") }
 
@@ -52,7 +51,7 @@ export default function Navbar() {
                   className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 >
                   <span className="sr-only">View notifications</span>
-                  {isLoggedIn ? (
+                  {currentUser ? (
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   ) : (
                     <div></div>
@@ -70,10 +69,15 @@ export default function Navbar() {
                     </Menu.Button>
                   </div>
                   <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
-                    {isLoggedIn ? (
+                    {currentUser ? (
                       <div>
                         <Menu.Item>
-                          <div className="bg-gray-100 block px-4 py-2 text-sm text-gray-700 text-center" href="/myPage">{currentUser}</div>
+                          <div
+                            className="bg-gray-100 block px-4 py-2 text-sm text-gray-700 text-center"
+                            href="/myPage"
+                          >
+                            {currentUser.email}
+                          </div>
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
@@ -115,21 +119,18 @@ export default function Navbar() {
                           )}
                         </Menu.Item>
                       </div>
-
                     ) : (
                       <Menu.Item>
                         <LoginTemplate />
                       </Menu.Item>
                     )}
-
                   </Menu.Items>
                 </Menu>
               </div>
             </div>
           </div>
         </>
-      )
-      }
-    </Disclosure >
+      )}
+    </Disclosure>
   );
 }

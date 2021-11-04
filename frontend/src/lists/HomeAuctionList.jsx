@@ -1,5 +1,5 @@
 import {AuctionCard} from '../cards/AuctionCard'
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuctionDetailsContext } from '../contexts/AuctionDetailsContext';
 
 export const HomeAuctionList = () => {
