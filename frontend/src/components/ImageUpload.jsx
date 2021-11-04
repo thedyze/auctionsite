@@ -19,6 +19,9 @@ export const ImageUpload = () => {
 
 
   async function onAddImage(e, number) {
+    const maxWidth = 2500
+    const maxHeight = 1500
+
     try {
       let file = e.target.files[0]
       let image = new Image()
@@ -28,9 +31,17 @@ export const ImageUpload = () => {
         let canvas = document.createElement('canvas')
         let ctx = canvas.getContext('2d')
 
-        canvas.width = image.width
-        canvas.height = image.height
-        ctx.drawImage(image, 0, 0)
+        // calculate new size
+        const ratio = Math.min(maxWidth / image.width, maxHeight / image.height)
+        const width = image.width * ratio + .5 | 0
+        const height = image.height * ratio + .5 | 0
+        canvas.width = width
+        canvas.height = height
+
+        // canvas.width = image.width
+        // canvas.height = image.height
+
+        ctx.drawImage(image, 0, 0, width, height)
         let compressedFile = dataURItoBlob(canvas.toDataURL('image/jpeg', 0.6))
 
         if (number === 1) {
