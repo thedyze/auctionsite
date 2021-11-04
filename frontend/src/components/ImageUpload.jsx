@@ -44,17 +44,17 @@ export const ImageUpload = () => {
       // formData.set('files', compressedFile, file.name.replace(/\.\w{3,5}$/, '.jpg'))
 
       if (number === 1) {
-        updateFormData('image1.jpg', compressedFile)
+        updateFormData('_img1.jpg', compressedFile)
         setPreview1(image.src)
       }
 
       if (number === 2) {
-        updateFormData('image2.jpg', compressedFile)
+        updateFormData('_img2.jpg', compressedFile)
         setPreview2(image.src)
       }
 
       if (number === 3) {
-        updateFormData('image3.jpg', compressedFile)
+        updateFormData('_img3.jpg', compressedFile)
         setPreview3(image.src)
       }
 

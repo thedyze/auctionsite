@@ -16,6 +16,8 @@ public class UploadService {
   @Autowired
   private UserService userService;
 
+
+
   public List<String> saveFiles(List<MultipartFile> files) {
     User loggedInUser = userService.findCurrentUser();
     System.out.println(loggedInUser != null);
@@ -26,21 +28,25 @@ public class UploadService {
     String cwd = System.getProperty("user.dir");
     String uploadFolder = cwd + "/src/main/resources/static/uploads/";
 
+    int leftLimit = 48; // numeral '0'
+    int rightLimit = 122; // letter 'z'
+    int targetStringLength = 10;
+    Random random = new Random();
+
+    String generatedString = random.ints(leftLimit, rightLimit + 1)
+            .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+            .limit(targetStringLength)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+
+
     for (var file : files) {
       System.out.println(file.getOriginalFilename());
 
-      int leftLimit = 48; // numeral '0'
-      int rightLimit = 122; // letter 'z'
-      int targetStringLength = 16;
-      Random random = new Random();
+      String orgFilename = file.getOriginalFilename();
 
-      String generatedString = random.ints(leftLimit, rightLimit + 1)
-              .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-              .limit(targetStringLength)
-              .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-              .toString();
 
-      String fileName = generatedString +".jpg";
+      String fileName = generatedString + orgFilename;
 //      String fileName = Long.toString(loggedInUser.getId())+ "_" + fileNumber +".jpg";
 
 //      var uploadUrl = "/uploads/" + file.getOriginalFilename();
