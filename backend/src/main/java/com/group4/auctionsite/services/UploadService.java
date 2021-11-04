@@ -16,7 +16,18 @@ public class UploadService {
   @Autowired
   private UserService userService;
 
+private String generateString() {
+  int leftLimit = 48; // numeral '0'
+  int rightLimit = 122; // letter 'z'
+  int targetStringLength = 10;
+  Random random = new Random();
 
+  return random.ints(leftLimit, rightLimit + 1)
+          .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+          .limit(targetStringLength)
+          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+          .toString();
+}
 
   public List<String> saveFiles(List<MultipartFile> files) {
     User loggedInUser = userService.findCurrentUser();
@@ -24,38 +35,17 @@ public class UploadService {
 
     List<String> uploadUrls = new ArrayList<>();
 
-    // get current working directory
     String cwd = System.getProperty("user.dir");
     String uploadFolder = cwd + "/src/main/resources/static/uploads/";
-
-    int leftLimit = 48; // numeral '0'
-    int rightLimit = 122; // letter 'z'
-    int targetStringLength = 10;
-    Random random = new Random();
-
-    String generatedString = random.ints(leftLimit, rightLimit + 1)
-            .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-            .limit(targetStringLength)
-            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-            .toString();
-
+    String generatedString = generateString();
 
     for (var file : files) {
-      System.out.println(file.getOriginalFilename());
-
-      String orgFilename = file.getOriginalFilename();
-
-
-      String fileName = generatedString + orgFilename;
-//      String fileName = Long.toString(loggedInUser.getId())+ "_" + fileNumber +".jpg";
-
-//      var uploadUrl = "/uploads/" + file.getOriginalFilename();
+    //    String fileName = Long.toString(loggedInUser.getId())+ "_" + fileNumber +".jpg";
+      String fileName = generatedString + file.getOriginalFilename();
       var uploadUrl = "/uploads/" + fileName;
 
-      // create destination to save uploaded file
       File toSave = new File(uploadFolder + fileName);
       try {
-        // move uploaded to uploads folder
         file.transferTo(toSave);
         uploadUrls.add(uploadUrl);
         System.out.println(uploadUrls);
