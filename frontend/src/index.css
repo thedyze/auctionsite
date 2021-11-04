@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @layer utilities {
+  .image-upload>input {
+  display: none;
+  }
+}  */
+
+
+
+.image-upload>input {
+  display: none;
+  }
