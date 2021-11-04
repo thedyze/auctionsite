@@ -1,22 +1,12 @@
 import { useState } from 'react'
 
-// export const ImageUpload = () => {
-//   const [preview, setPreview] = useState('')
-// const [imgFile, setImgFile] = useState({
-//   file: '',
-// })
-// create a holder to store files
 let formData = new FormData()
 
-
 export const ImageUpload = () => {
+
   const [preview1, setPreview1] = useState('src/images/upload.png')
   const [preview2, setPreview2] = useState('src/images/upload.png')
   const [preview3, setPreview3] = useState('src/images/upload.png')
-
-
-
-
 
   async function onAddImage(e, number) {
     const maxWidth = 2500
@@ -28,18 +18,15 @@ export const ImageUpload = () => {
       image.src = URL.createObjectURL(file)
 
       image.onload = async () => {
+
         let canvas = document.createElement('canvas')
         let ctx = canvas.getContext('2d')
 
-        // calculate new size
         const ratio = Math.min(maxWidth / image.width, maxHeight / image.height)
         const width = image.width * ratio + .5 | 0
         const height = image.height * ratio + .5 | 0
         canvas.width = width
         canvas.height = height
-
-        // canvas.width = image.width
-        // canvas.height = image.height
 
         ctx.drawImage(image, 0, 0, width, height)
         let compressedFile = dataURItoBlob(canvas.toDataURL('image/jpeg', 0.6))
@@ -58,8 +45,6 @@ export const ImageUpload = () => {
           updateFormData('_img3.jpg', compressedFile)
           setPreview3(image.src)
         }
-        // let temp = formData.getAll('files')
-        // console.log("formdata late", temp);
       }
     }
     catch (e) { console.error(e); }
@@ -68,10 +53,10 @@ export const ImageUpload = () => {
   
   function updateFormData(imgname, file) {
 
-    const tmpData = formData.getAll('files')
+    const tempData = formData.getAll('files')
     formData.delete('files')
 
-    tmpData
+    tempData
       .filter(file => file.name !== imgname)
       .forEach(file => formData.append('files', file))
     
@@ -95,7 +80,7 @@ export const ImageUpload = () => {
   return (
     <div>
       <div className="w-full p-4 flex justify-center font-medium text-indigo-600">
-        Click an image to add
+        Click an image to upload
       </div>
       <form className="" onSubmit={onFilesSubmit}>
         <div className="w-full h-32 px-8 grid grid-rows-2 grid-cols-3 gap-4">
