@@ -44,51 +44,43 @@ export const ImageUpload = () => {
       // formData.set('files', compressedFile, file.name.replace(/\.\w{3,5}$/, '.jpg'))
 
       if (number === 1) {
-        refreshFormData('image1.jpg')
-        formData.append('files', compressedFile, 'image1.jpg')
+        updateFormData('image1.jpg', compressedFile)
         setPreview1(image.src)
       }
+
       if (number === 2) {
-        refreshFormData('image2.jpg')
-        formData.append('files', compressedFile, 'image2.jpg')
+        updateFormData('image2.jpg', compressedFile)
         setPreview2(image.src)
-        
       }
+
       if (number === 3) {
-        refreshFormData('image3.jpg')
-        formData.append('files', compressedFile, 'image3.jpg')
+        updateFormData('image3.jpg', compressedFile)
         setPreview3(image.src)
       }
 
-      // for (var value of formData.values()) {
- 
-      //   console.log("values" ,value.name);
-      // }
        let temp = formData.getAll('files')
        console.log("formdata late", temp);
-
-      // e.target.value = ''
-
 
     }
   }
 
-  function refreshFormData(imgname) {
+  function updateFormData(imgname, file) {
 
     const tmpData = formData.getAll('files')
-
     formData.delete('files')
-    console.log("formdata1", formData.getAll('files'))
 
     tmpData
       .filter(file => file.name !== imgname)
       .forEach(file => formData.append('files', file))
+    
+    formData.append('files', file, imgname)
   }
+
 
   async function onFilesUpload(e) {
 
     e.preventDefault()
-    console.log(formData);
+    // console.log(formData);
     let res = await fetch('/api/upload', {
       method: 'POST',
       body: formData
