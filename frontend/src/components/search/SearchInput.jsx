@@ -11,17 +11,21 @@ export const SearchInput = ({  handleFilters }) => {
       handleFilters((prev)=>({ ...prev, search: searchVal }));
     setState(false);
 
-    }, 1000)
+    }, 2500)
   );
 
+
   const handleSearch = (e) => {
-    setState(true);
+    setTimeout(()=>{
+      setState(true);
+
+    },1000)
     handleDebounce(e.target.value);
   };
 
   return (
     <div>
-      {state&& <div>loading...</div>}
+      {state && <div>Loading....</div>}
       <Box sx={{ width: 300, maxWidth: "100%" }}>
         <TextField
           color="info"

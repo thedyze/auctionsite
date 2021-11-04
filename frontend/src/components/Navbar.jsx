@@ -22,10 +22,9 @@ export default function Navbar() {
     window.location.reload(false);
   };
 
-  const goToHome = () => {
-    history.push("/");
-   
-    window.location.reload(false);
+  const pathTo = (e) => {
+    history.push(`/${e.target.name}`);
+    e.target.id === "logo" && window.location.reload(false);
   };
 
   return (
@@ -38,7 +37,8 @@ export default function Navbar() {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   <img
-                    onClick={goToHome}
+                    onClick={pathTo}
+                    id="logo"
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                     alt="Workflow"
@@ -83,7 +83,8 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="/buying"
+                              name="buying"
+                              onClick={pathTo}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700 text-center"
@@ -96,7 +97,8 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="/selling"
+                              name="selling"
+                              onClick={pathTo}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700 text-center"
