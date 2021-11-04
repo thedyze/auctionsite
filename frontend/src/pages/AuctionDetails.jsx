@@ -30,6 +30,7 @@ export const AuctionDetails = () => {
     } catch (ignore) {
       setBid(0);
       setInputPlaceholder("Bid is too low!");
+      return;
     }
     fetchAuctionItem(id);
   };
@@ -59,7 +60,7 @@ export const AuctionDetails = () => {
               <th>Bids</th>
             </tr>
             <tr>
-              <td>{auctionItem.currentBid || auctionItem.startPrice}</td>
+              <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
               <td>TimeLeft</td>
               <td>{auctionItem.numberOfBids}</td>
             </tr>
