@@ -9,6 +9,7 @@ export default defineConfig({
       "/api": "http://localhost:4000",
       "/rest": "http://localhost:4000",
       "/logout": "http://localhost:4000",
+      '/uploads': 'http://localhost:4000',
     },
   },
 });
