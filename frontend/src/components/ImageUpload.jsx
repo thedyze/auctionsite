@@ -13,21 +13,17 @@ export const ImageUpload = () => {
   const [preview1, setPreview1] = useState('src/images/upload.png')
   const [preview2, setPreview2] = useState('src/images/upload.png')
   const [preview3, setPreview3] = useState('src/images/upload.png')
-  // const [images, setImages] = useState('')
-  const [counter, setCounter] = useState(1)
+
 
 
 
 
   async function onFileLoad(e, number) {
 
-    console.log("number" + number)
-
     //let files = document.getElementById("image1").files
-    let file = e.target.files[0]
 
+    let file = e.target.files[0]
     console.log(file);
-    console.log("counter" + counter)
 
     let image = new Image()
     image.src = URL.createObjectURL(file)
@@ -42,30 +38,51 @@ export const ImageUpload = () => {
       ctx.drawImage(image, 0, 0)
 
       // compress image to 80% quality
-      let compressedFile = dataURItoBlob(canvas.toDataURL('image/jpeg', 0.8))
+      let compressedFile = dataURItoBlob(canvas.toDataURL('image/jpeg', 0.6))
 
       // change file type to jpg
-      formData.append('files', compressedFile, file.name.replace(/\.\w{3,5}$/, '.jpg'))
+      // formData.set('files', compressedFile, file.name.replace(/\.\w{3,5}$/, '.jpg'))
 
-      // let filePaths = await res.json()
-      // console.log(filePaths);
       if (number === 1) {
+        refreshFormData('image1.jpg')
+        formData.append('files', compressedFile, 'image1.jpg')
         setPreview1(image.src)
       }
       if (number === 2) {
+        refreshFormData('image2.jpg')
+        formData.append('files', compressedFile, 'image2.jpg')
         setPreview2(image.src)
+        
       }
       if (number === 3) {
+        refreshFormData('image3.jpg')
+        formData.append('files', compressedFile, 'image3.jpg')
         setPreview3(image.src)
       }
 
-      setCounter(counter + 1)
-      console.log(formData);
+      // for (var value of formData.values()) {
+ 
+      //   console.log("values" ,value.name);
+      // }
+       let temp = formData.getAll('files')
+       console.log("formdata late", temp);
 
       // e.target.value = ''
 
 
     }
+  }
+
+  function refreshFormData(imgname) {
+
+    const tmpData = formData.getAll('files')
+
+    formData.delete('files')
+    console.log("formdata1", formData.getAll('files'))
+
+    tmpData
+      .filter(file => file.name !== imgname)
+      .forEach(file => formData.append('files', file))
   }
 
   async function onFilesUpload(e) {
@@ -90,7 +107,7 @@ export const ImageUpload = () => {
   return (
     <div>
       <div className="w-full p-4 flex justify-center font-medium text-indigo-600">
-        Click on images to add
+        Click an image to add
       </div>
       <form className="" onSubmit={onFilesUpload}>
         <div className="w-full h-32 px-8 grid grid-rows-2 grid-cols-3 gap-4">
