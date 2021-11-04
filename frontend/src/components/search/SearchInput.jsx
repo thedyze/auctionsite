@@ -1,21 +1,33 @@
 import TextField from "@mui/material/TextField";
+import { useCallback, useState } from "react";
 import Box from "@mui/material/Box";
+import debounce  from "lodash/debounce"
 
-export const SearchInput = ({ filters, handleFilters }) => {
+export const SearchInput = ({  handleFilters }) => {
+  const [state, setState] = useState(false);
+
+  const handleDebounce = useCallback(
+    debounce((searchVal) => {
+      handleFilters((prev)=>({ ...prev, search: searchVal }));
+    setState(false);
+
+    }, 1000)
+  );
+
   const handleSearch = (e) => {
-    setTimeout(() => {
-      handleFilters({ ...filters, search: e.target.value });
-    }, 1000);
+    setState(true);
+    handleDebounce(e.target.value);
   };
 
   return (
     <div>
+      {state&& <div>loading...</div>}
       <Box sx={{ width: 300, maxWidth: "100%" }}>
         <TextField
           color="info"
           fullWidth
           label="Search"
-          onChange={(e) => handleSearch(e)}
+          onChange={handleSearch}
         />
       </Box>
     </div>

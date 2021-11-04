@@ -8,10 +8,10 @@ export const HomeAuctionList = ({ filters }) => {
   );
 
   useEffect(() => {
-    setTimeout(() => {
+ 
       fetchFilteredAuctionItems(filters);
-    }, 250);
-    return clearTimeout()
+
+   
   }, [filters]);
 
   const renderedAuctionItems = filteredAuctionItems.map((auction, i) => {

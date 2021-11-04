@@ -6,7 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Categories } from "./Categories";
 
-export const Search = ({ filters, handleFilters }) => {
+export const Search = ({ handleFilters }) => {
   const [value, setValue] = useState(0);
   const [showSlider, setShowSlider] = useState(true);
 
@@ -14,7 +14,7 @@ export const Search = ({ filters, handleFilters }) => {
     setValue(newValue);
     console.log(newValue);
     if (newValue !== 0) {
-      handleFilters({ ...filters, priceFrom: null, priceTo: null });
+      handleFilters((prev)=>({ ...prev, priceFrom: null, priceTo: null }));
       setShowSlider(false);
     } else setShowSlider(true);
     console.log(showSlider);
@@ -22,7 +22,7 @@ export const Search = ({ filters, handleFilters }) => {
 
   return (
     <div>
-      <SearchInput filters={filters} handleFilters={handleFilters} />
+      <SearchInput  handleFilters={handleFilters} />
       <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label="Price" name="price" />
@@ -31,10 +31,10 @@ export const Search = ({ filters, handleFilters }) => {
         </Tabs>
       </Box>
       {showSlider && (
-        <RangeFilter filters={filters} handleFilters={handleFilters} />
+        <RangeFilter  handleFilters={handleFilters} />
       )}
       <br />
-      <Categories filter={filters} handleFilters={handleFilters} />
+      <Categories handleFilters={handleFilters} />
     </div>
   );
 };
