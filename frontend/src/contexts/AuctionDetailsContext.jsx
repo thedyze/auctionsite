@@ -20,6 +20,7 @@ export default function AuctionDetailsProvider(props) {
 
     obj = JSON.stringify(obj).replace('{', '%7B').replace('}', '%7D')
     obj = obj.replaceAll('"', '%5E')
+    console.log("here", obj)
     let res = await fetch(`/rest/auctionItem/filtered/${obj}`)
     res = await res.json()
     setFilteredAuctionItems(res)

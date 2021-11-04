@@ -83,7 +83,10 @@ public class AuctionItemService {
         }
 
         String[] q = createQuery(filterContent);
-        if(q[5].equals("default")) return auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
+        if(q[5].equals("default")) {
+            List<AuctionItem> auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
+            return auctionItems;
+        }
         else if(q[5].equals("popular")) return auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
         return auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
     }
