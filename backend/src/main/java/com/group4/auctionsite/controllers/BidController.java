@@ -21,6 +21,6 @@ public class BidController {
         User user = userService.findCurrentUser();
         if(user == null) return ResponseEntity.status(401).build();
         if(!auctionItemService.placeBid(bid, user.getId()).equals("success")) return ResponseEntity.status(400).build();
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok("{\"success\":200}");
     }
 }
