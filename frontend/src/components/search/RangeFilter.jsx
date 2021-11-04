@@ -23,7 +23,7 @@ export const RangeFilter = ({ filters, handleFilters }) => {
             width: "35px",
           }}
         >
-          {filters.priceTo || 1000}
+          {filters.priceTo || 10000}
         </div>
       </div>
     </>
