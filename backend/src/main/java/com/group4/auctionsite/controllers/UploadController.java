@@ -17,7 +17,7 @@ public class UploadController {
   private UploadService uploadService;
 
   @PostMapping("/api/upload")
-  public List<String> upload(@RequestParam List<MultipartFile> files) {
+  public String upload(@RequestParam List<MultipartFile> files) {
 
     return uploadService.saveFiles(files);
   }

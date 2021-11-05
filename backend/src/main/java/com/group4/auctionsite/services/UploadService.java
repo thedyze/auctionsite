@@ -16,7 +16,7 @@ public class UploadService {
   @Autowired
   private UserService userService;
 
-  public List<String> saveFiles(List<MultipartFile> files) {
+  public String saveFiles(List<MultipartFile> files) {
     User loggedInUser = userService.findCurrentUser();
     System.out.println(loggedInUser != null);
 
@@ -43,7 +43,7 @@ public class UploadService {
 
     }
 
-    return uploadUrls;
+    return "{\"generatedString\":\"" + generatedString + "\"}";
   }
 
   private String generateString() {
