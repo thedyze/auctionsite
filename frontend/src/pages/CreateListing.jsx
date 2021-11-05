@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Datepicker from "../components/Datepicker";
+import { ImageUpload } from "../components/ImageUpload.jsx"
 
 export const CreateListing = () => {
 
@@ -7,6 +8,7 @@ export const CreateListing = () => {
   const [itemObj, setItemObj] = useState({
     title: "",
     description: "",
+    startTime: "",
     categoryId: "",
     startPrice: "",
     endTime: new Date().getTime(),
@@ -41,6 +43,7 @@ export const CreateListing = () => {
     <div className="p-6">
       <div className="font-bold text-2xl text-center p-8">Create a listing</div>
       <div className="pt-8">Upload photo</div>
+      <ImageUpload />
 
       {/* Title input */}
       <div className="pt-8">
@@ -154,7 +157,7 @@ export const CreateListing = () => {
         <label htmlFor="end-date" className="ml-2 block text-sm text-gray-900">
           End Date
         </label>
-        <Datepicker callback={handleChosenDate} />
+        <Datepicker callback={setItemObj} callObj={itemObj} />
       </div>
       <div className="flex justify-center pt-8">
         <button
@@ -167,3 +170,4 @@ export const CreateListing = () => {
     </div>
   );
 };
+

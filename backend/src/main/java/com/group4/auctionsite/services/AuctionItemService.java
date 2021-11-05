@@ -1,35 +1,37 @@
 package com.group4.auctionsite.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.group4.auctionsite.entities.AuctionItem;
-import com.group4.auctionsite.entities.Tag;
+import com.group4.auctionsite.entities.Bid;
 import com.group4.auctionsite.repositories.AuctionItemRepository;
+import com.group4.auctionsite.repositories.BidRepository;
 import com.group4.auctionsite.utils.FilterAuctionItem;
 import com.group4.auctionsite.utils.ObjectMapperHelper;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParser;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 @Service
 public class AuctionItemService {
     @Autowired
     AuctionItemRepository auctionItemRepository;
+    @Autowired
+    BidRepository bidRepository;
+    @Autowired
+    UserService userService;
     ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
 
     public List<AuctionItem> getAllAuctionItems() {
         return auctionItemRepository.findAll();
     }
 
-    public Optional<AuctionItem> getById(long id) {
-        return auctionItemRepository.findById(id);
+    public String getById(long id) {
+        Optional<AuctionItem> auctionItem = auctionItemRepository.findById(id);
+        int highestBid = bidRepository.findMaxBidByItemId(id);
+        int numberOfBids = bidRepository.numberOfBidsByItemId(id);
+        return auctionItem.get().toJson(highestBid, numberOfBids);
     }
 
     public AuctionItem createAuctionItem(AuctionItem auctionItem) {
@@ -48,7 +50,7 @@ public class AuctionItemService {
         return auctionItemRepository.findAllByUserId(userId);
     }
 
-    public AuctionItem placeBid(String bidx) {
+    public String placeBid(String bidx, long userId) {
         LinkedHashMap placedBid = (LinkedHashMap) objectMapperHelper.objectMapper(bidx);
         long itemId;
         int bid;
@@ -57,15 +59,16 @@ public class AuctionItemService {
             itemId = Long.parseLong(placedBid.get("itemId").toString());
             bid = Integer.parseInt(placedBid.get("bid").toString());
         } catch(NumberFormatException e) {
-            return null;
+            return "";
         }
 
-        AuctionItem auctionItem = auctionItemRepository.findByIdAndCurrentBidLessThan(itemId, bid);
-        if(auctionItem == null) return null;
+        Optional<AuctionItem> auctionItem = auctionItemRepository.findById(itemId);
+        if(auctionItem.isEmpty()) return "";
+        if(bidRepository.findMaxBidByItemId(itemId) >= bid) return "";
 
-        auctionItem.setCurrentBid(bid);
-        auctionItem.setNumberOfBids(auctionItem.getNumberOfBids() + 1);
-        return auctionItemRepository.save(auctionItem);
+        bidRepository.save(new Bid(itemId, userId, bid));
+
+        return "success";
     }
 
     public List<AuctionItem> getFilteredAuctionItems(String filter) {

@@ -4,21 +4,17 @@ import { Disclosure, Menu } from "@headlessui/react";
 import { BellIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { LoginTemplate } from "../components/LoginForm";
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
-import { useHistory, Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-
 export default function Navbar() {
   let history = useHistory();
 
-  const { isLoggedIn, currentUser } = useContext(UserContext);
-
-  console.log(isLoggedIn);
-  console.log("currentUser", currentUser)
+  const { currentUser } = useContext(UserContext);
 
   const logout = async () => {
     await fetch("/logout");
@@ -26,7 +22,10 @@ export default function Navbar() {
     window.location.reload(false);
   };
 
-  const goToHome = () => { history.push("/") }
+  const pathTo = (e) => {
+    history.push(`/${e.target.name}`);
+    e.target.id === "logo" && window.location.reload(false);
+  };
 
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed w-screen -mt-16">
@@ -38,7 +37,8 @@ export default function Navbar() {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   <img
-                    onClick={goToHome}
+                    onClick={pathTo}
+                    id="logo"
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                     alt="Workflow"
@@ -52,7 +52,7 @@ export default function Navbar() {
                   className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 >
                   <span className="sr-only">View notifications</span>
-                  {isLoggedIn ? (
+                  {currentUser ? (
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   ) : (
                     <div></div>
@@ -70,15 +70,21 @@ export default function Navbar() {
                     </Menu.Button>
                   </div>
                   <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
-                    {isLoggedIn ? (
+                    {currentUser ? (
                       <div>
                         <Menu.Item>
-                          <div className="bg-gray-100 block px-4 py-2 text-sm text-gray-700 text-center" href="/myPage">{currentUser}</div>
+                          <div
+                            className="bg-gray-100 block px-4 py-2 text-sm text-gray-700 text-center"
+                            href="/myPage"
+                          >
+                            {currentUser.email}
+                          </div>
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="/buying"
+                              name="buying"
+                              onClick={pathTo}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700 text-center"
@@ -91,7 +97,8 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="/selling"
+                              name="selling"
+                              onClick={pathTo}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700 text-center"
@@ -115,21 +122,18 @@ export default function Navbar() {
                           )}
                         </Menu.Item>
                       </div>
-
                     ) : (
                       <Menu.Item>
                         <LoginTemplate />
                       </Menu.Item>
                     )}
-
                   </Menu.Items>
                 </Menu>
               </div>
             </div>
           </div>
         </>
-      )
-      }
-    </Disclosure >
+      )}
+    </Disclosure>
   );
 }

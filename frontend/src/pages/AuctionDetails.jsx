@@ -4,22 +4,20 @@ import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { TagContext } from "../contexts/TagContext";
 import { UserContext } from "../contexts/UserContext";
 
-
 export const AuctionDetails = () => {
+  const { id } = useParams();
+  const [bid, setBid] = useState(0);
+  const [inputPlaceholder, setInputPlaceholder] = useState("Place bid");
 
-  const { id } = useParams()
-  const [bid, setBid] = useState(0)
-  const [inputPlaceholder, setInputPlaceholder] = useState("Place bid")
-
-  const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext)
-  const { tags, fetchTags } = useContext(TagContext)
-  const { user, fetchUser } = useContext(UserContext)
+  const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
+  const { tags, fetchTags } = useContext(TagContext);
+  const { user, fetchUser } = useContext(UserContext);
 
   const placeBid = async () => {
     let obj = {
       itemId: id,
-      bid: bid
-    }
+      bid: bid,
+    };
 
     let res = await fetch("/api/placeBid", {
       method: "POST",
@@ -29,20 +27,23 @@ export const AuctionDetails = () => {
 
     try {
       res = await res.json();
-    } catch(ignore) {
-      setBid(0)
+    } catch (ignore) {
+      setBid(0);
       setInputPlaceholder("Bid is too low!");
+      return;
     }
-    fetchAuctionItem(id)
-  }
+    fetchAuctionItem(id);
+  };
 
   useEffect(() => {
-    fetchAuctionItem(id)
-    fetchTags(id)
-  }, [id])
+    fetchAuctionItem(id);
+    fetchTags(id);
+  }, [id]);
+
+  
   useEffect(() => {
-    if(auctionItem?.userId) fetchUser(auctionItem.userId)
-  }, [auctionItem])
+    if (auctionItem?.userId) fetchUser(auctionItem.userId);
+  }, [auctionItem]);
 
   return (
     <div>
@@ -52,12 +53,14 @@ export const AuctionDetails = () => {
         <table>
           <tbody>
             <tr>
-              <th>{auctionItem.currentBid ? 'Current bid' : 'Starting price'}</th>
+              <th>
+                {auctionItem.currentBid ? "Current bid" : "Starting price"}
+              </th>
               <th>Ends {auctionItem.endtime}</th>
               <th>Bids</th>
             </tr>
             <tr>
-              <td>{auctionItem.currentBid || auctionItem.startPrice}</td>
+              <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
               <td>TimeLeft</td>
               <td>{auctionItem.numberOfBids}</td>
             </tr>
@@ -65,10 +68,12 @@ export const AuctionDetails = () => {
         </table>
       </div>
 
-      <input id="placeBid"
-      placeholder={inputPlaceholder}
-      onChange={e => setBid(e.target.value)}
-      value={bid ? bid : ""}/>
+      <input
+        id="placeBid"
+        placeholder={inputPlaceholder}
+        onChange={(e) => setBid(e.target.value)}
+        value={bid ? bid : ""}
+      />
       <button onClick={placeBid}>Place bid</button>
 
       <div className="description-content">
@@ -78,7 +83,7 @@ export const AuctionDetails = () => {
 
       <div>
         <h4>Tags</h4>
-        <p>{tags.map(tag => `#${tag.name} `)}</p>
+        <p>{tags.map((tag) => `#${tag.name} `)}</p>
       </div>
 
       <div>
@@ -86,5 +91,5 @@ export const AuctionDetails = () => {
         <p>{user?.username}</p>
       </div>
     </div>
-  )
+  );
 };
