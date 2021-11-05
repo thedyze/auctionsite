@@ -8,7 +8,6 @@ export const HomeAuctionList = ({ filters }) => {
   );
 
   useEffect(() => {
-    console.log("When?")
     setTimeout(() => {
       fetchFilteredAuctionItems(filters);
     }, 250);

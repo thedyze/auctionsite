@@ -7,7 +7,11 @@ module.exports = {
     minHeight: {
       '100px': '200px',
     },
-    extend: {},
+    extend: {
+      // backgroundImage: {
+      //   'img-up1': "src={preview1}",
+      // }
+    },
   },
   variants: {
     extend: {},

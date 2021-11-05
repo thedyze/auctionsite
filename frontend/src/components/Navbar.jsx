@@ -22,14 +22,13 @@ export default function Navbar() {
     window.location.reload(false);
   };
 
-  const goToHome = () => {
-    history.push("/");
-   
-    window.location.reload(false);
+  const pathTo = (e) => {
+    history.push(`/${e.target.name}`);
+    e.target.id === "logo" && window.location.reload(false);
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed w-screen -mt-16">
+    <Disclosure as="nav" className="bg-gray-800 fixed w-screen -mt-16 z-10">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-white ">
@@ -38,7 +37,8 @@ export default function Navbar() {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   <img
-                    onClick={goToHome}
+                    onClick={pathTo}
+                    id="logo"
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                     alt="Workflow"
@@ -69,7 +69,7 @@ export default function Navbar() {
                       />
                     </Menu.Button>
                   </div>
-                  <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
+                  <Menu.Items className="fixed bg-white w-44 right-0 top-16">
                     {currentUser ? (
                       <div>
                         <Menu.Item>
@@ -83,7 +83,8 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="/buying"
+                              name="buying"
+                              onClick={pathTo}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700 text-center"
@@ -96,7 +97,8 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="/selling"
+                              name="selling"
+                              onClick={pathTo}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700 text-center"

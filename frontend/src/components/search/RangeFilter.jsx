@@ -1,7 +1,11 @@
+import {useState } from "react";
 import RangeSlider from "./Slider";
 
-export const RangeFilter = ({ filters, handleFilters }) => {
-  //console.log(filters.priceFrom, " Betweeen ", filters.priceTo);
+export const RangeFilter = ({ handleFilters }) => {
+  const[range,setRange] =useState({
+    min: 0,
+    max:1000
+  })
 
   return (
     <>
@@ -13,9 +17,9 @@ export const RangeFilter = ({ filters, handleFilters }) => {
             width: "30px",
           }}
         >
-          {filters.priceFrom || 0}
+          {range.min}
         </div>
-        <RangeSlider filters={filters} handleFilters={handleFilters} />
+        <RangeSlider  range={setRange} handleFilters={handleFilters} />
         <div
           style={{
             textAlign: "center",
@@ -23,7 +27,7 @@ export const RangeFilter = ({ filters, handleFilters }) => {
             width: "35px",
           }}
         >
-          {filters.priceTo || 1000}
+          {range.max}
         </div>
       </div>
     </>

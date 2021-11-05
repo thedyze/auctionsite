@@ -3,7 +3,7 @@ import { useState } from "react";
 const BUTTON_STYLE =
   "bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full";
 
-export const Categories = ({ filters, handleFilters }) => {
+export const Categories = ({ handleFilters }) => {
   
   //Temp names and id's duh.!
   const [categories,setCategories] =useState( [
@@ -18,7 +18,7 @@ export const Categories = ({ filters, handleFilters }) => {
   ]);
 
   const handleClick=(e)=>{
-    handleFilters({ ...filters, categoryId: e.target.name });
+    handleFilters((prev)=>({ ...prev, categoryId: e.target.name }));
   }
 
   return (

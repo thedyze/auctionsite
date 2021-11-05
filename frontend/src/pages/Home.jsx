@@ -3,6 +3,7 @@ import { HomeAuctionList } from "../lists/HomeAuctionList";
 import { useState } from "react";
 import { Search } from "../components/search/Search";
 
+
 export const Home = () => {
 
   // DEFAULT FILTER PARAMETERS IN HOME PAGE. EVERYTHING IS SET TO NULL
@@ -20,7 +21,7 @@ export const Home = () => {
   return (
     <div className="bg-gray-700 grid place-items-center h-screen">
       <div className="text-yellow-500 text-base text-center">Hidden Gems</div>
-      <Search filters={filterParams} handleFilters={setFilterParams} />
+      <Search  handleFilters={setFilterParams} />
       <HomeAuctionList filters={filterParams} />
     </div>
   );

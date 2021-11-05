@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Datepicker from "../components/Datepicker";
+import { ImageUpload } from "../components/ImageUpload.jsx"
 
 export const CreateListing = () => {
 
@@ -18,7 +19,9 @@ export const CreateListing = () => {
   return (
     <div>
       CreateListing
+      <ImageUpload />
       <Datepicker callback={setItemObj} callObj={itemObj} />
     </div>
   );
 };
+
