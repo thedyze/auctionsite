@@ -6,6 +6,7 @@ import com.group4.auctionsite.entities.Bid;
 import com.group4.auctionsite.repositories.AuctionItemRepository;
 import com.group4.auctionsite.repositories.BidRepository;
 import com.group4.auctionsite.utils.FilterAuctionItem;
+import com.group4.auctionsite.utils.FrontEndHelper;
 import com.group4.auctionsite.utils.ObjectMapperHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class AuctionItemService {
     @Autowired
     UserService userService;
     ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
+    FrontEndHelper frontEndHelper = new FrontEndHelper();
 
     public List<AuctionItem> getAllAuctionItems() {
         return auctionItemRepository.findAll();
@@ -71,7 +73,7 @@ public class AuctionItemService {
         return "success";
     }
 
-    public List<AuctionItem> getFilteredAuctionItems(String filter) {
+    public String getFilteredAuctionItems(String filter) {
 
         filter = filter.replace("^", "\"");
 
@@ -82,13 +84,20 @@ public class AuctionItemService {
             System.out.println(e);
         }
 
+        List<AuctionItem> auctionItems = null;
         String[] q = createQuery(filterContent);
-        if(q[5].equals("default")) {
-            List<AuctionItem> auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
-            return auctionItems;
+        if(q[5].equals("default")) auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
+        else if(q[5].equals("popular")) auctionItems = auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
+        else if(q[5].equals("latest")) auctionItems = auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
+
+        List<String> auctionItemsAsJson = new ArrayList<>();
+        for(AuctionItem item : auctionItems) {
+            int highestBid = bidRepository.findMaxBidByItemId(item.getId());
+            int numberOfBids = bidRepository.numberOfBidsByItemId(item.getId());
+            auctionItemsAsJson.add(item.toJson(highestBid, numberOfBids));
         }
-        else if(q[5].equals("popular")) return auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
-        return auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
+
+        return frontEndHelper.ToJson(auctionItemsAsJson);
     }
 
     private String[] createQuery(FilterAuctionItem filterContent) {

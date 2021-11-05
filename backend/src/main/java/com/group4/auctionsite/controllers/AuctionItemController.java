@@ -38,7 +38,7 @@ public class AuctionItemController {
     }
 
     @GetMapping("/filtered/{filter}")
-    public List<AuctionItem> getFilteredAuctionItems(@PathVariable String filter) {
+    public String getFilteredAuctionItems(@PathVariable String filter) {
         return auctionItemService.getFilteredAuctionItems(filter);
     }
 }
