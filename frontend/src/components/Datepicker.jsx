@@ -7,7 +7,7 @@ export default function Datepicker({ callback,itemObj}) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleChosenDate = (selectedDate) => {
-    callback({...itemObj, endTime:selectedDate.getTime()});
+    callback(setAuctionData{...auctionData, endTime: selectedDate.getTime()});
     setSelectedDate(selectedDate);
   };
 
