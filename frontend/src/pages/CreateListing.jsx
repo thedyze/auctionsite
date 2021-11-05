@@ -186,7 +186,7 @@ export const CreateListing = () => {
         <label htmlFor="end-date" className="ml-2 block text-sm text-gray-900">
           End Date
         </label>
-        <Datepicker callback={setAuctionData} callObj={auctionData} />
+        <Datepicker callback={setAuctionData}/>
       </div>
       <div className="flex justify-center pt-8">
         <button

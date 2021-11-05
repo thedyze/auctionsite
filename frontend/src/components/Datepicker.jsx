@@ -3,12 +3,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { subDays, addDays } from "date-fns";
 
-export default function Datepicker({ callback,itemObj}) {
+export default function Datepicker({ callback }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleChosenDate = (selectedDate) => {
-    callback(setAuctionData{...auctionData, endTime: selectedDate.getTime()});
+    callback(prev=>({...prev, endTime: selectedDate.getTime()}));
     setSelectedDate(selectedDate);
+
   };
 
   return (
