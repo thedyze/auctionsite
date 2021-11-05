@@ -12,6 +12,20 @@ export const CreateListing = () => {
     endTime: new Date().getTime(),
   });
 
+  const categories = [
+    {
+      name: "Shoes",
+      id: 1
+    },
+    { id: 4, name: "Accessories" },
+    { id: 1000, name: "Dresses" },
+    { id: 1001, name: "Shirts" },
+    { id: 1002, name: "Pants" },
+    { id: 1003, name: "Hats" }
+  ]
+
+
+
   const handleChosenDate = (data) => {
     setItemObj({ ...itemObj, endTime: data.getTime() });
   };
@@ -20,6 +34,8 @@ export const CreateListing = () => {
     handleChosenDate;
     console.log("Updated Info", itemObj);
   }, [itemObj]);
+
+
 
   return (
     <div className="p-6">
@@ -66,13 +82,7 @@ export const CreateListing = () => {
             name="category"
             className="w-full focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
           >
-            <option>Choose</option>
-            <option>Shoes</option>
-            <option>Accessories</option>
-            <option>Dresses</option>
-            <option>T-Shirts</option>
-            <option>Pants</option>
-            <option>Hats</option>
+            {categories.map((cat) => <option key={cat.name}>{cat.name}</option>)}
           </select>
         </div>
       </div>
