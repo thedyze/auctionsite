@@ -66,11 +66,13 @@ public class AuctionItemService {
 
         Optional<AuctionItem> auctionItem = auctionItemRepository.findById(itemId);
         if(auctionItem.isEmpty()) return "";
-        if(bidRepository.findMaxBidByItemId(itemId) >= bid) return "";
+
+        int highestBid = bidRepository.findMaxBidByItemId(itemId);
+        if(highestBid >= bid) return "{\"highestBid\":" + highestBid + "}";
 
         bidRepository.save(new Bid(itemId, userId, bid));
 
-        return "success";
+        return "{\"success\":200}";
     }
 
     public String getFilteredAuctionItems(String filter) {

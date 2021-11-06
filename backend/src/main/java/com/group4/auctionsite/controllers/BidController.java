@@ -20,7 +20,8 @@ public class BidController {
     public ResponseEntity<String> placeBid(@RequestBody String bid) {
         User user = userService.findCurrentUser();
         if(user == null) return ResponseEntity.status(401).build();
-        if(!auctionItemService.placeBid(bid, user.getId()).equals("success")) return ResponseEntity.status(400).build();
-        return ResponseEntity.ok("{\"success\":200}");
+        String res = auctionItemService.placeBid(bid, user.getId());
+        if(!(res.contains("success") || res.contains("highestBid"))) return ResponseEntity.status(400).build();
+        return ResponseEntity.ok(res);
     }
 }
