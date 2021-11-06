@@ -76,9 +76,6 @@ public class AuctionItemService {
     }
 
     public String getFilteredAuctionItems(String filter) {
-
-        filter = filter.replace("^", "\"");
-
         FilterAuctionItem filterContent = new FilterAuctionItem();
         try{
             filterContent = new ObjectMapper().readValue(filter, FilterAuctionItem.class);
