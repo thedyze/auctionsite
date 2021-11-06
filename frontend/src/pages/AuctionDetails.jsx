@@ -54,7 +54,7 @@ export const AuctionDetails = () => {
           <tbody>
             <tr>
               <th>
-                {auctionItem.currentBid ? "Current bid" : "Starting price"}
+                {auctionItem.highestBid ? "Highest Bid" : "Starting price"}
               </th>
               <th>Ends {auctionItem.endtime}</th>
               <th>Bids</th>

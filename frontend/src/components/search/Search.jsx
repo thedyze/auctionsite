@@ -12,12 +12,12 @@ export const Search = ({ handleFilters }) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
     if (newValue !== 0) {
-      handleFilters((prev)=>({ ...prev, priceFrom: null, priceTo: null }));
+      handleFilters((prev)=>({ ...prev, priceFrom: null, priceTo: null , buttonSelection: event.target.name}));
       setShowSlider(false);
-    } else setShowSlider(true);
-    console.log(showSlider);
+    } else {
+      setShowSlider(true)
+      handleFilters((prev)=>({ ...prev, buttonSelection: event.target.name }));};
   };
 
   return (
@@ -25,7 +25,7 @@ export const Search = ({ handleFilters }) => {
       <SearchInput  handleFilters={handleFilters} />
       <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
         <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="Price" name="price" />
+          <Tab label="Price" name="default" />
           <Tab label="Popular" name="popular" />
           <Tab label="Latest" name="latest" />
         </Tabs>
