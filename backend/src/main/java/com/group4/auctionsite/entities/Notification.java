@@ -22,4 +22,9 @@ public class Notification {
     private long itemId;
     private long messageId;
     private long userId;
+
+    public Notification(long itemId, long userId) {
+        this.itemId = itemId;
+        this.userId = userId;
+    }
 }

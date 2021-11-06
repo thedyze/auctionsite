@@ -22,6 +22,8 @@ public class AuctionItemService {
     BidRepository bidRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    NotificationService notificationService;
     ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
     FrontEndHelper frontEndHelper = new FrontEndHelper();
 
@@ -70,6 +72,7 @@ public class AuctionItemService {
         int highestBid = bidRepository.findMaxBidByItemId(itemId);
         if(highestBid >= bid) return "{\"highestBid\":" + highestBid + "}";
 
+        if(highestBid > 0) notificationService.createNotification(itemId, userId);
         bidRepository.save(new Bid(itemId, userId, bid));
 
         return "{\"success\":200}";
