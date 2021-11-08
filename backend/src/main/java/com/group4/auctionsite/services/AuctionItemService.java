@@ -22,6 +22,8 @@ public class AuctionItemService {
     BidRepository bidRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    NotificationService notificationService;
     ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
     FrontEndHelper frontEndHelper = new FrontEndHelper();
 
@@ -66,17 +68,17 @@ public class AuctionItemService {
 
         Optional<AuctionItem> auctionItem = auctionItemRepository.findById(itemId);
         if(auctionItem.isEmpty()) return "";
-        if(bidRepository.findMaxBidByItemId(itemId) >= bid) return "";
 
+        int highestBid = bidRepository.findMaxBidByItemId(itemId);
+        if(highestBid >= bid) return "{\"highestBid\":" + highestBid + "}";
+
+        if(highestBid > 0) notificationService.createNotification(itemId, userId);
         bidRepository.save(new Bid(itemId, userId, bid));
 
-        return "success";
+        return "{\"success\":200}";
     }
 
     public String getFilteredAuctionItems(String filter) {
-
-        filter = filter.replace("^", "\"");
-
         FilterAuctionItem filterContent = new FilterAuctionItem();
         try{
             filterContent = new ObjectMapper().readValue(filter, FilterAuctionItem.class);

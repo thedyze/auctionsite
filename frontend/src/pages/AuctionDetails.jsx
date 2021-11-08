@@ -3,37 +3,17 @@ import { useParams } from "react-router-dom";
 import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { TagContext } from "../contexts/TagContext";
 import { UserContext } from "../contexts/UserContext";
+import BidModal from "../components/bidModal";
 
 export const AuctionDetails = () => {
   const { id } = useParams();
-  const [bid, setBid] = useState(0);
-  const [inputPlaceholder, setInputPlaceholder] = useState("Place bid");
+  const [activateModal, setActivateModal] = useState('init')
 
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
-  const { user, fetchUser } = useContext(UserContext);
+  const { user, fetchUser, currentUser } = useContext(UserContext);
 
-  const placeBid = async () => {
-    let obj = {
-      itemId: id,
-      bid: bid,
-    };
-
-    let res = await fetch("/api/placeBid", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(obj),
-    });
-
-    try {
-      res = await res.json();
-    } catch (ignore) {
-      setBid(0);
-      setInputPlaceholder("Bid is too low!");
-      return;
-    }
-    fetchAuctionItem(id);
-  };
+  let btn = document.getElementById("btn-placeBid")
 
   useEffect(() => {
     fetchAuctionItem(id);
@@ -45,8 +25,15 @@ export const AuctionDetails = () => {
     if (auctionItem?.userId) fetchUser(auctionItem.userId);
   }, [auctionItem]);
 
+  useEffect(() => {
+    if(currentUser && btn) {
+      btn.style.display = (currentUser.id == auctionItem?.userId) ? "none" : "inline"
+    }
+  }, [currentUser, btn])
+
   return (
     <div>
+      <BidModal activateModal={activateModal} id={id} />
       <h1>{auctionItem.title}</h1>
 
       <div>
@@ -67,14 +54,8 @@ export const AuctionDetails = () => {
           </tbody>
         </table>
       </div>
-
-      <input
-        id="placeBid"
-        placeholder={inputPlaceholder}
-        onChange={(e) => setBid(e.target.value)}
-        value={bid ? bid : ""}
-      />
-      <button onClick={placeBid}>Place bid</button>
+      
+      <button style={{ display: "none" }} id="btn-placeBid" onClick={() => setActivateModal(!activateModal)}>Place bid</button>
 
       <div className="description-content">
         <h4>Description</h4>
