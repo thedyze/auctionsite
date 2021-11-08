@@ -7,6 +7,7 @@ export const ImageUpload = () => {
   const [preview1, setPreview1] = useState('src/images/upload.png')
   const [preview2, setPreview2] = useState('src/images/upload.png')
   const [preview3, setPreview3] = useState('src/images/upload.png')
+  const [noFiles, setNoFiles] = useState(false)
 
   async function onAddImage(e, number) {
     const maxWidth = 2500
@@ -67,13 +68,25 @@ export const ImageUpload = () => {
   async function onFilesSubmit(e) {
     e.preventDefault()
 
-    let res = await fetch('/api/upload', {
-      method: 'POST',
-      body: formData
-    })
+    if (formData.getAll('files').length === 0) {
+      setNoFiles(true)
+    }
+    else
 
-    let filePaths = await res.json()
-    console.log(filePaths);
+    
+    try {
+      let res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      })
+
+      let filePaths = await res.json()
+      console.log(filePaths);
+      
+    } catch (error) {
+      console.error(e);
+      
+    }
   }
 
 
@@ -106,7 +119,7 @@ export const ImageUpload = () => {
             <input accept="image/*" type="file" id="image3" onChange={e => onAddImage(e, 3)} />
           </div>
         </div >
-
+        {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
         <button className="bg-blue-500 px-2 mt-6 " type="submit"> Upload Files </button>
       </form>
     </div>

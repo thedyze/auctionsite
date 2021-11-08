@@ -12,7 +12,7 @@ export const Home = () => {
     categoryId: null,
     priceFrom: null,
     priceTo: null,
-    buttonSelection: null,
+    buttonSelection: "default"
   });
 
   //check current filter params

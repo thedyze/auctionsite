@@ -28,7 +28,7 @@ export default function Navbar() {
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed w-screen -mt-16">
+    <Disclosure as="nav" className="bg-gray-800 fixed w-screen -mt-16 z-10">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-white ">
@@ -69,7 +69,7 @@ export default function Navbar() {
                       />
                     </Menu.Button>
                   </div>
-                  <Menu.Items className="fixed bg-white h-screen w-44 right-0 top-16">
+                  <Menu.Items className="fixed bg-white w-44 right-0 top-16">
                     {currentUser ? (
                       <div>
                         <Menu.Item>

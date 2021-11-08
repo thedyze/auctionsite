@@ -6,6 +6,7 @@ import com.group4.auctionsite.entities.Bid;
 import com.group4.auctionsite.repositories.AuctionItemRepository;
 import com.group4.auctionsite.repositories.BidRepository;
 import com.group4.auctionsite.utils.FilterAuctionItem;
+import com.group4.auctionsite.utils.FrontEndHelper;
 import com.group4.auctionsite.utils.ObjectMapperHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,10 @@ public class AuctionItemService {
     BidRepository bidRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    NotificationService notificationService;
     ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
+    FrontEndHelper frontEndHelper = new FrontEndHelper();
 
     public List<AuctionItem> getAllAuctionItems() {
         return auctionItemRepository.findAll();
@@ -64,17 +68,17 @@ public class AuctionItemService {
 
         Optional<AuctionItem> auctionItem = auctionItemRepository.findById(itemId);
         if(auctionItem.isEmpty()) return "";
-        if(bidRepository.findMaxBidByItemId(itemId) >= bid) return "";
 
+        int highestBid = bidRepository.findMaxBidByItemId(itemId);
+        if(highestBid >= bid) return "{\"highestBid\":" + highestBid + "}";
+
+        if(highestBid > 0) notificationService.createNotification(itemId, userId);
         bidRepository.save(new Bid(itemId, userId, bid));
 
-        return "success";
+        return "{\"success\":200}";
     }
 
-    public List<AuctionItem> getFilteredAuctionItems(String filter) {
-
-        filter = filter.replace("^", "\"");
-
+    public String getFilteredAuctionItems(String filter) {
         FilterAuctionItem filterContent = new FilterAuctionItem();
         try{
             filterContent = new ObjectMapper().readValue(filter, FilterAuctionItem.class);
@@ -82,32 +86,21 @@ public class AuctionItemService {
             System.out.println(e);
         }
 
+        List<AuctionItem> auctionItems = null;
         String[] q = createQuery(filterContent);
-        if(q[5].equals("default")) return auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
-        else if(q[5].equals("popular")) return auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
-        return auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", q[1], q[2], q[3], q[4]);
+        if(q[5].equals("default")) auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
+        else if(q[5].equals("popular")) auctionItems = auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
+        else if(q[5].equals("latest")) auctionItems = auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
+
+        List<String> auctionItemsAsJson = new ArrayList<>();
+        for(AuctionItem item : auctionItems) {
+            int highestBid = bidRepository.findMaxBidByItemId(item.getId());
+            int numberOfBids = bidRepository.numberOfBidsByItemId(item.getId());
+            auctionItemsAsJson.add(item.toJson(highestBid, numberOfBids));
+        }
+
+        return frontEndHelper.ToJson(auctionItemsAsJson);
     }
-
-    /*select i.* from auction_item as i, tag as t, itemXtag as x
-WHERE (x.item_id = i.id AND x.tag_id = t.id)
-AND LOWER(t.name) = LOWER('hugo')
---AND category_id = 1
-AND current_bid BETWEEN 2000 AND 8000
-UNION
-select * from auction_item
-WHERE LOWER(title) LIKE LOWER('%hugo%')
---AND category_id = 1
-AND current_bid BETWEEN 2000 AND 8000
---ORDER BY number_of_bids DESC
---ORDER BY start_time DESC
-ORDER BY end_time ASC
-
-    String search;
-    String categoryId;
-    String currentBid;
-    String numberOfBids;
-    String startTime;
-    String endTime;*/
 
     private String[] createQuery(FilterAuctionItem filterContent) {
         String[] query = new String[6];

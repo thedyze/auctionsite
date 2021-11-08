@@ -9,6 +9,11 @@ public interface BidRepository extends JpaRepository<Bid, Long> {
     @Query(value = "SELECT MAX(bid) FROM bid WHERE item_id = ?1", nativeQuery = true)
     int findMaxBidByItemId(long itemId);
 
+    @Query(value = "SELECT * FROM bid WHERE item_id = ?1 AND bid = (SELECT MAX(bid) FROM bid WHERE item_id = ?1)", nativeQuery = true)
+    Bid findLatestBidByItemId(long itemId);
+
     @Query(value = "SELECT COUNT(bid) FROM bid WHERE item_id = ?1", nativeQuery = true)
     int numberOfBidsByItemId(long itemId);
+
+
 }
