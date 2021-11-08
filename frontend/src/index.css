@@ -13,3 +13,23 @@
 .image-upload>input {
   display: none;
   }
+
+
+  input[type='radio']{
+  visibility: hidden;
+}
+
+input[type='radio']:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  outline:solid 1px black;
+}
+
+input[type='radio']:checked:after {
+  background-color: green;
+}
