@@ -87,7 +87,7 @@ export const LoginTemplate = () => {
           </div>
 
           <div>
-            <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark">
+            <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-myGr-light focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark">
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LockClosedIcon
                   className="h-5 w-5 text-white"

@@ -45,9 +45,9 @@ export default function BidModal({activateModal, id}) {
   }, [open])
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={open} as={Fragment} className="halfScreen absolute">
       <Dialog as="div" className="flex justify-center z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -63,7 +63,7 @@ export default function BidModal({activateModal, id}) {
           {/* This element is to trick the browser into centering the modal contents. */}
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
-          </span>
+          </span> 
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -73,33 +73,32 @@ export default function BidModal({activateModal, id}) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="inline-block align-bottom bg-myGr-dark rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="bg-myGr-dark px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-white">
                       Time left: coming soon!
                     </Dialog.Title>
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <div className="bg-myGr-dark px-4 py-3">
+                <input
+                type="number"
+                  className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-2 py-2 bg-white text-base font-medium text-black text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
+                  onChange={(e) => setBid(e.target.value)}
+                  value={bid}
+                  placeholder="Place bid"
+                />
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-20 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="mt-5 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-20 py-2 bg-myGr-light text-base font-medium text-white focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
                   onClick={() => placeBid()}
                 >
                   Place bid
                 </button>
-                <input
-                type="number"
-                  className="mt-5 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-2 py-2 bg-white text-base font-medium text-black text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  onChange={(e) => setBid(e.target.value)}
-                  value={bid}
-                  placeholder="Place bid"
-                  ref={cancelButtonRef}
-                />
-                <p className="mt-5 text-sm-1 text-red-500 text-center">
+                <p className="mt-5 text-xl font-semibold text-red-500 text-center">
                   {highestBid && `Current price is: ${highestBid}`}
                 </p>
               </div>
