@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-const BUTTON_STYLE =
-  "bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full";
+
 
 export const Categories = ({ handleFilters }) => {
   //Temp names and id's duh.!
@@ -47,7 +46,7 @@ export const Categories = ({ handleFilters }) => {
             style={cat.isActive ? { color: "red" } : { color: undefined }}
             key={cat.id}
             name={cat.id}
-            className={BUTTON_STYLE}
+            className={"bg-myPurple font-logoFont text-white py-2 font-bold px-4 rounded-full"}
             onClick={handleClick}
           >
             {cat.name}

@@ -19,10 +19,12 @@ export const Home = () => {
   //console.log(filterParams);
 
   return (
-    <div className="bg-gray-700 grid place-items-center h-screen">
-      <div className="text-yellow-500 text-base text-center">Hidden Gems</div>
-      <Search  handleFilters={setFilterParams} />
-      <HomeAuctionList filters={filterParams} />
+    <div>
+      <div className="text-center font-logoFont bg-myGreen p-14">find something unique</div>
+      <div className="grid place-items-center pt-9">
+        <Search handleFilters={setFilterParams} class/>
+        <HomeAuctionList filters={filterParams} />
+      </div>
     </div>
   );
 };
