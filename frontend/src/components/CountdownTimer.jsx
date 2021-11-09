@@ -11,18 +11,19 @@ export default function CountdownTimer(auctionEndTime) {
    
     const formatTime = () => {
 
+        let days = Math.floor(countdown / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((countdown / (1000 * 60 * 60)) % 24);
+        let minutes = Math.floor((countdown / (1000 * 60)) % 60);
+        let seconds = Math.floor((countdown / 1000) % 60);
+        let expired = "Auction expired";
+
         //check if 0 or below, give "auction expired"
         if (countdown > 0) {
-            formattedTime = {
-              days: Math.floor(countdown / (1000 * 60 * 60 * 24)),
-              hours: Math.floor((countdown / (1000 * 60 * 60)) % 24),
-              minutes: Math.floor((countdown / (1000 * 60)) % 60),
-              seconds: Math.floor((countdown / 1000) % 60)
-          };
-        
+            
+        }
         // check if over 1 day, give days and hours
         if(countdown > 86400000){
-            
+
         };
 
         // check if over 1h and under 24h, give hours and minutes
@@ -34,9 +35,12 @@ export default function CountdownTimer(auctionEndTime) {
         if(countdown > 60000 && countdown < 3600000){
 
         };
+        
+         // check if under 1min, give seconds
+         if(countdown <= 60000){
 
+        };
 
-        }
       return formattedTime;
     }   
     
