@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 const FORM_STYLE = `flex flex-col justify-center items-center px-8`;
 const FORM_ELEMENT_SYLE = `w-full`;
 const INPUT_STYLE = `w-full px-2 py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `;
-const BUTTON_STYLE = `bg-blue-500 hover:bg-blue-700 my-2 py-2 px-8 text-sm text-white rounded border border-green focus:outline-none focus:border-green-dark`;
+const BUTTON_STYLE = `bg-myGr-light my-2 py-2 px-8 text-sm text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark`;
 const H1 = `font-bold text-xl items-center p-4 mt-8 `;
 
 export const Registration = () => {
