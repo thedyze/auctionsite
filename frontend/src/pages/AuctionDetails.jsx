@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { TagContext } from "../contexts/TagContext";
@@ -33,7 +33,7 @@ export const AuctionDetails = () => {
 
   //listen to bid changes in other auctions
   socket.on("bidUpdate", (obj)=>{
-    if(obj.itemId == id && temp) {
+    if(obj.itemId == id) {
       setBidDetails({
         highestBid: parseInt(obj.newBid),
         numberOfBids: parseInt(bidDetails.numberOfBids) + 1
