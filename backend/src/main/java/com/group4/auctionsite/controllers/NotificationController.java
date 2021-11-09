@@ -31,8 +31,8 @@ public class NotificationController {
     }
 
     @PostMapping
-    public Notification createNotification(@RequestBody Notification notification) {
-        return notificationService.createNotification(notification);
+    public void createNotification(@RequestBody Notification notification) {
+        notificationService.createNotification(notification);
     }
 
     @DeleteMapping("/delete/{id}")

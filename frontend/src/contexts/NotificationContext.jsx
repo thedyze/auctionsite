@@ -36,6 +36,7 @@ export default function NotificationProvider(props) {
 
   const values = {
     notifications,
+    setNotifications,
     fetchMyNotifications,
     deleteNotification,
     deleteNotifications

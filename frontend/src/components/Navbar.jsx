@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import { NotificationContext } from "../contexts/NotificationContext";
+import { socket } from "../socket";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -16,7 +17,7 @@ export default function Navbar() {
   let history = useHistory();
 
   const { currentUser } = useContext(UserContext);
-  const { notifications, deleteNotification, deleteNotifications } = useContext(NotificationContext)
+  const { notifications, setNotifications, deleteNotification, deleteNotifications } = useContext(NotificationContext)
 
   const logout = async () => {
     await fetch("/logout");
@@ -39,6 +40,18 @@ export default function Navbar() {
   const clearAll = async () => {
     await deleteNotifications(notifications.map(n => n.id))
   }
+
+  socket.on("notification", (n, t) => {
+    if(n.userId == currentUser.id) {
+      let list = []
+      for(let i = 0; i < notifications.length; i++) {
+        list.push(notifications[i])
+      }
+      n.title = t
+      list.push(n)
+      setNotifications(list)
+    }
+  })
 
   return (
     <Disclosure as="nav" className="bg-myGr-dark fixed w-screen -mt-16 z-10">
@@ -82,16 +95,17 @@ export default function Navbar() {
                               href="/myPage"
                             >
                               <div className="font-semibold">
+                                
                                 {n?.title}
                               </div>
-                              <div>
-                                {`New bid: ${n?.highestBid || `searching...`}`}
+                              <div className="text-red-600">
+                                {n.highestBid ? <span>New bid: {n.highestBid}</span> : <span >New bid!</span>}
                               </div>
                             </div>
                           </Menu.Item>
                         ))}
                         {notifications.length > 0 && (
-                          <div className=" bg-white py-2 text-xs text-blue-500 text-center"
+                          <div className=" bg-white py-2 text-xs text-myGr-dark text-center"
                               onClick={() => {clearAll()}}>
                             clear all</div>
                         )}

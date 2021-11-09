@@ -6,6 +6,7 @@ import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
+import com.group4.auctionsite.entities.Notification;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -35,6 +36,11 @@ public class SocketModule {
     public void emit(String event, Object data){
       //  System.out.printf( event, data);
         server.getBroadcastOperations().sendEvent(event,data);
+    }
+
+    public void emit2(String event, Notification notification, String title){
+        //  System.out.printf( event, data);
+        server.getBroadcastOperations().sendEvent(event,notification, title);
     }
 
  //  private DataListener<Bid> onBidReceived() {

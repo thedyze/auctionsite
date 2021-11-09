@@ -6,6 +6,7 @@ import com.group4.auctionsite.entities.Notification;
 import com.group4.auctionsite.repositories.AuctionItemRepository;
 import com.group4.auctionsite.repositories.BidRepository;
 import com.group4.auctionsite.repositories.NotificationRepository;
+import com.group4.auctionsite.springSocket.socket.SocketModule;
 import com.group4.auctionsite.utils.FrontEndHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,20 +21,25 @@ public class NotificationService {
     BidRepository bidRepository;
     @Autowired
     AuctionItemRepository auctionItemRepository;
+    @Autowired
+    SocketModule socketModule;
     FrontEndHelper frontEndHelper = new FrontEndHelper();
 
     public List<Notification> getAllNotifications() {
         return notificationRepository.findAll();
     }
 
-    public Notification createNotification(Notification notification) {
-        return notificationRepository.save(notification);
+    public void createNotification(Notification notification) {
+        notification = notificationRepository.save(notification);
+        String title = auctionItemRepository.findById(notification.getItemId()).get().getTitle();
+        socketModule.emit2("notification", notification, title);
     }
 
     public void createNotification(long itemId, long userId) {
         Bid bid = bidRepository.findLatestBidByItemId(itemId);
         if(userId == bid.getUserId()) return;
-        if(notificationRepository.findAllByItemIdAndUserId(itemId, bid.getUserId()).size() == 0) {
+        List<Notification> notifications = notificationRepository.findAllByItemIdAndUserId(itemId, bid.getUserId());
+        if(notifications.size() == 0) {
             createNotification(new Notification(bid.getItemId(), bid.getUserId()));
         }
     }

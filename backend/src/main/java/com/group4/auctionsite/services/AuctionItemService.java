@@ -75,7 +75,11 @@ public class AuctionItemService {
         if(highestBid > 0) notificationService.createNotification(itemId, userId);
         bidRepository.save(new Bid(itemId, userId, bid));
 
-        return "{\"success\":200}";
+
+        return "{" +
+                "\"itemId\":" + itemId + "," +
+                "\"newBid\":" + bid +
+                "}";
     }
 
     public String getFilteredAuctionItems(String filter) {
