@@ -3,7 +3,7 @@
 import { Disclosure, Menu } from "@headlessui/react";
 import { BellIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { LoginTemplate } from "../components/LoginForm";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import { NotificationContext } from "../contexts/NotificationContext";

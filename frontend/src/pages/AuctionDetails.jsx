@@ -4,11 +4,11 @@ import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { TagContext } from "../contexts/TagContext";
 import { UserContext } from "../contexts/UserContext";
 import BidModal from "../components/bidModal";
+import { socket } from "../socket";
 
 export const AuctionDetails = () => {
   const { id } = useParams();
   const [activateModal, setActivateModal] = useState('init')
-
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
   const { user, fetchUser, currentUser } = useContext(UserContext);
@@ -21,15 +21,24 @@ export const AuctionDetails = () => {
   }, [id]);
 
   
+  
   useEffect(() => {
     if (auctionItem?.userId) fetchUser(auctionItem.userId);
   }, [auctionItem]);
-
+  
   useEffect(() => {
     if(currentUser && btn) {
       btn.style.display = (currentUser.id == auctionItem?.userId) ? "none" : "inline"
     }
   }, [currentUser, btn])
+  
+
+  //listen to bid changes in other auctions
+  socket.on("bidUpdate",()=>{
+    fetchAuctionItem(id);
+  });
+
+
 
   return (
     <div>
@@ -54,8 +63,14 @@ export const AuctionDetails = () => {
           </tbody>
         </table>
       </div>
-      
-      <button style={{ display: "none" }} id="btn-placeBid" onClick={() => setActivateModal(!activateModal)}>Place bid</button>
+
+      <button
+        style={{ display: "none" }}
+        id="btn-placeBid"
+        onClick={() => setActivateModal(!activateModal)}
+      >
+        Place bid
+      </button>
 
       <div className="description-content">
         <h4>Description</h4>
