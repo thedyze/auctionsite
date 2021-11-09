@@ -30,10 +30,12 @@ public class NotificationService {
         return notificationRepository.save(notification);
     }
 
-    public Notification createNotification(long itemId, long userId) {
+    public void createNotification(long itemId, long userId) {
         Bid bid = bidRepository.findLatestBidByItemId(itemId);
-        if(userId == bid.getUserId()) return null;
-        return createNotification(new Notification(bid.getItemId(), bid.getUserId()));
+        if(userId == bid.getUserId()) return;
+        if(notificationRepository.findAllByItemIdAndUserId(itemId, bid.getUserId()).size() == 0) {
+            createNotification(new Notification(bid.getItemId(), bid.getUserId()));
+        }
     }
 
     public String getAllNotificationsByUserId(long userId) {
