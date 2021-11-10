@@ -23,7 +23,7 @@ export default function CountdownTimer(auctionEndTime) {
             format = [days, " days"]
         };
         if(countdown > 86400000 && countdown < 172800000){
-            format = [days, " days ", hours," hours"]
+            format = [days, " day ", hours," hours"]
         };
         if(countdown > 3600000 && countdown < 86400000){
             format = [hours, " hours ", minutes, " min"]
