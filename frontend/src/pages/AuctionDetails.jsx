@@ -28,7 +28,8 @@ export const AuctionDetails = () => {
       setBidDetails({
          highestBid: parseInt(auctionItem.highestBid), 
          numberOfBids: parseInt(auctionItem.numberOfBids)})
-      }
+    }
+    console.log(auctionItem);
   }, [auctionItem?.userId]);
 
   //listen to bid changes in other auctions
@@ -45,7 +46,8 @@ export const AuctionDetails = () => {
   return (
     <div className="bg-myAw grid place-items-center h-screen">
       <BidModal activateModal={activateModal} id={id} />
-      <img className="w-full bg-red-500" src="" alt="Bild saknas"></img>
+      
+      <img className="w-full bg-red-500" src={"/uploads/" +auctionItem.imagePath + "_img2.jpg"} alt="Bild saknas"></img>
 
       <div className="text-xl font-medium my-5">
         {auctionItem.title}
