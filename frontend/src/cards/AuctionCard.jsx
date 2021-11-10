@@ -1,7 +1,9 @@
 import { useHistory } from "react-router-dom";
+import CountdownTimer from "../components/CountdownTimer";
 
 export const AuctionCard = ({auction}) => {
   const history = useHistory();
+  const auctionEndTime = auction.endTime;
 
   const goToAuctionDetails = () => {
     history.push(`/auction-details/${auction.id}`);
@@ -26,6 +28,7 @@ export const AuctionCard = ({auction}) => {
           <div className="text-myPr-light">Bids: {auction.numberOfBids}</div>
           <div className="text-pink-700">Category: {auction.categoryId}</div>
           <div className="text-myRe">endtime: {auction.endTime}</div>
+          <CountdownTimer auctionEndTime={auctionEndTime}/>
         </div>
       </div>
     </div>
