@@ -26,6 +26,7 @@ public class AuctionItem {
     private long startTime;
     private long endTime;
     private int startPrice;
+    private int buyNowPrice;
     private int currentViews;
 
     private boolean isActive(){
@@ -42,6 +43,7 @@ public class AuctionItem {
                 "\"startTime\":\""+this.startTime+"\", " +
                 "\"endTime\":\""+this.endTime+"\", " +
                 "\"startPrice\":\""+this.startPrice+"\", " +
+                "\"buyNowPrice\":\""+this.buyNowPrice+"\", " +
                 "\"currentViews\":\""+this.currentViews+"\", " +
                 "\"highestBid\":\""+highestBid+"\", " +
                 "\"numberOfBids\":\""+numberOfBids+"\"" +

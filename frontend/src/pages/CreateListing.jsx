@@ -1,56 +1,78 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import Datepicker from "../components/Datepicker";
 import { ImageUpload } from "../components/ImageUpload.jsx"
 
 export const CreateListing = () => {
+
+  const { currentUser } = useContext(UserContext)
+
+  const goToAuctionDetails = (auctionId) => {
+    const history = useHistory()
+
+    history.push(`/auction-details/${auctionId}`)
+  }
 
   //Obj used to add the info and create a new listing
   const [auctionData, setAuctionData] = useState({
     title: "",
     description: "",
     startTime: new Date().getTime(),
-    categoryId: "",
-    startPrice: "",
-    buyNowPrice: "",
+    categoryId: 0,
+    startPrice: 0,
+    buyNowPrice: NULL,
     endTime: new Date().getTime()
   });
 
   const categories = [
-    {
-      name: "Shoes",
-      id: 1
-    },
+    { id: 1, name: "Shoes" },
     { id: 4, name: "Accessories" },
-    { id: 1000, name: "Dresses" },
-    { id: 1001, name: "Shirts" },
-    { id: 1002, name: "Pants" },
-    { id: 1003, name: "Hats" }
+    { id: 600, name: "Dresses" },
+    { id: 603, name: "Shirts" },
+    { id: 604, name: "Pants" },
+    { id: 602, name: "Hats" },
+    { id: 601, name: "Shorts" },
+    { id: 605, name: "Jackets" }
   ]
 
-  useEffect(() => {
-    console.log("Updated Info", auctionData);
-  }, [auctionData]);
-
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault()
-    console.log("im in submit function")
 
     //time when submitted
     let currentDateAndTime = new Date();
     setAuctionData({ ...auctionData, startTime: currentDateAndTime.getTime() });
 
     let a = auctionData;
+    let u = currentUser;
     let newAuction = {
-      title: a.title,
+      userId: u.id,
       description: a.description,
+      title: a.title,
       startTime: new Date().getTime(),
-      categoryId: a.categoryId,
+      endTime: a.endTime,
+      currentBid: 0,
       startPrice: a.startPrice,
+      categoryId: a.categoryId,
       buyNowPrice: a.buyNowPrice,
-      endTime: a.endTime
     };
     console.log("newAuction before fetch", newAuction);
+
+    try {
+      let res = await fetch("/rest/auctionItem", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newAuction)
+      });
+      res = await res.json();
+
+      console.log("res.id: ", res.id)
+      console.log("Successful submit")
+
+      // goToAuctionDetails(93)
+    } catch (error) {
+      console.log("the new listing was not submitted")
+    }
   }
 
   return (
@@ -186,7 +208,7 @@ export const CreateListing = () => {
         <label htmlFor="end-date" className="ml-2 block text-sm text-gray-900">
           End Date
         </label>
-        <Datepicker callback={setAuctionData}/>
+        <Datepicker callback={setAuctionData} />
       </div>
       <div className="flex justify-center pt-8">
         <button
