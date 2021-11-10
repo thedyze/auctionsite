@@ -1,10 +1,10 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
-import { subDays, addDays } from "date-fns";
+import { addDays } from "date-fns";
 
-export default function Datepicker({ callback }) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+export default function Datepicker({ callback,itemObj}) {
+  const [selectedDate, setSelectedDate] = useState(addDays(new Date(), 1));
 
   const handleChosenDate = (selectedDate) => {
     callback(prev=>({...prev, endTime: selectedDate.getTime()}));
@@ -17,7 +17,7 @@ export default function Datepicker({ callback }) {
       showPopperArrow={false}
       selected={selectedDate}
       onChange={handleChosenDate}
-      minDate={subDays(new Date(), -1)}
+      minDate={addDays(new Date(), 1)}
       maxDate={addDays(new Date(), 30)}
       dateFormat="dd/MM yyyy h:mm"
       placeholderText="Select a date"

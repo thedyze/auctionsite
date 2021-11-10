@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import AuctionDetailsContextProvider from "./contexts/AuctionDetailsContext";
 import TagContextProvider from "./contexts/TagContext";
 import { UserProvider } from "./contexts/UserContext";
+import NotificationContextProvider from "./contexts/NotificationContext";
 
 
 //components
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="mt-16">
       <UserProvider>
+      <NotificationContextProvider>
       <AuctionContextProvider>
       <AuctionDetailsContextProvider>
       <TagContextProvider>
@@ -45,6 +47,7 @@ function App() {
       </TagContextProvider>
       </AuctionDetailsContextProvider>
       </AuctionContextProvider>
+      </NotificationContextProvider>
       </UserProvider>
     </div>
   );

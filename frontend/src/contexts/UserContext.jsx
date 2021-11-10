@@ -22,6 +22,7 @@ export const UserProvider = ({ children }) => {
   };
   
     const fetchUser = async (id) => {
+      console.log("how often does thiss happen?")
       let res = await fetch(`/rest/user/${id}`);
       res = await res.json();
       setUser(res);

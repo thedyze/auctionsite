@@ -5,25 +5,18 @@ module.exports = {
   purge: ["./index.html", "./src/**/*.{js,jsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors: {
-      'myGreen': '#34D399',
-      'myPurple': '#C4B5FD'
-    },
-    fontFamily: {
-      'logoFont': ['"Denk One"', 'sans-serif'], // Ensure fonts with spaces have " " surrounding it.
-    },
-    minHeight: {
-      '100px': '200px',
-    },
     extend: {
-      // backgroundImage: {
-      //   'img-up1': "src={preview1}",
-      // }
+      colors: {
+        myGr: { dark: "#35825C", light: "#6ACF9D" },
+        myPr: { dark: "#9540A6", light: "#B37ECF" },
+        myAw: "#F9F7F5",
+        myRe: "#d62b36",
+      },
     },
   },
   variants: {
     extend: {},
   },
 
-  plugins: []
+  plugins: [],
 };
