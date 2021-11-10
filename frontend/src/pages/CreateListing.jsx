@@ -3,10 +3,13 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Datepicker from "../components/Datepicker";
 import { ImageUpload } from "../components/ImageUpload.jsx"
+import { forEach } from "lodash";
 
 export const CreateListing = () => {
 
   const { currentUser } = useContext(UserContext)
+
+  const [badCred, setBadCred] = useState(false)
 
   const goToAuctionDetails = (auctionId) => {
     const history = useHistory()
@@ -19,25 +22,31 @@ export const CreateListing = () => {
     title: "",
     description: "",
     startTime: new Date().getTime(),
-    categoryId: 0,
+    category: 0,
     startPrice: 0,
-    buyNowPrice: NULL,
+    buyNowPrice: 0,
     endTime: new Date().getTime()
   });
 
   const categories = [
-    { id: 1, name: "Shoes" },
-    { id: 4, name: "Accessories" },
-    { id: 600, name: "Dresses" },
-    { id: 603, name: "Shirts" },
-    { id: 604, name: "Pants" },
-    { id: 602, name: "Hats" },
-    { id: 601, name: "Shorts" },
-    { id: 605, name: "Jackets" }
+    { id: 2, name: "Choose", value: "" },
+    { id: 1, name: "Shoes", value: "Shoes" },
+    { id: 4, name: "Accessories", value: "Accessories" },
+    { id: 600, name: "Dresses", value: "Dresses" },
+    { id: 603, name: "Shirts", value: "Shirts" },
+    { id: 604, name: "Pants", value: "Pants" },
+    { id: 602, name: "Hats", value: "Hats" },
+    { id: 601, name: "Shorts", value: "Shorts" },
+    { id: 605, name: "Jackets", value: "Jackets" }
   ]
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
+
+    if(!currentUser){
+      setBadCred(true)
+      return;
+    }
 
     //time when submitted
     let currentDateAndTime = new Date();
@@ -45,7 +54,18 @@ export const CreateListing = () => {
 
     let a = auctionData;
     let u = currentUser;
-    let newAuction = {
+
+    //get the id of the chosen category
+    let catId = "";
+    categories.forEach((item) => {
+      console.log(a.category, item.name)
+      if (a.category === item.name){
+        catId = item.id
+        return;
+      }
+    });
+
+    let newAuctionObj = {
       userId: u.id,
       description: a.description,
       title: a.title,
@@ -53,26 +73,26 @@ export const CreateListing = () => {
       endTime: a.endTime,
       currentBid: 0,
       startPrice: a.startPrice,
-      categoryId: a.categoryId,
+      categoryId: catId,
       buyNowPrice: a.buyNowPrice,
     };
-    console.log("newAuction before fetch", newAuction);
+    console.log("newAuctionObj before fetch", newAuctionObj);
 
-    try {
-      let res = await fetch("/rest/auctionItem", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newAuction)
-      });
-      res = await res.json();
+    // try {
+    //   let res = await fetch("/rest/auctionItem", {
+    //     method: "POST",
+    //     headers: { "content-type": "application/json" },
+    //     body: JSON.stringify(newAuctionObj)
+    //   });
+    //   res = await res.json();
 
-      console.log("res.id: ", res.id)
-      console.log("Successful submit")
+    //   console.log("res.id: ", res.id)
+    //   console.log("Successful submit")
 
-      // goToAuctionDetails(93)
-    } catch (error) {
-      console.log("the new listing was not submitted")
-    }
+    //   // goToAuctionDetails(93)
+    // } catch (error) {
+    //   console.log("the new listing was not submitted")
+    // }
   }
 
   return (
@@ -127,10 +147,11 @@ export const CreateListing = () => {
             name="category"
             className="w-full focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
             onChange={(e) => {
-              setAuctionData((prev) => ({ ...prev, categoryId: e.target.value }));
+              setAuctionData((prev) => ({ ...prev, category: e.target.value }));
             }}
+            required
           >
-            {categories.map((cat) => <option key={cat.id}>{cat.id}</option>)}
+            {categories.map((cat) => <option value={cat.value} key={cat.id}>{cat.name}</option>)}
           </select>
         </div>
       </div>
@@ -157,6 +178,7 @@ export const CreateListing = () => {
               id="currency"
               name="currency"
               className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+              required
             >
               <option>SEK</option>
             </select>
@@ -196,6 +218,7 @@ export const CreateListing = () => {
               id="currency"
               name="currency"
               className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+              required
             >
               <option>SEK</option>
             </select>
@@ -210,6 +233,8 @@ export const CreateListing = () => {
         </label>
         <Datepicker callback={setAuctionData} />
       </div>
+
+      {/* Submit button */}
       <div className="flex justify-center pt-8">
         <button
           type="submit"
@@ -218,6 +243,7 @@ export const CreateListing = () => {
           Done
         </button>
       </div>
+      { badCred&&<div style={{textAlign:"center" ,color:"red"}}>Sir, you need to login first</div> }
     </form>
   );
 };
