@@ -7,17 +7,14 @@ import { forEach } from "lodash";
 
 export const CreateListing = () => {
 
+  const history = useHistory()
+
   const { currentUser } = useContext(UserContext)
 
-  const [badCred, setBadCred] = useState(false)
+  const [buyNowCheckBox, setBuyNowCheckBox] = useState(false)
+  const [loginAlert, setLoginAlert] = useState(false)
 
-  const goToAuctionDetails = (auctionId) => {
-    const history = useHistory()
-
-    history.push(`/auction-details/${auctionId}`)
-  }
-
-  //Obj used to add the info and create a new listing
+  //dynamically gathers input values into an object which will be passed on submit
   const [auctionData, setAuctionData] = useState({
     title: "",
     description: "",
@@ -43,8 +40,9 @@ export const CreateListing = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault()
 
-    if(!currentUser){
-      setBadCred(true)
+    // It is not possible to create a listing without a logged in user 
+    if (!currentUser) {
+      setLoginAlert(true)
       return;
     }
 
@@ -54,12 +52,9 @@ export const CreateListing = () => {
 
     let a = auctionData;
     let u = currentUser;
-
-    //get the id of the chosen category
     let catId = "";
-    categories.forEach((item) => {
-      console.log(a.category, item.name)
-      if (a.category === item.name){
+    categories.forEach((item) => { //get the id of the chosen category
+      if (a.category === item.name) {
         catId = item.id
         return;
       }
@@ -78,21 +73,18 @@ export const CreateListing = () => {
     };
     console.log("newAuctionObj before fetch", newAuctionObj);
 
-    // try {
-    //   let res = await fetch("/rest/auctionItem", {
-    //     method: "POST",
-    //     headers: { "content-type": "application/json" },
-    //     body: JSON.stringify(newAuctionObj)
-    //   });
-    //   res = await res.json();
+    try {
+      let res = await fetch("/rest/auctionItem", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newAuctionObj)
+      });
+      res = await res.json();
 
-    //   console.log("res.id: ", res.id)
-    //   console.log("Successful submit")
-
-    //   // goToAuctionDetails(93)
-    // } catch (error) {
-    //   console.log("the new listing was not submitted")
-    // }
+      history.push(`/auction-details/${res.id}`)
+    } catch (error) {
+      console.log("the new listing was not submitted")
+    }
   }
 
   return (
@@ -114,6 +106,7 @@ export const CreateListing = () => {
             onChange={(e) => {
               setAuctionData((prev) => ({ ...prev, title: e.target.value }));
             }}
+            required
           />
         </div>
       </div>
@@ -140,7 +133,6 @@ export const CreateListing = () => {
         <label htmlFor="category" className="block text-sm font-medium text-gray-700">
           Category
         </label>
-
         <div>
           <select
             id="category"
@@ -158,17 +150,18 @@ export const CreateListing = () => {
 
       {/* Price input */}
       <div className="pt-8">
-        <label htmlFor="price" className="block text-sm font-medium text-gray-700">Starting price</label>
+        <label htmlFor="starting-price" className="block text-sm font-medium text-gray-700">Starting price</label>
         <div className="mt-1 relative rounded-md shadow-sm">
           <input
             type="text"
-            name="price"
-            id="price"
+            name="starting-price"
+            id="starting-price"
             className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
             placeholder="0"
             onChange={(e) => {
               setAuctionData((prev) => ({ ...prev, startPrice: e.target.value }));
             }}
+            required
           />
           <div className="absolute inset-y-0 right-0 flex items-center">
             <label htmlFor="currency" className="sr-only">
@@ -194,22 +187,28 @@ export const CreateListing = () => {
             name="buy-now"
             type="checkbox"
             className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            onChange={(e) => {
+              setBuyNowCheckBox(e.target.checked)
+            }
+            }
           />
           <label htmlFor="buy-now" className="ml-2 block text-sm text-gray-900">
             Buy now
           </label>
         </div>
         <div className="mt-1 relative rounded-md shadow-sm w-40">
-          <input
-            type="text"
-            name="price"
-            id="price"
-            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
-            placeholder="0"
-            onChange={(e) => {
-              setAuctionData((prev) => ({ ...prev, buyNowPrice: e.target.value }));
-            }}
-          />
+          {buyNowCheckBox &&
+            <input
+              type="buy-now-price"
+              name="buy-now-price"
+              id="buy-now-price"
+              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
+              placeholder="0"
+              onChange={(e) => {
+                setAuctionData((prev) => ({ ...prev, buyNowPrice: e.target.value }));
+              }}
+            />
+          }
           <div className="absolute inset-y-0 right-0 flex items-center">
             <label htmlFor="currency" className="sr-only">
               Currency
@@ -223,6 +222,7 @@ export const CreateListing = () => {
               <option>SEK</option>
             </select>
           </div>
+
         </div>
       </div>
 
@@ -243,7 +243,7 @@ export const CreateListing = () => {
           Done
         </button>
       </div>
-      { badCred&&<div style={{textAlign:"center" ,color:"red"}}>Sir, you need to login first</div> }
+      {loginAlert && <div className="text-center text-myRe text-xs p-1">Sir, you need to login first</div>}
     </form>
   );
 };
