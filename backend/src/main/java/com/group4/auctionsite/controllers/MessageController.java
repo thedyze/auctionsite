@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/rest/message")
+@RequestMapping("/rest/conversation")
 public class MessageController {
     @Autowired
     private MessageService messageService;
@@ -36,6 +36,16 @@ public class MessageController {
         if(user==null) {return null; }
 
         return messageService.getMyMessages(user.getId());
+    }
+
+    @GetMapping("/{itemId}/{userId}")
+    public List<Message> getMessagesByItemIdAndUserId(@PathVariable long itemId, @PathVariable long userId) {
+
+        User user = userService.findCurrentUser();
+        if(user==null) {return null; }
+
+        return messageService.getMessagesByItemIdAndUserId(itemId, userId, user.getId());
+
     }
 
 

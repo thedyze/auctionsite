@@ -1,10 +1,11 @@
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
 //contexts
 import AuctionDetailsContextProvider from "./contexts/AuctionDetailsContext";
 import TagContextProvider from "./contexts/TagContext";
 import { UserProvider } from "./contexts/UserContext";
 import NotificationContextProvider from "./contexts/NotificationContext";
+import MessageProvider from "./contexts/MessageContext";
 
 
 //components
@@ -18,36 +19,41 @@ import { Selling } from "./pages/Selling";
 import { CreateListing } from "./pages/CreateListing";
 import { NotFound404 } from "./pages/NotFound404";
 import AuctionContextProvider from "./contexts/AuctionContextProvider";
-import {Registration} from "./pages/Registration";
-import {About} from "./pages/About";
+import { Registration } from "./pages/Registration";
+import { About } from "./pages/About";
+import { Conversation } from "./pages/Conversation";
 
 function App() {
-  
+
 
   return (
     <div className="mt-16">
       <UserProvider>
-      <NotificationContextProvider>
-      <AuctionContextProvider>
-      <AuctionDetailsContextProvider>
-      <TagContextProvider>
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/auction-details/:id" component={AuctionDetails} />
-            <Route exact path="/registration" component={Registration} />
-            <Route exact path="/buying" component={Buying} />
-            <Route exact path="/selling" component={Selling} />
-            <Route exact path="/create-listing" component={CreateListing} />
-            <Route exact path="/about" component={About} />
-            <Route path="*" component={NotFound404} />
-          </Switch>
-        </Router>
-      </TagContextProvider>
-      </AuctionDetailsContextProvider>
-      </AuctionContextProvider>
-      </NotificationContextProvider>
+        <NotificationContextProvider>
+          <MessageProvider>
+            <AuctionContextProvider>
+              <AuctionDetailsContextProvider>
+                <TagContextProvider>
+                  <Router>
+                    <Navbar />
+                    <Switch>
+                      <Route exact path="/" component={Home} />
+                      <Route exact path="/auction-details/:id" component={AuctionDetails} />
+                      <Route exact path="/registration" component={Registration} />
+                      <Route exact path="/buying" component={Buying} />
+                      <Route exact path="/conversation/:itemId/:userId" component={Conversation} />
+                      <Route exact path="/selling" component={Selling} />
+                      <Route exact path="/create-listing" component={CreateListing} />
+                      <Route exact path="/about" component={About} />
+                      <Route path="*" component={NotFound404} />
+                    </Switch>
+                  </Router>
+                </TagContextProvider>
+              </AuctionDetailsContextProvider>
+            </AuctionContextProvider>
+          </MessageProvider>
+        </NotificationContextProvider>
+
       </UserProvider>
     </div>
   );

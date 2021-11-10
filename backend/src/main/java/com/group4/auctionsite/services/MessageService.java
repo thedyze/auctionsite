@@ -29,4 +29,11 @@ public class MessageService {
 
         return messageRepository.findAllByReceiverIdOrSenderId(userId, userId);
     }
+
+    public List<Message> getMessagesByItemIdAndUserId(long itemId, long userId, long currentUserId) {
+
+        List<Message> messages = messageRepository.findMessageByItemIdAndUserIdAndCurrentUserId(itemId, userId, currentUserId);
+
+        return messages;
+    }
 }
