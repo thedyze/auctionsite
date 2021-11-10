@@ -24,4 +24,9 @@ public class MessageService {
     public Message createMessage(Message message) {
         return messageRepository.save(message);
     }
+
+    public List<Message> getMyMessages(long userId) {
+
+        return messageRepository.findAllByReceiverIdOrSenderId(userId, userId);
+    }
 }
