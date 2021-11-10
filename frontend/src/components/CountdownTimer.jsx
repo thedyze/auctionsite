@@ -19,7 +19,10 @@ export default function CountdownTimer(auctionEndTime) {
         if (countdown < 0) {
             format = ["Auction expired"]
         }
-        if(countdown > 86400000){
+        if(countdown > 172800000){
+            format = [days, " days"]
+        };
+        if(countdown > 86400000 && countdown < 172800000){
             format = [days, " days ", hours," hours"]
         };
         if(countdown > 3600000 && countdown < 86400000){
@@ -28,7 +31,7 @@ export default function CountdownTimer(auctionEndTime) {
         if(countdown > 60000 && countdown < 3600000){
             format = [minutes, " min ", seconds, " s"]
         };
-         if(countdown <= 60000 && countdown > 0){
+         if(countdown > 0 && countdown < 6000){
             format = [seconds, " s"]
         };
         return format
