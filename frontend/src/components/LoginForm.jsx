@@ -2,8 +2,8 @@ import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useHistory } from "react-router-dom";
 
-export const LoginTemplate = () => {
-  let history = useHistory();
+export const LoginTemplate = ({setCurrentUser}) => {
+  const history=useHistory()
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,28 +16,25 @@ export const LoginTemplate = () => {
       password,
     };
 
-      let a = JSON.stringify(credentials);
-      console.log(a);
-//debugger  
-
+    let a = JSON.stringify(credentials);
     let response = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
-    }
-    );
-
+    });
 
     let user = await response.json();
-
+  
     if (response.status == 403) {
       console.log("Wrong email/password");
     }
     if (response.status == 200) {
+      setCurrentUser(user);
       console.log(user);
-      window.location.reload(false);
     }
   }
+
+
 
   return (
     <div className="min-h-full flex items-center justify-center py-3 px-4 sm:px-6 lg:px-8">
@@ -81,9 +78,9 @@ export const LoginTemplate = () => {
             </div>
           </div>
           <div className="text-xs text-center">
-            <a href="/registration" className="font-medium text-myGr-dark ">
+            <div onClick={()=> history.push("/registration")} className="font-medium text-myGr-dark ">
               Register Account
-            </a>
+            </div>
           </div>
 
           <div>

@@ -14,7 +14,6 @@ export const CreateListing = () => {
     endTime: new Date().getTime(),
   });
 
-  console.log(itemObj.endTime)
 
   return (
     <div>

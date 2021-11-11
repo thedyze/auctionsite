@@ -15,9 +15,7 @@ export const Home = () => {
     buttonSelection: "default"
   });
 
-  //check current filter params
-  //console.log(filterParams);
-
+ 
   return (
     <div className="bg-gray-700 grid place-items-center h-screen">
       <div className="text-yellow-500 text-base text-center">Hidden Gems</div>

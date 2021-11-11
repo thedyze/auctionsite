@@ -10,7 +10,7 @@ const BUTTON_STYLE = `bg-myGr-light my-2 py-2 px-8 text-sm text-white rounded bo
 const H1 = `font-bold text-xl items-center p-4 mt-8 `;
 
 export const Registration = () => {
-  let history=useHistory()
+  const history=useHistory()
   const [badCred,setBadCred]=useState(false)
   const [userData, setUserData] = useState({
     userName: "",
@@ -52,7 +52,7 @@ export const Registration = () => {
         orgName: u.orgName,
         orgNr: u.orgNr,
       };
-      console.log("newUser before fetch", newUser);
+
     try {
       let res = await fetch("/api/register", {
         method: "POST",
@@ -76,7 +76,6 @@ export const Registration = () => {
       console.log("probably email is already taken",error);
       setBadCred(true)
         }  
-    
     }
   };
 

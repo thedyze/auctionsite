@@ -21,12 +21,12 @@ export const HomeAuctionList = ({ filters }) => {
         auction={auction}
         key={i}
       />
-    );
-  });
+    )
+  })
 
   return (
     <>
-      <div className="h-auto grid grid-cols-2">{renderedAuctionItems}</div>;
+      <div className="h-auto grid grid-cols-2">{renderedAuctionItems}</div>
     </>
-  );
-};
+  )
+}

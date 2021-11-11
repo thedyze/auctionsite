@@ -39,14 +39,12 @@ public class MessageController {
     }
 
     @GetMapping("/{itemId}/{userId}")
-    public List<Message> getMessagesByItemIdAndUserId(@PathVariable long itemId, @PathVariable long userId) {
+    public HashMap getMessagesByItemIdAndUserId(@PathVariable long itemId, @PathVariable long userId) {
 
         User user = userService.findCurrentUser();
-        if(user==null) {return null; }
+        if(user==null || user.getId()==userId ) {return null; }
 
         return messageService.getMessagesByItemIdAndUserId(itemId, userId, user.getId());
 
     }
-
-
-}
+    }

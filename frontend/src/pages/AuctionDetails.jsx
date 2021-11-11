@@ -6,8 +6,10 @@ import { UserContext } from "../contexts/UserContext";
 import BidModal from "../components/bidModal";
 import { socket } from "../socket";
 import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid"; 
+import { useHistory } from "react-router-dom";
 
 export const AuctionDetails = () => {
+  const history = useHistory();
   const { id } = useParams();
   const [activateModal, setActivateModal] = useState('init')
   const [bidDetails, setBidDetails] = useState({highestBid:0, numberOfBids:0})
@@ -40,6 +42,12 @@ export const AuctionDetails = () => {
       })
     }
   });
+
+
+    const goChatWithSeller = () => {
+      history.push(`/conversation/${auctionItem.id}/${user.id}`);
+    };
+
 
 
   return (
@@ -112,7 +120,7 @@ export const AuctionDetails = () => {
           <div>
             {user?.username}
           </div>
-          <button className="float-right bg-myGr-light py-2 px-6 text-sm text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
+          <button disabled={!currentUser || currentUser?.id == auctionItem?.userId} onClick={goChatWithSeller} className="float-right bg-myGr-light py-2 px-6 text-sm text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
           >Chat with seller</button>
         </div>
       </div>

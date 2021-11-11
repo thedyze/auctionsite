@@ -14,22 +14,21 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
-  let history = useHistory();
+  const history = useHistory();
 
-  const { currentUser } = useContext(UserContext);
+  const { currentUser,setCurrentUser } = useContext(UserContext);
   const { notifications, setNotifications, deleteNotification, deleteNotifications } = useContext(NotificationContext)
 
   const logout = async () => {
     await fetch("/logout");
+    setCurrentUser("")
     history.push("/");
-    window.location.reload(false);
   };
 
   const pathTo = (e) => {
-    console.log("e", e.target.name, e.target.id);
     history.push(`/${e.target.name}`);
     
-    e.target.id === "logo" && window.location.reload(false);
+  //  e.target.id === "logo" && window.location.reload(false);
   };
 
   const handleNotification = async (n) => {
@@ -52,6 +51,9 @@ export default function Navbar() {
       setNotifications(list)
     }
   })
+
+  const pagesArray = ["Buying", "Selling", "Messages"];
+
 
   return (
     <Disclosure as="nav" className="bg-myGr-dark fixed w-screen -mt-16 z-10">
@@ -77,37 +79,49 @@ export default function Navbar() {
                   <Menu as="div" className="ml-3 relative">
                     <div className="relative">
                       <Menu.Button>
-                        <BellIcon 
-                        className="h-8 w-8 text-white" aria-hidden="true" />
+                        <BellIcon
+                          className="h-8 w-8 text-white"
+                          aria-hidden="true"
+                        />
                       </Menu.Button>
                       {notifications.length > 0 && (
-                        <span className="text-xs text-center absolute h-4 w-4 rounded-full bg-red-600 left-5" >
+                        <span className="text-xs text-center absolute h-4 w-4 rounded-full bg-red-600 left-5">
                           {notifications.length}
                         </span>
                       )}
                     </div>
                     <Menu.Items className="fixed bg-gray-700 w-44 right-0 top-16">
                       <div>
-                        {notifications && notifications.map(n => (
-                          <Menu.Item key={n.id} onClick={() => handleNotification(n)}>
-                            <div
-                              className="bg-white px-2 py-2 text-sm text-gray-700"
-                              href="/myPage"
+                        {notifications &&
+                          notifications.map((n) => (
+                            <Menu.Item
+                              key={n.id}
+                              onClick={() => handleNotification(n)}
                             >
-                              <div className="font-semibold">
-                                
-                                {n?.title}
+                              <div
+                                className="bg-white px-2 py-2 text-sm text-gray-700"
+                                href="/myPage"
+                              >
+                                <div className="font-semibold">{n?.title}</div>
+                                <div className="text-red-600">
+                                  {n.highestBid ? (
+                                    <span>New bid: {n.highestBid}</span>
+                                  ) : (
+                                    <span>New bid!</span>
+                                  )}
+                                </div>
                               </div>
-                              <div className="text-red-600">
-                                {n.highestBid ? <span>New bid: {n.highestBid}</span> : <span >New bid!</span>}
-                              </div>
-                            </div>
-                          </Menu.Item>
-                        ))}
+                            </Menu.Item>
+                          ))}
                         {notifications.length > 0 && (
-                          <div className=" bg-white py-2 text-xs text-myGr-dark text-center"
-                              onClick={() => {clearAll()}}>
-                            clear all</div>
+                          <div
+                            className=" bg-white py-2 text-xs text-myGr-dark text-center"
+                            onClick={() => {
+                              clearAll();
+                            }}
+                          >
+                            clear all
+                          </div>
                         )}
                       </div>
                     </Menu.Items>
@@ -115,11 +129,11 @@ export default function Navbar() {
                 ) : (
                   <div></div>
                 )}
-              
+
                 {/* Profile dropdown */}
-                <Menu as="div" className="ml-3 relative">
+                <Menu  as="div" className="ml-3 relative">
                   <div>
-                    <Menu.Button className=" flex text-sm rounded-full ">
+                    <Menu.Button className="flex text-sm rounded-full ">
                       <UserCircleIcon
                         className="h-11 w-11"
                         aria-hidden="true"
@@ -137,51 +151,20 @@ export default function Navbar() {
                             {currentUser.email}
                           </div>
                         </Menu.Item>
+                        {pagesArray.map((page, i) => (
+                          <Menu.Item key={i}>
+                            {({ active }) => (
+                              <a name={page} onClick={pathTo} className={classNames("block px-4 py-2 text-sm text-gray-700 text-center")} > {page}</a> )}
+                          </Menu.Item>
+                        ))}          
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              name="buying"
-                              onClick={pathTo}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700 text-center"
-                              )}
-                            >
-                              Buying
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              name="selling"
-                              onClick={pathTo}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700 text-center"
-                              )}
-                            >
-                              Selling
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              onClick={logout}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700 text-center"
-                              )}
-                            >
-                              Log out
-                            </a>
-                          )}
+                              <a onClick={logout} className={classNames("block px-4 py-2 text-sm text-gray-700 text-center" )}>Log out</a>)}
                         </Menu.Item>
                       </div>
                     ) : (
                       <Menu.Item>
-                        <LoginTemplate />
+                    <LoginTemplate setCurrentUser={setCurrentUser} />
                       </Menu.Item>
                     )}
                   </Menu.Items>

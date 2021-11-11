@@ -40,9 +40,9 @@ function App() {
                       <Route exact path="/" component={Home} />
                       <Route exact path="/auction-details/:id" component={AuctionDetails} />
                       <Route exact path="/registration" component={Registration} />
-                      <Route exact path="/buying" component={Buying} />
+                      <Route exact path="/Buying" component={Buying} />
                       <Route exact path="/conversation/:itemId/:userId" component={Conversation} />
-                      <Route exact path="/selling" component={Selling} />
+                      <Route exact path="/Selling" component={Selling} />
                       <Route exact path="/create-listing" component={CreateListing} />
                       <Route exact path="/about" component={About} />
                       <Route path="*" component={NotFound404} />

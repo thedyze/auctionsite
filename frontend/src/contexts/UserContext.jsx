@@ -12,17 +12,14 @@ export const UserProvider = ({ children }) => {
     try {
       let user = await res.json();
       if (user) {
-        console.log("User logged in");
         setCurrentUser(user);
       }
-      console.log(user);
-    } catch {
-      console.log("No User yet");
+    } catch (e) {
+      console.log("No User yet", e);
     }
   };
   
     const fetchUser = async (id) => {
-      console.log("how often does thiss happen?")
       let res = await fetch(`/rest/user/${id}`);
       res = await res.json();
       setUser(res);
@@ -34,6 +31,7 @@ export const UserProvider = ({ children }) => {
 
   const values = {
     currentUser,
+    setCurrentUser,
     user,
     fetchUser,
   };

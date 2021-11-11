@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
 
 export const MessageContext = createContext();
 
@@ -6,10 +6,17 @@ export default function MessageProvider(props) {
   const [messages, setMessages] = useState([])
 
   const fetchMessages = async (itemId, userId) => {
-    let res = await fetch(`/rest/conversation/${itemId}/${userId}`)
-    console.log(res);
-    res = await res.json()
-    setMessages(res)
+    
+    try {
+      let res = await fetch(`/rest/conversation/${itemId}/${userId}`)
+        res = await res.json();
+        setMessages(res);
+      
+    } catch (e) {
+      console.log(e);
+      
+    }
+  
   }
 
   const values = {
