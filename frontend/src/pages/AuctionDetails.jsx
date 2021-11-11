@@ -59,15 +59,13 @@ export const AuctionDetails = () => {
         setThirdImg('_img1.jpg')
       }
       if (bigImg === '_img2.jpg') {
-        
         setBigImg('_img3.jpg')
         setSecondImg('_img2.jpg')
         setThirdImg('_img1.jpg')
       }
       if (bigImg === '_img3.jpg') {
         setBigImg('_img1.jpg')
-        setThirdImg('_img3.jpg')
-        
+        setThirdImg('_img3.jpg') 
       }
     }
 
