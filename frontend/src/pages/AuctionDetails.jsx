@@ -92,33 +92,33 @@ export const AuctionDetails = () => {
         <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
         <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
-      <div className="text-xl font-medium my-5">
-        {auctionItem.title}
-      </div>
+      <div className="text-xl font-medium my-2">{auctionItem.title}</div>
 
-      <div>
-        <table className="table-fixed w-full text-center my-5">
-          <tbody>
+      <div className="flex align-middle">
+        <table className="table-fixed  w-full text-center my-2 mx-4">
+          <tbody >
             <tr>
-              <th>
+              <th className="max-h-2 text-sm font-medium ">
                 {bidDetails.highestBid ? "Highest Bid" : "Starting price"}
               </th>
-              <th>Ends {auctionItem.endTime}</th>
-              <th>Bids</th>
+              <th className="max-h-2 text-sm font-medium ">Ends</th>
+              <th className="max-h-2 text-sm font-medium ">Bids</th>
             </tr>
             <tr>
               <td>{bidDetails.highestBid || auctionItem.startPrice}</td>
-              <td>TimeLeft</td>
+              <td>{auctionItem.endTime}</td>
               <td>{bidDetails.numberOfBids}</td>
             </tr>
           </tbody>
         </table>
-      </div>    
+      </div>
+      <div className="w-full text-center px-4">
       <button disabled={!currentUser || currentUser?.id == auctionItem?.userId} id="btn-placeBid" onClick={() => setActivateModal(!activateModal)}
-        className="bg-myGr-light my-2 py-2 px-8 text-sm text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
-      >Place bid</button>
+        className="w-full bg-myGr-light  mb-4 py-2  text-base font-medium text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
+        >Place bid</button>
+      </div>
 
-      <div className="box-border w-11/12 bg-white px-2 py-2">
+      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
         <div>
           <DocumentTextIcon
             className="h-5 w-5 text-black float-left"
@@ -132,7 +132,7 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className="box-border w-11/12 bg-myAw px-2 py-2">
+      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
         <div>
           <TagIcon
             className="h-5 w-5 text-black float-left"
@@ -146,7 +146,7 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className="box-border w-11/12 bg-white px-2 py-2">
+      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
         <div>
           <UserIcon
             className="h-5 w-5 text-black float-left"
