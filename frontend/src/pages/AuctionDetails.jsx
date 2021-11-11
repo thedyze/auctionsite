@@ -14,6 +14,9 @@ export const AuctionDetails = () => {
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
   const { user, fetchUser, currentUser } = useContext(UserContext);
+  const [bigImg, setBigImg] = useState('_img1.jpg')
+  const [secondImg, setSecondImg] = useState('_img2.jpg')
+  const [thirdImg, setThirdImg] = useState('_img3.jpg')
 
   let btn = document.getElementById("btn-placeBid")
 
@@ -32,6 +35,45 @@ export const AuctionDetails = () => {
     console.log(auctionItem);
   }, [auctionItem?.userId]);
 
+
+  async function handleBigImg(n) {
+
+    if (n === 2) {
+      if (bigImg === '_img1.jpg') {
+        setBigImg('_img2.jpg')
+        setSecondImg('_img1.jpg')
+      }
+      if (bigImg === '_img2.jpg') {
+        setBigImg('_img1.jpg')
+        setSecondImg('_img2.jpg')
+      }
+      if (bigImg === '_img3.jpg') {
+        setBigImg('_img2.jpg')
+        setSecondImg('_img1.jpg')
+        setThirdImg('_img3.jpg')
+      }
+    }
+    if (n === 3) {
+      if (bigImg === '_img1.jpg') {
+        setBigImg('_img3.jpg')
+        setThirdImg('_img1.jpg')
+      }
+      if (bigImg === '_img2.jpg') {
+        
+        setBigImg('_img3.jpg')
+        setSecondImg('_img2.jpg')
+        setThirdImg('_img1.jpg')
+      }
+      if (bigImg === '_img3.jpg') {
+        setBigImg('_img1.jpg')
+        setThirdImg('_img3.jpg')
+        
+      }
+    }
+
+
+  }
+
   //listen to bid changes in other auctions
   socket.on("bidUpdate", (obj)=>{
     if(obj.itemId == id) {
@@ -44,11 +86,14 @@ export const AuctionDetails = () => {
 
 
   return (
-    <div className="bg-myAw grid place-items-center h-screen">
+    <div className="grid place-items-center h-screen">
       <BidModal activateModal={activateModal} id={id} />
       
-      <img className="w-full bg-red-500" src={"/uploads/" +auctionItem.imagePath + "_img2.jpg"} alt="Bild saknas"></img>
-
+      <img className="w-full p-2" src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
+      <div className="flex flex-row text-center">
+        <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
+        <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
+      </div>
       <div className="text-xl font-medium my-5">
         {auctionItem.title}
       </div>
