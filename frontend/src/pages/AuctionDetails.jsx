@@ -5,12 +5,12 @@ import { TagContext } from "../contexts/TagContext";
 import { UserContext } from "../contexts/UserContext";
 import BidModal from "../components/bidModal";
 import { socket } from "../socket";
-import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid"; 
+import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid";
 
 export const AuctionDetails = () => {
   const { id } = useParams();
   const [activateModal, setActivateModal] = useState('init')
-  const [bidDetails, setBidDetails] = useState({highestBid:0, numberOfBids:0})
+  const [bidDetails, setBidDetails] = useState({ highestBid: 0, numberOfBids: 0 })
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
   const { user, fetchUser, currentUser } = useContext(UserContext);
@@ -29,52 +29,27 @@ export const AuctionDetails = () => {
     if (auctionItem?.userId) {
       fetchUser(auctionItem.userId);
       setBidDetails({
-         highestBid: parseInt(auctionItem.highestBid), 
-         numberOfBids: parseInt(auctionItem.numberOfBids)})
+        highestBid: parseInt(auctionItem.highestBid),
+        numberOfBids: parseInt(auctionItem.numberOfBids)
+      })
     }
     console.log(auctionItem);
   }, [auctionItem?.userId]);
 
 
-  async function handleBigImg(n) {
+  async function handleBigImg(i) {
 
-    if (n === 2) {
-      if (bigImg === '_img1.jpg') {
-        setBigImg('_img2.jpg')
-        setSecondImg('_img1.jpg')
-      }
-      if (bigImg === '_img2.jpg') {
-        setBigImg('_img1.jpg')
-        setSecondImg('_img2.jpg')
-      }
-      if (bigImg === '_img3.jpg') {
-        setBigImg('_img2.jpg')
-        setSecondImg('_img1.jpg')
-        setThirdImg('_img3.jpg')
-      }
-    }
-    if (n === 3) {
-      if (bigImg === '_img1.jpg') {
-        setBigImg('_img3.jpg')
-        setThirdImg('_img1.jpg')
-      }
-      if (bigImg === '_img2.jpg') {
-        setBigImg('_img3.jpg')
-        setSecondImg('_img2.jpg')
-        setThirdImg('_img1.jpg')
-      }
-      if (bigImg === '_img3.jpg') {
-        setBigImg('_img1.jpg')
-        setThirdImg('_img3.jpg') 
-      }
-    }
-
-
+    return (i === 2 && bigImg === '_img1.jpg') ? (setBigImg('_img2.jpg'), setSecondImg('_img1.jpg'))
+         : (i === 2 && bigImg === '_img2.jpg') ? (setBigImg('_img1.jpg'), setSecondImg('_img2.jpg'))
+         : (i === 2 && bigImg === '_img3.jpg') ? (setBigImg('_img2.jpg'), setSecondImg('_img1.jpg'), setThirdImg('_img3.jpg'))
+         : (i === 3 && bigImg === '_img1.jpg') ? (setBigImg('_img3.jpg'), setThirdImg('_img1.jpg'))
+         : (i === 3 && bigImg === '_img2.jpg') ? (setBigImg('_img3.jpg'), setSecondImg('_img2.jpg'), setThirdImg('_img1.jpg'))
+         : (setBigImg('_img1.jpg'), setThirdImg('_img3.jpg'))
   }
 
   //listen to bid changes in other auctions
-  socket.on("bidUpdate", (obj)=>{
-    if(obj.itemId == id) {
+  socket.on("bidUpdate", (obj) => {
+    if (obj.itemId == id) {
       setBidDetails({
         highestBid: parseInt(obj.newBid),
         numberOfBids: parseInt(bidDetails.numberOfBids) + 1
@@ -86,7 +61,7 @@ export const AuctionDetails = () => {
   return (
     <div className="grid place-items-center h-screen">
       <BidModal activateModal={activateModal} id={id} />
-      
+
       <img className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
       <div className=" w-full flex flex-row justify-center pt-2 pb-2">
         <img className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
@@ -113,8 +88,8 @@ export const AuctionDetails = () => {
         </table>
       </div>
       <div className="w-full text-center px-4">
-      <button disabled={!currentUser || currentUser?.id == auctionItem?.userId} id="btn-placeBid" onClick={() => setActivateModal(!activateModal)}
-        className="w-full bg-myGr-light  mb-4 py-2  text-base font-medium text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
+        <button disabled={!currentUser || currentUser?.id == auctionItem?.userId} id="btn-placeBid" onClick={() => setActivateModal(!activateModal)}
+          className="w-full bg-myGr-light  mb-4 py-2  text-base font-medium text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
         >Place bid</button>
       </div>
 
