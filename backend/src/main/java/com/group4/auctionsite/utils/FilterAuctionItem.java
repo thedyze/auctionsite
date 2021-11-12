@@ -7,4 +7,5 @@ public class FilterAuctionItem {
     public String priceFrom;
     public String priceTo;
     public String buttonSelection;
+    public String page;
 }
