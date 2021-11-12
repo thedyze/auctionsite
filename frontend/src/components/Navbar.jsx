@@ -27,10 +27,8 @@ export default function Navbar() {
 
   const pathTo = (e) => {
     history.push(`/${e.target.name}`);
+  }
     
-  //  e.target.id === "logo" && window.location.reload(false);
-  };
-
   const handleNotification = async (n) => {
     await deleteNotification(n.id)
     history.push(`/auction-details/${n.itemId}`)
@@ -56,7 +54,7 @@ export default function Navbar() {
 
 
   return (
-    <Disclosure as="nav" className="bg-myGr-dark fixed w-screen -mt-16 z-10">
+    <Disclosure as="nav" className="bg-myGr-dark fixed w-screen -mt-16 z-50">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-white ">

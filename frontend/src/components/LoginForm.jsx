@@ -16,7 +16,6 @@ export const LoginTemplate = ({setCurrentUser}) => {
       password,
     };
 
-    let a = JSON.stringify(credentials);
     let response = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -30,7 +29,6 @@ export const LoginTemplate = ({setCurrentUser}) => {
     }
     if (response.status == 200) {
       setCurrentUser(user);
-      console.log(user);
     }
   }
 

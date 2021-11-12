@@ -20,7 +20,6 @@ export const AuctionDetails = () => {
   const [secondImg, setSecondImg] = useState('_img2.jpg')
   const [thirdImg, setThirdImg] = useState('_img3.jpg')
 
-  let btn = document.getElementById("btn-placeBid")
 
   useEffect(() => {
     fetchAuctionItem(id);
@@ -35,7 +34,6 @@ export const AuctionDetails = () => {
         numberOfBids: parseInt(auctionItem.numberOfBids)
       })
     }
-    console.log(auctionItem);
   }, [auctionItem?.userId]);
 
 
