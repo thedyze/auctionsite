@@ -34,6 +34,3 @@ input[type='radio']:checked:after {
   background-color: green;
 }
 
-.halfScreen {
-  top: 40%;
-}

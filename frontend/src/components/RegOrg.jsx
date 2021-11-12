@@ -16,7 +16,6 @@ const handleOrgNr = (e) => {
 
   const toggleState = (e) => {
     isSetPrivate(!isPrivate);
-    console.log(e.target.name);
     callback({role:e.target.name});
     
   };

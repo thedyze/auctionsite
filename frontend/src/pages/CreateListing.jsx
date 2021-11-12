@@ -26,6 +26,7 @@ export const CreateListing = () => {
     endTime: new Date().getTime(),
   });
 
+<<<<<<< HEAD
   const categories = [
     { id: 2, name: "Choose", value: "" },
     { id: 1, name: "Shoes", value: "Shoes" },
@@ -166,6 +167,8 @@ export const CreateListing = () => {
         console.error(e);
       }
   }
+=======
+>>>>>>> develop
 
   return (
     <div>

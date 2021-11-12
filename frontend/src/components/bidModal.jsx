@@ -44,8 +44,8 @@ export default function BidModal({activateModal, id}) {
     }
   }, [open])
 
-  return (
-    <Transition.Root show={open} as={Fragment} className="halfScreen absolute">
+    return (
+    <Transition.Root show={open} as={Fragment} className="top-1/3 fixed">
       <Dialog as="div" className="flex justify-center z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
         <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center">
           <Transition.Child

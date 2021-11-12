@@ -110,9 +110,9 @@ public class AuctionItemService {
 
         List<AuctionItem> auctionItems = null;
         String[] q = createQuery(filterContent);
-        if(q[5].equals("default")) auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
-        else if(q[5].equals("popular")) auctionItems = auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
-        else if(q[5].equals("latest")) auctionItems = auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]));
+        if(q[6].equals("default")) auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), 20, Integer.parseInt(q[5]));
+        else if(q[6].equals("popular")) auctionItems = auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), 20, Integer.parseInt(q[5]));
+        else if(q[6].equals("latest")) auctionItems = auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), 20, Integer.parseInt(q[5]));
 
         List<String> auctionItemsAsJson = new ArrayList<>();
         User user = userService.findCurrentUser();
@@ -130,13 +130,14 @@ public class AuctionItemService {
     }
 
     private String[] createQuery(FilterAuctionItem filterContent) {
-        String[] query = new String[6];
+        String[] query = new String[8];
         query[0] = filterContent.search != null ? filterContent.search : "";
         query[1] = filterContent.categoryId != null ? filterContent.categoryId : "0";
         query[2] = filterContent.categoryId != null ? filterContent.categoryId : "200000000";
         query[3] = filterContent.priceFrom != null ? filterContent.priceFrom : "0";
         query[4] = filterContent.priceTo != null ? filterContent.priceTo : "2000000000";
-        query[5] = filterContent.buttonSelection != null ? filterContent.buttonSelection : "default";
+        query[5] = filterContent.page != null ? filterContent.page : "0";
+        query[6] = filterContent.buttonSelection != null ? filterContent.buttonSelection : "default";
         return query;
     }
 }

@@ -8,7 +8,7 @@ export const SearchInput = ({  handleFilters }) => {
 
   const handleDebounce = useCallback(
     debounce((searchVal) => {
-      handleFilters((prev)=>({ ...prev, search: searchVal }));
+      handleFilters((prev)=>({ ...prev, page: 0, search: searchVal }));
     setState(false);
 
     }, 2500)

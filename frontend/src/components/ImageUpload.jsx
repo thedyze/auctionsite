@@ -64,7 +64,6 @@ export const ImageUpload = () => {
     formData.append('files', file, imgname)
   }
 
-
   async function onFilesSubmit(e) {
     e.preventDefault()
 
@@ -73,6 +72,7 @@ export const ImageUpload = () => {
     }
     else
 
+<<<<<<< HEAD
 
       try {
         let res = await fetch('/api/upload', {
@@ -87,8 +87,18 @@ export const ImageUpload = () => {
         console.error(e);
 
       }
+=======
+    
+    try {
+      await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      })
+      } catch (error) {
+      console.error(e);      
+    }
+>>>>>>> develop
   }
-
 
   return (
     <div>

@@ -19,8 +19,8 @@ export const HomeAuctionList = ({ filters }) => {
         auction={auction}
         key={auction.id}
       />
-    );
-  });
+    )
+  })
 
   return <div className="h-auto grid grid-cols-2">{renderedAuctionItems}</div>
 };
