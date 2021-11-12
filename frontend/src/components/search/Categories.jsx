@@ -46,7 +46,7 @@ export const Categories = ({ handleFilters }) => {
             style={cat.isActive ? { color: "red" } : { color: undefined }}
             key={cat.id}
             name={cat.id}
-            className={"bg-myPurple font-logoFont text-white py-2 font-bold px-4 rounded-full"}
+            className={"bg-myPr-light font-logoFont text-white py-2 font-bold px-4 rounded-full"}
             onClick={handleClick}
           >
             {cat.name}

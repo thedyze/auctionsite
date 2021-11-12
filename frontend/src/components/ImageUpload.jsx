@@ -72,22 +72,6 @@ export const ImageUpload = () => {
     }
     else
 
-<<<<<<< HEAD
-
-      try {
-        let res = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData
-        })
-
-        let filePaths = await res.json()
-        console.log(filePaths);
-
-      } catch (error) {
-        console.error(e);
-
-      }
-=======
     
     try {
       await fetch('/api/upload', {
@@ -97,7 +81,6 @@ export const ImageUpload = () => {
       } catch (error) {
       console.error(e);      
     }
->>>>>>> develop
   }
 
   return (
