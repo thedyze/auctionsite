@@ -1,34 +1,27 @@
 import { useContext, useState, useEffect } from "react";
 import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
+import { UserContext } from "../contexts/UserContext";
 
 export const Selling = () => {
-  const { userSellingItems, fetchUserSellingItems } = useContext(
-    AuctionDetailsContext
-  );
+  const { userSellingItems, fetchUserSellingItems } = useContext(AuctionDetailsContext);
+  const {currentUser} = useContext(UserContext)
   const [activeItems, setActivateItems] = useState([]);
   const [inactiveItems, setInactivateItems] = useState([]);
 
   const now = new Date();
 
-  let active = [];
-  let inactive = [];
 
-  useEffect(async () => {
-    let cleanUp = false;
-    let res = await fetch("api/whoami");
-    let user = await res.json();
-    fetchUserSellingItems(user.id);
-    if (!cleanUp) {
+  useEffect(() => {
+    if (!currentUser) return;  
+    fetchUserSellingItems(currentUser.id);    
+  }, [currentUser]);
+
+    useEffect(() => {
+    if (!userSellingItems) return
       userSellingItems.map((item) => {
-        item.endTime > now ? active.push(item) : inactive.push(item);
+        item.endTime > now ? setActivateItems(i=>[...i,item]): setInactivateItems(i=>[...i,item]);
       });
-    }
-
-    setActivateItems(active);
-    setInactivateItems(inactive);
-    return()=>{ignore=true};
-    
-  }, [userSellingItems]);
+    }, [userSellingItems]);
 
   return (
     <div>

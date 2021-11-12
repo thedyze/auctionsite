@@ -48,9 +48,12 @@ public class AuctionItemService {
     }
 
     public AuctionItem createAuctionItem(AuctionItem auctionItem) {
-        return auctionItemRepository.save(auctionItem);
+       auctionItem = auctionItemRepository.save(auctionItem);
+       User user =userService.findCurrentUser();
+       bidRepository.save(new Bid(auctionItem.getId(),user.getId(),0));
+       return auctionItem;
     }
-
+                
     public List<AuctionItem> createAuctionItems(List<AuctionItem> auctionItems) {
         List<AuctionItem> auctionItemsx = new ArrayList<>();
         for(AuctionItem ai : auctionItems) {
