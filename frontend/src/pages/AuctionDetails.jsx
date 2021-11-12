@@ -39,12 +39,8 @@ export const AuctionDetails = () => {
 
   async function handleBigImg(i) {
 
-    return (i === 2 && bigImg === '_img1.jpg') ? (setBigImg('_img2.jpg'), setSecondImg('_img1.jpg'))
-         : (i === 2 && bigImg === '_img2.jpg') ? (setBigImg('_img1.jpg'), setSecondImg('_img2.jpg'))
-         : (i === 2 && bigImg === '_img3.jpg') ? (setBigImg('_img2.jpg'), setSecondImg('_img1.jpg'), setThirdImg('_img3.jpg'))
-         : (i === 3 && bigImg === '_img1.jpg') ? (setBigImg('_img3.jpg'), setThirdImg('_img1.jpg'))
-         : (i === 3 && bigImg === '_img2.jpg') ? (setBigImg('_img3.jpg'), setSecondImg('_img2.jpg'), setThirdImg('_img1.jpg'))
-         : (setBigImg('_img1.jpg'), setThirdImg('_img3.jpg'))
+    const bi = bigImg[4]
+    return (i == 2) ? (setBigImg(`_img${secondImg[4]}.jpg`), setSecondImg(`_img${bi}.jpg`)) : (setBigImg(`_img${thirdImg[4]}.jpg`), setThirdImg(`_img${bi}.jpg`))
   }
 
   //listen to bid changes in other auctions
