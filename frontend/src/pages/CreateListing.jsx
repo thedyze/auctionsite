@@ -1,31 +1,30 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Datepicker from "../components/Datepicker";
-import { ImageUpload } from "../components/ImageUpload.jsx"
-import { getThemeProps } from "@mui/system";
-
 let formData = new FormData()
 
 export const CreateListing = () => {
 
   const history = useHistory()
-
   const { currentUser } = useContext(UserContext)
   const [buyNowCheckBox, setBuyNowCheckBox] = useState(false)
   const [loginAlert, setLoginAlert] = useState(false)
+  //Image Upload functions
+  const [preview1, setPreview1] = useState('src/images/upload.png')
+  const [preview2, setPreview2] = useState('src/images/upload.png')
+  const [preview3, setPreview3] = useState('src/images/upload.png')
+  const [noFiles, setNoFiles] = useState(false)
 
   //dynamically gathers input values into an object which will be passed on submit
   const [auctionData, setAuctionData] = useState({
     title: "",
     description: "",
-    category: 0,
+    category: "",
     startPrice: 0,
     buyNowPrice: 0,
     endTime: new Date().getTime(),
   });
-
-
 
   const categories = [
     { id: 2, name: "Choose", value: "" },
@@ -42,14 +41,13 @@ export const CreateListing = () => {
   const handleFormSubmit = async (e, value) => {
     e.preventDefault()
 
-
     // It is not possible to create a listing without a logged in user 
     if (!currentUser) {
       setLoginAlert(true)
       return;
     }
 
-    //time when submitted
+    //timestamp when submitted
     let currentDateAndTime = new Date();
     setAuctionData({ ...auctionData, startTime: currentDateAndTime.getTime() });
 
@@ -90,15 +88,6 @@ export const CreateListing = () => {
       console.log("the new listing was not submitted")
     }
   }
-
-
-
-
-  //Image Upload functions
-  const [preview1, setPreview1] = useState('src/images/upload.png')
-  const [preview2, setPreview2] = useState('src/images/upload.png')
-  const [preview3, setPreview3] = useState('src/images/upload.png')
-  const [noFiles, setNoFiles] = useState(false)
 
   async function onAddImage(e, number) {
     const maxWidth = 2500
@@ -155,8 +144,7 @@ export const CreateListing = () => {
     formData.append('files', file, imgname)
   }
 
-
-  async function onFilesSubmit(e) {
+  async function imageUploadSubmit(e) {
     e.preventDefault()
 
     if (formData.getAll('files').length === 0) {
@@ -176,17 +164,14 @@ export const CreateListing = () => {
         })
       } catch (error) {
         console.error(e);
-
       }
   }
-
-
-
-
 
   return (
     <div>
       <div className="font-bold text-2xl text-center p-8">Create a listing</div>
+
+      {/* Image upload */}
       <div className="pt-8">Upload photo (max 3)</div>
       <div className="w-full p-4 flex justify-center font-medium text-indigo-600">
         Click an image to upload
@@ -218,9 +203,7 @@ export const CreateListing = () => {
         {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
       </form>
 
-      <form className="p-6" onSubmit={onFilesSubmit}>
-        {/* Image upload */}
-
+      <form className="p-6" onSubmit={imageUploadSubmit}>
 
         {/* Title input */}
         <div className="pt-8">
@@ -351,7 +334,6 @@ export const CreateListing = () => {
                 <option>SEK</option>
               </select>
             </div>
-
           </div>
         </div>
 
@@ -376,8 +358,6 @@ export const CreateListing = () => {
       </form>
     </div>
   );
-
-
 };
 
 // helper function to convert canvas image to file
