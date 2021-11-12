@@ -11,6 +11,7 @@ export default function AuctionDetailsProvider(props) {
   const fetchAuctionItem = async (id) => {
     let res = await fetch(`/rest/auctionItem/${id}`)
     res = await res.json()
+    console.log("res after bid ", res);
     setAuctionItem(res)
   }
 
