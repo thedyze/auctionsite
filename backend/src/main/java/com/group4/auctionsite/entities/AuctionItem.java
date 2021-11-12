@@ -26,7 +26,7 @@ public class AuctionItem {
     private long startTime;
     private long endTime;
     private int startPrice;
-    private int buyNowPrice;
+    private Integer buyNowPrice;
     private int currentViews;
 
     private boolean isActive(){
