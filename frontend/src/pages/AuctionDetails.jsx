@@ -10,7 +10,7 @@ import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid";
 export const AuctionDetails = () => {
   const { id } = useParams();
   const [activateModal, setActivateModal] = useState('init')
-  const [bidDetails, setBidDetails] = useState({highestBid:0, numberOfBids:0})
+  const [bidDetails, setBidDetails] = useState({highestBid:-1, numberOfBids:0})
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
   const { user, fetchUser, currentUser } = useContext(UserContext);

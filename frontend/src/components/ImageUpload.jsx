@@ -51,7 +51,7 @@ export const ImageUpload = () => {
     catch (e) { console.error(e); }
   }
 
-  
+
   function updateFormData(imgname, file) {
 
     const tempData = formData.getAll('files')
@@ -60,7 +60,7 @@ export const ImageUpload = () => {
     tempData
       .filter(file => file.name !== imgname)
       .forEach(file => formData.append('files', file))
-    
+
     formData.append('files', file, imgname)
   }
 
@@ -73,20 +73,20 @@ export const ImageUpload = () => {
     }
     else
 
-    
-    try {
-      let res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      })
 
-      let filePaths = await res.json()
-      console.log(filePaths);
-      
-    } catch (error) {
-      console.error(e);
-      
-    }
+      try {
+        let res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        })
+
+        let filePaths = await res.json()
+        console.log(filePaths);
+
+      } catch (error) {
+        console.error(e);
+
+      }
   }
 
 
@@ -95,7 +95,7 @@ export const ImageUpload = () => {
       <div className="w-full p-4 flex justify-center font-medium text-indigo-600">
         Click an image to upload
       </div>
-      <form className="" onSubmit={onFilesSubmit}>
+      <form className="">
         <div className="w-full h-32 px-8 grid grid-rows-2 grid-cols-3 gap-4">
 
           <div className="image-upload w-40 h-32 row-span-2 col-span-2">
@@ -120,7 +120,6 @@ export const ImageUpload = () => {
           </div>
         </div >
         {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
-        <button className="bg-blue-500 px-2 mt-6 " type="submit"> Upload Files </button>
       </form>
     </div>
 
