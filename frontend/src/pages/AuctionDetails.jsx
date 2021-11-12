@@ -14,6 +14,9 @@ export const AuctionDetails = () => {
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
   const { user, fetchUser, currentUser } = useContext(UserContext);
+  const [bigImg, setBigImg] = useState('_img1.jpg')
+  const [secondImg, setSecondImg] = useState('_img2.jpg')
+  const [thirdImg, setThirdImg] = useState('_img3.jpg')
 
   let btn = document.getElementById("btn-placeBid")
 
@@ -28,8 +31,46 @@ export const AuctionDetails = () => {
       setBidDetails({
          highestBid: parseInt(auctionItem.highestBid), 
          numberOfBids: parseInt(auctionItem.numberOfBids)})
-      }
+    }
+    console.log(auctionItem);
   }, [auctionItem?.userId]);
+
+
+  async function handleBigImg(n) {
+
+    if (n === 2) {
+      if (bigImg === '_img1.jpg') {
+        setBigImg('_img2.jpg')
+        setSecondImg('_img1.jpg')
+      }
+      if (bigImg === '_img2.jpg') {
+        setBigImg('_img1.jpg')
+        setSecondImg('_img2.jpg')
+      }
+      if (bigImg === '_img3.jpg') {
+        setBigImg('_img2.jpg')
+        setSecondImg('_img1.jpg')
+        setThirdImg('_img3.jpg')
+      }
+    }
+    if (n === 3) {
+      if (bigImg === '_img1.jpg') {
+        setBigImg('_img3.jpg')
+        setThirdImg('_img1.jpg')
+      }
+      if (bigImg === '_img2.jpg') {
+        setBigImg('_img3.jpg')
+        setSecondImg('_img2.jpg')
+        setThirdImg('_img1.jpg')
+      }
+      if (bigImg === '_img3.jpg') {
+        setBigImg('_img1.jpg')
+        setThirdImg('_img3.jpg') 
+      }
+    }
+
+
+  }
 
   //listen to bid changes in other auctions
   socket.on("bidUpdate", (obj)=>{
@@ -43,37 +84,41 @@ export const AuctionDetails = () => {
 
 
   return (
-    <div className="bg-myAw grid place-items-center h-screen">
+    <div className="grid place-items-center h-screen">
       <BidModal activateModal={activateModal} id={id} />
-      <img className="w-full bg-red-500" src="" alt="Bild saknas"></img>
-
-      <div className="text-xl font-medium my-5">
-        {auctionItem.title}
+      
+      <img className="w-full p-2" src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
+      <div className="flex flex-row text-center">
+        <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
+        <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
+      <div className="text-xl font-medium my-2">{auctionItem.title}</div>
 
-      <div>
-        <table className="table-fixed w-full text-center my-5">
-          <tbody>
+      <div className="flex align-middle">
+        <table className="table-fixed  w-full text-center my-2 mx-4">
+          <tbody >
             <tr>
-              <th>
+              <th className="max-h-2 text-sm font-medium ">
                 {bidDetails.highestBid ? "Highest Bid" : "Starting price"}
               </th>
-              <th>Ends {auctionItem.endTime}</th>
-              <th>Bids</th>
+              <th className="max-h-2 text-sm font-medium ">Ends</th>
+              <th className="max-h-2 text-sm font-medium ">Bids</th>
             </tr>
             <tr>
               <td>{bidDetails.highestBid || auctionItem.startPrice}</td>
-              <td>TimeLeft</td>
+              <td>{auctionItem.endTime}</td>
               <td>{bidDetails.numberOfBids}</td>
             </tr>
           </tbody>
         </table>
-      </div>    
+      </div>
+      <div className="w-full text-center px-4">
       <button disabled={!currentUser || currentUser?.id == auctionItem?.userId} id="btn-placeBid" onClick={() => setActivateModal(!activateModal)}
-        className="bg-myGr-light my-2 py-2 px-8 text-sm text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
-      >Place bid</button>
+        className="w-full bg-myGr-light  mb-4 py-2  text-base font-medium text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
+        >Place bid</button>
+      </div>
 
-      <div className="box-border w-11/12 bg-white px-2 py-2">
+      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
         <div>
           <DocumentTextIcon
             className="h-5 w-5 text-black float-left"
@@ -87,7 +132,7 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className="box-border w-11/12 bg-myAw px-2 py-2">
+      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
         <div>
           <TagIcon
             className="h-5 w-5 text-black float-left"
@@ -101,7 +146,7 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className="box-border w-11/12 bg-white px-2 py-2">
+      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
         <div>
           <UserIcon
             className="h-5 w-5 text-black float-left"

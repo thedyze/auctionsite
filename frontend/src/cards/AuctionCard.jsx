@@ -3,7 +3,6 @@ import CountdownTimer from "../components/CountdownTimer";
 
 export const AuctionCard = ({auction}) => {
   const history = useHistory();
-  const auctionEndTime = auction.endTime;
 
   const goToAuctionDetails = () => {
     history.push(`/auction-details/${auction.id}`);
@@ -12,7 +11,6 @@ export const AuctionCard = ({auction}) => {
   
 
   return (
-    <div>
       <div onClick={goToAuctionDetails} className="h-30 flex ">
         {false ? (
           <img src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"></img>
@@ -23,14 +21,16 @@ export const AuctionCard = ({auction}) => {
         <div className="p-2 w-full bg-myPr-light">
           <div className="text-white ">{auction.title}</div>
           <div className="text-yellow-900">
-            {auction.highestBid==="0"?"No Bids yet":`Highest bid: ${auction.highestBid}`} 
+            {auction.highestBid === "0"
+              ? "No Bids yet"
+              : `Highest bid: ${auction.highestBid}`}
           </div>
           <div className="text-myPr-light">Bids: {auction.numberOfBids}</div>
           <div className="text-pink-700">Category: {auction.categoryId}</div>
-          <div className="text-myRe">endtime: {auction.endTime}</div>
-          <CountdownTimer auctionEndTime={auctionEndTime}/>
+          <div className="text-myRe">
+            endtime: {<CountdownTimer auctionEndTime={auction.endTime} />}
+          </div>
         </div>
       </div>
-    </div>
   );
 };

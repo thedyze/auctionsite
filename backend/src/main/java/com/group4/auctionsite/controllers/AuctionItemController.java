@@ -1,10 +1,13 @@
 package com.group4.auctionsite.controllers;
+
 import com.group4.auctionsite.entities.AuctionItem;
 import com.group4.auctionsite.services.AuctionItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.core.AuctionItemDetails.AuctionItemDetailsService;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
+
+import java.util.List;
+
+// import org.springframework.security.core.AuctionItemDetails.AuctionItemDetailsService;
 
 @RestController
 @RequestMapping("rest/auctionItem")

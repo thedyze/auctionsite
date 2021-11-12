@@ -28,6 +28,7 @@ public class AuctionItem {
     private int startPrice;
     private Integer buyNowPrice;
     private int currentViews;
+    private String imagePath;
 
     private boolean isActive(){
         return this.endTime > new Date().getTime();
@@ -45,6 +46,7 @@ public class AuctionItem {
                 "\"startPrice\":\""+this.startPrice+"\", " +
                 "\"buyNowPrice\":\""+this.buyNowPrice+"\", " +
                 "\"currentViews\":\""+this.currentViews+"\", " +
+                "\"imagePath\":\""+this.imagePath+"\", " +
                 "\"highestBid\":\""+highestBid+"\", " +
                 "\"numberOfBids\":\""+numberOfBids+"\"" +
                 "}";

@@ -8,7 +8,6 @@ export const RangeFilter = ({ handleFilters }) => {
   })
 
   return (
-    <>
       <div className="flex justify-between content-between items-center">
         <div
           style={{
@@ -30,6 +29,5 @@ export const RangeFilter = ({ handleFilters }) => {
           {range.max}
         </div>
       </div>
-    </>
   );
 };
