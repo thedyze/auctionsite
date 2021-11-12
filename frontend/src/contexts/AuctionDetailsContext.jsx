@@ -18,7 +18,8 @@ export default function AuctionDetailsProvider(props) {
     obj = JSON.stringify(obj)
     let res = await fetch(`/rest/auctionItem/filtered/${obj}`)
     res = await res.json()
-    setFilteredAuctionItems(filteredAuctionItems.length > 0 ? filteredAuctionItems.concat(res) : res)
+    setFilteredAuctionItems(filteredAuctionItems.length == 0 || obj.includes('"page":0')
+      ? res : filteredAuctionItems.concat(res) )
   }
 
   const fetchUserSellingItems = async (userId) =>{

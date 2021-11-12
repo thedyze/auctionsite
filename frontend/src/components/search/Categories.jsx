@@ -23,7 +23,7 @@ export const Categories = ({ handleFilters }) => {
     categories.map((cat) => {
       if (cat.id.toString() === e.target.name) {
         cat.isActive = !cat.isActive;
-        handleFilters((prev) => ({ ...prev, categoryId: e.target.name }));
+        handleFilters((prev) => ({ ...prev, page: 0, categoryId: e.target.name }));
       } else {
         cat.isActive = false;
       }
@@ -34,7 +34,7 @@ export const Categories = ({ handleFilters }) => {
       !el.isActive && counter++;
     });
 
-    if (counter === 8) handleFilters((prev) => ({ ...prev, categoryId: null }));
+    if (counter === 8) handleFilters((prev) => ({ ...prev, page: 0, categoryId: null }));
 
     setCategories(temp);
   };

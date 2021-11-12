@@ -13,11 +13,11 @@ export const Search = ({ handleFilters }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue !== 0) {
-      handleFilters((prev)=>({ ...prev, priceFrom: null, priceTo: null , buttonSelection: event.target.name}));
+      handleFilters((prev)=>({ ...prev, page: 0, priceFrom: null, priceTo: null , buttonSelection: event.target.name}));
       setShowSlider(false);
     } else {
       setShowSlider(true)
-      handleFilters((prev)=>({ ...prev, buttonSelection: event.target.name }));};
+      handleFilters((prev)=>({ ...prev, page: 0, buttonSelection: event.target.name }));};
   };
 
   return (

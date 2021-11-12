@@ -13,7 +13,7 @@ export default function RangeSlider({ handleFilters, range }) {
   const handleDebounce = useCallback(
     debounce((range) => {
       handleFilters((prev) => ({
-        ...prev,
+        ...prev, page: 0,
         priceFrom: range[0],
         priceTo: range[1],
       }));

@@ -23,6 +23,10 @@ export const Home = () => {
     }
   }, [page])
 
+  useEffect(() => {
+    if(filterParams.page == 0 && page != 0) setPage(0)
+  }, [filterParams])
+
   return (
     <div className="bg-gray-700 grid place-items-center h-screen">
       <div className="text-yellow-500 text-base text-center">Hidden Gems</div>
