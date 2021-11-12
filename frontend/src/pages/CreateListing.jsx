@@ -3,14 +3,13 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Datepicker from "../components/Datepicker";
 import { ImageUpload } from "../components/ImageUpload.jsx"
-import { forEach } from "lodash";
+import { getThemeProps } from "@mui/system";
 
 export const CreateListing = () => {
 
   const history = useHistory()
 
   const { currentUser } = useContext(UserContext)
-
   const [buyNowCheckBox, setBuyNowCheckBox] = useState(false)
   const [loginAlert, setLoginAlert] = useState(false)
 
@@ -90,8 +89,9 @@ export const CreateListing = () => {
   return (
     <form className="p-6" onSubmit={handleFormSubmit}>
       <div className="font-bold text-2xl text-center p-8">Create a listing</div>
-      <div className="pt-8">Upload photo</div>
-      {/* <ImageUpload /> */}
+      <div className="pt-8">Upload photo (max 3)</div>
+      {/* Image upload */}
+      <ImageUpload/>
 
       {/* Title input */}
       <div className="pt-8">

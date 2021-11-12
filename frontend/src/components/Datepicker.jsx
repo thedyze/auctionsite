@@ -3,7 +3,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { addDays } from "date-fns";
 
-export default function Datepicker({ callback,itemObj}) {
+export default function Datepicker({ callback }) {
   const [selectedDate, setSelectedDate] = useState(addDays(new Date(), 1));
 
   const handleChosenDate = (selectedDate) => {
