@@ -26,8 +26,16 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
             "WHERE LOWER(title) LIKE LOWER(:search2) " +
             "AND category_id BETWEEN :categoryId AND :categoryId2 " +
             "AND (SELECT MAX(bid) FROM bid WHERE item_id = i.id) BETWEEN :priceFrom AND :priceTo " +
-            "ORDER BY number_of_bids DESC ", nativeQuery = true)
-    List<AuctionItem> getFilteredPopularAuctionItems(@Param("search") String search, @Param("search2") String search2, @Param("categoryId") int categoryId, @Param("categoryId2") int categoryId2, @Param("priceFrom") int priceFrom, @Param("priceTo") int priceTo);
+            "ORDER BY number_of_bids DESC " +
+            "LIMIT :limit OFFSET (:limit * :offset)" , nativeQuery = true)
+    List<AuctionItem> getFilteredPopularAuctionItems(@Param("search") String search,
+                                                     @Param("search2") String search2,
+                                                     @Param("categoryId") int categoryId,
+                                                     @Param("categoryId2") int categoryId2,
+                                                     @Param("priceFrom") int priceFrom,
+                                                     @Param("priceTo") int priceTo,
+                                                     @Param("limit") int limit,
+                                                     @Param("offset") int offset);
 
     @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, itemXtag AS x " +
             "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
@@ -39,8 +47,16 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
             "WHERE LOWER(title) LIKE LOWER(:search2) " +
             "AND category_id BETWEEN :categoryId AND :categoryId2 " +
             "AND (SELECT MAX(bid) FROM bid WHERE item_id = i.id) BETWEEN :priceFrom AND :priceTo " +
-            "ORDER BY start_time DESC ", nativeQuery = true)
-    List<AuctionItem> getFilteredLatestAuctionItems(@Param("search") String search, @Param("search2") String search2, @Param("categoryId") int categoryId, @Param("categoryId2") int categoryId2, @Param("priceFrom") int priceFrom, @Param("priceTo") int priceTo);
+            "ORDER BY start_time DESC " +
+            "LIMIT :limit OFFSET (:limit * :offset)" , nativeQuery = true)
+    List<AuctionItem> getFilteredLatestAuctionItems(@Param("search") String search,
+                                                    @Param("search2") String search2,
+                                                    @Param("categoryId") int categoryId,
+                                                    @Param("categoryId2") int categoryId2,
+                                                    @Param("priceFrom") int priceFrom,
+                                                    @Param("priceTo") int priceTo,
+                                                    @Param("limit") int limit,
+                                                    @Param("offset") int offset);
 
     @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, itemXtag AS x " +
             "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
@@ -52,6 +68,14 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
             "WHERE LOWER(title) LIKE LOWER(:search2) " +
             "AND category_id BETWEEN :categoryId AND :categoryId2 " +
             "AND (SELECT MAX(bid) FROM bid WHERE item_id = i.id) BETWEEN :priceFrom AND :priceTo " +
-            "ORDER BY end_time DESC ", nativeQuery = true)
-    List<AuctionItem> getFilteredAuctionItems(@Param("search") String search, @Param("search2") String search2, @Param("categoryId") int categoryId, @Param("categoryId2") int categoryId2, @Param("priceFrom") int priceFrom, @Param("priceTo") int priceTo);
+            "ORDER BY end_time DESC " +
+            "LIMIT :limit OFFSET (:limit * :offset)" , nativeQuery = true)
+    List<AuctionItem> getFilteredAuctionItems(@Param("search") String search,
+                                              @Param("search2") String search2,
+                                              @Param("categoryId") int categoryId,
+                                              @Param("categoryId2") int categoryId2,
+                                              @Param("priceFrom") int priceFrom,
+                                              @Param("priceTo") int priceTo,
+                                              @Param("limit") int limit,
+                                              @Param("offset") int offset);
 }

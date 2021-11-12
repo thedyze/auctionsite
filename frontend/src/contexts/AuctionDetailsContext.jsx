@@ -11,6 +11,7 @@ export default function AuctionDetailsProvider(props) {
   const fetchAuctionItem = async (id) => {
     let res = await fetch(`/rest/auctionItem/${id}`)
     res = await res.json()
+    console.log("res after bid ", res);
     setAuctionItem(res)
   }
 
@@ -18,7 +19,8 @@ export default function AuctionDetailsProvider(props) {
     obj = JSON.stringify(obj)
     let res = await fetch(`/rest/auctionItem/filtered/${obj}`)
     res = await res.json()
-    setFilteredAuctionItems(res)
+    setFilteredAuctionItems(filteredAuctionItems.length == 0 || obj.includes('"page":0')
+      ? res : filteredAuctionItems.concat(res) )
   }
 
   const fetchUserSellingItems = async (userId) =>{
