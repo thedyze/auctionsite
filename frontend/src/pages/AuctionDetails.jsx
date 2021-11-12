@@ -87,10 +87,10 @@ export const AuctionDetails = () => {
     <div className="grid place-items-center h-screen">
       <BidModal activateModal={activateModal} id={id} />
       
-      <img className="w-full p-2" src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
-      <div className="flex flex-row text-center">
-        <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
-        <img className="w-16 px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
+      <img className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
+      <div className=" w-full flex flex-row justify-center pt-2 pb-2">
+        <img className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
+        <img className="max-w-14 max-h-14 object-contain px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
       <div className="text-xl font-medium my-2">{auctionItem.title}</div>
 
