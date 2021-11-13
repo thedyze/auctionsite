@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useHistory } from "react-router-dom";
 
-export const LoginTemplate = ({setCurrentUser}) => {
+export const LoginTemplate = ({setCurrentUser,callback}) => {
   const history=useHistory()
 
   const [email, setEmail] = useState("");
@@ -29,7 +29,13 @@ export const LoginTemplate = ({setCurrentUser}) => {
     }
     if (response.status == 200) {
       setCurrentUser(user);
+      callback() //this will remove the dropdown menu from the icon
     }
+  }
+
+  const goToReg=()=>{
+    history.push("/registration");
+    setTimeout(()=>callback(),100) //this will remove the dropdown menu from the icon
   }
 
 
@@ -76,7 +82,7 @@ export const LoginTemplate = ({setCurrentUser}) => {
             </div>
           </div>
           <div className="text-xs text-center">
-            <div onClick={()=> history.push("/registration")} className="font-medium text-myGr-dark ">
+            <div onClick={goToReg} className="font-medium text-myGr-dark ">
               Register Account
             </div>
           </div>
