@@ -103,11 +103,11 @@ export const AuctionDetails = () => {
         <table className="table-fixed  w-full text-center my-2 mx-4">
           <tbody >
             <tr>
-              <th className="max-h-2 text-sm font-medium ">
+              <th className={util.th}>
                 {bidDetails.highestBid ? "Highest Bid" : "Starting price"}
               </th>
-              <th className="max-h-2 text-sm font-medium ">Ends</th>
-              <th className="max-h-2 text-sm font-medium ">Bids</th>
+              <th className={util.th}>Ends</th>
+              <th className={util.th}>Bids</th>
             </tr>
             <tr>
               <td>{bidDetails.highestBid || auctionItem.startPrice}</td>
@@ -124,12 +124,12 @@ export const AuctionDetails = () => {
         >Place bid</button>
       </div>
 
-      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
+      <div className={util.box}>
         <div>
           <DocumentTextIcon
-            className="h-5 w-5 text-black float-left"
+            className={util.icon}
             aria-hidden="true" />
-          <div className="font-medium ml-6">
+          <div className={util.iconText}>
             Description
           </div>
         </div>
@@ -138,12 +138,12 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
+      <div className={util.box}>
         <div>
           <TagIcon
-            className="h-5 w-5 text-black float-left"
+            className={util.icon}
             aria-hidden="true" />
-          <div className="font-medium ml-6">
+          <div className={util.iconText}>
             Tags
           </div>
           <div>
@@ -152,12 +152,12 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className="box-border w-11/12 bg-myAw mb-2 px-2 py-2">
+      <div className={util.box}>
         <div>
           <UserIcon
-            className="h-5 w-5 text-black float-left"
+            className={util.icon}
             aria-hidden="true" />
-          <div className="font-medium ml-6">
+          <div className={util.iconText}>
             Seller Information
           </div>
           <div>

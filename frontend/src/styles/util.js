@@ -21,6 +21,33 @@ export default {
     disabled ? 
     'bg-myGr-disabled ' 
     : ' '
-  ]
+  ],
+  th: [
+    'max-h-2',
+    'text-sm',
+    'font-medium',
+    ''
+  ].join(' '),
+  icon: [
+    'h-5',
+    'w-5',
+    'text-black',
+    'float-left',
+    ''
+  ].join(' '),
+  iconText: [
+    'font-medium',
+    'ml-6',
+    ''
+  ].join(' '),
+  box: [
+    'box-border',
+    'w-11/12',
+    'bg-myAw',
+    'mb-2',
+    'px-2',
+    'py-2',
+    ''
+  ].join(' ')
 
 }
