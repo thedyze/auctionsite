@@ -133,6 +133,7 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className="flex text-sm rounded-full ">
                       <UserCircleIcon
+                        id="userCircleIcon"
                         className="h-11 w-11"
                         aria-hidden="true"
                       />

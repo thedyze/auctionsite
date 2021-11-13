@@ -7,6 +7,7 @@ import BidModal from "../components/bidModal";
 import { socket } from "../socket";
 import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid"; 
 import { useHistory } from "react-router-dom";
+import util from "../styles/util"
 
 export const AuctionDetails = () => {
   const history = useHistory();
@@ -19,29 +20,7 @@ export const AuctionDetails = () => {
   const [bigImg, setBigImg] = useState('_img1.jpg')
   const [secondImg, setSecondImg] = useState('_img2.jpg')
   const [thirdImg, setThirdImg] = useState('_img3.jpg')
-
-
-  useEffect(() => {
-    fetchAuctionItem(id);
-    fetchTags(id);
-  }, [id]);
-
-  useEffect(() => {
-    if (auctionItem?.userId) {
-      fetchUser(auctionItem.userId);
-      setBidDetails({
-        highestBid: parseInt(auctionItem.highestBid),
-        numberOfBids: parseInt(auctionItem.numberOfBids)
-      })
-    }
-  }, [auctionItem?.userId]);
-
-
-  async function handleBigImg(i) {
-
-    const bi = bigImg[4]
-    return (i == 2) ? (setBigImg(`_img${secondImg[4]}.jpg`), setSecondImg(`_img${bi}.jpg`)) : (setBigImg(`_img${thirdImg[4]}.jpg`), setThirdImg(`_img${bi}.jpg`))
-  }
+  const disabled = (!currentUser || currentUser?.id == auctionItem?.userId)
 
   //listen to bid changes in other auctions
   socket.on("bidUpdate", (obj) => {
@@ -53,12 +32,61 @@ export const AuctionDetails = () => {
     }
   });
 
+  useEffect(() => {
+    fetchAuctionItem(id);
+    fetchTags(id);
+  }, [id]);
 
-    const goChatWithSeller = () => {
+  useEffect(() => {
+    console.log()
+    if (auctionItem?.userId) {
+      fetchUser(auctionItem.userId);
+      setBidDetails({
+        highestBid: parseInt(auctionItem.highestBid),
+        numberOfBids: parseInt(auctionItem.numberOfBids)
+      })
+    }
+  }, [auctionItem?.userId]);
+
+  async function handleBigImg(i) {
+    const bi = bigImg[4]
+    return (i == 2) ? (setBigImg(`_img${secondImg[4]}.jpg`), setSecondImg(`_img${bi}.jpg`)) : (setBigImg(`_img${thirdImg[4]}.jpg`), setThirdImg(`_img${bi}.jpg`))
+  }
+
+  const handleBtnClick = (e) => {
+    if(!disabled) {
+      setActivateModal(!activateModal)
+    } else {
+      handleDisable(e, "Place bid", "Not allowed to place bid")
+    }
+  }
+
+  const goChatWithSeller = (e) => {
+    if(!disabled) {
       history.push(`/conversation/${auctionItem.id}/${user.id}`);
-    };
+    } else {
+      handleDisable(e, "Chat with seller", "You can't chat with yourself")
+    }
+  }
 
+  const handleDisable = (e, placeholder, replacer) => {
+    if (currentUser) {
+      e.target.innerHTML = e.target.innerHTML == placeholder ?
+        "This is your item...<br>" + replacer : placeholder
+    } else {
+      e.target.innerHTML = e.target.innerHTML == placeholder ?
+        "Sign in to " + placeholder : placeholder
 
+      let icon = document.getElementById('userCircleIcon')
+      const s = icon.style
+      icon.style.borderRadius = '50%'
+      icon.style.color = '#B37ECF'
+      icon.style.boxShadow = '0 0 0 2px #B37ECF, 0 0 0 4px #A969C1, 0 0 0 6px #9F55B4, 0 0 0 8px #9540A6'
+      setTimeout(() => {
+        icon.style = s
+      }, 1000)
+    }
+  }
 
   return (
     <div className="grid place-items-center h-screen">
@@ -90,8 +118,9 @@ export const AuctionDetails = () => {
         </table>
       </div>
       <div className="w-full text-center px-4">
-        <button disabled={!currentUser || currentUser?.id == auctionItem?.userId} id="btn-placeBid" onClick={() => setActivateModal(!activateModal)}
-          className="w-full bg-myGr-light  mb-4 py-2  text-base font-medium text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
+        <button 
+        onClick={(e) => handleBtnClick(e)}
+        className={'w-full ' + util.btn + util.btnGreen + util.btnDisabled({disabled})}
         >Place bid</button>
       </div>
 
@@ -134,7 +163,9 @@ export const AuctionDetails = () => {
           <div>
             {user?.username}
           </div>
-          <button disabled={!currentUser || currentUser?.id == auctionItem?.userId} onClick={goChatWithSeller} className="float-right bg-myGr-light py-2 px-6 text-sm text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
+          <button 
+          onClick={(e)=>goChatWithSeller(e)} 
+          className={'float-right ' + util.btn + util.btnGreen + util.btnDisabled({disabled})}
           >Chat with seller</button>
         </div>
       </div>

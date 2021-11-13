@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        myGr: { dark: "#35825C", light: "#6ACF9D" },
+        myGr: { dark: "#35825C", light: "#6ACF9D", disabled: "#CAEABF" },
         myPr: { dark: "#9540A6", light: "#B37ECF" },
         myAw: "#F9F7F5",
         myRe: "#d62b36",
