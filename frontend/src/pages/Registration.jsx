@@ -1,12 +1,12 @@
 import { RegOrg } from "../components/RegOrg";
 import {useState } from "react";
 import { useHistory } from "react-router-dom";
+import util from "../styles/util"
 
 
 const FORM_STYLE = `flex flex-col justify-center items-center px-8`;
 const FORM_ELEMENT_SYLE = `w-full`;
-const INPUT_STYLE = `w-full px-2 py-2 mb-8 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out `;
-const BUTTON_STYLE = `bg-myGr-light my-2 py-2 px-8 text-sm text-white rounded border border-green focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark`;
+
 const H1 = `font-bold text-xl items-center p-4 mt-8 `;
 
 export const Registration = () => {
@@ -86,7 +86,7 @@ export const Registration = () => {
         <div className={FORM_ELEMENT_SYLE}>
           <label>Username </label>
           <input
-            className={INPUT_STYLE}
+            className={util.input}
             type="username"
             placeholder="Your username"
             onChange={(e) => {
@@ -98,7 +98,7 @@ export const Registration = () => {
         <div className={FORM_ELEMENT_SYLE}>
           <label>Email </label>
           <input
-            className={INPUT_STYLE}
+            className={util.input}
             type="email"
             placeholder="Your email address"
             onChange={handleEmail}
@@ -108,7 +108,7 @@ export const Registration = () => {
         <div className={FORM_ELEMENT_SYLE}>
           <label>Password</label>
           <input
-            className={INPUT_STYLE}
+            className={util.input}
             type="password"
             placeholder="Your Password"
             onChange={(e) => {
@@ -120,7 +120,7 @@ export const Registration = () => {
         <div className={FORM_ELEMENT_SYLE}>
           <label>Confirm Password</label>
           <input
-            className={INPUT_STYLE}
+            className={util.input}
             type="password"
             placeholder="Confirm Password"
             onChange={(e) => {
@@ -150,7 +150,7 @@ export const Registration = () => {
         </div>
 
         <div className="flex justify-center items-center pb-8">
-          <button type="submit" className={BUTTON_STYLE}>
+          <button type="submit" className={util.btn + util.btnGreen}>
             Create Account
           </button>
         </div>

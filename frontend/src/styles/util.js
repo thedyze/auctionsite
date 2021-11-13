@@ -48,6 +48,21 @@ export default {
     'px-2',
     'py-2',
     ''
+  ].join(' '),
+  input: [
+    'w-full',
+    'px-2',
+    'py-2',
+    'mb-8',
+    'text-primary',
+    'border',
+    'rounded-md',
+    'outline-none',
+    'text-sm',
+    'transition',
+    'duration-150',
+    'ease-in-out',
+    ''
   ].join(' ')
 
 }
