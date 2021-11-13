@@ -13,7 +13,6 @@ export const AuctionDetails = () => {
   const history = useHistory();
   const { id } = useParams();
   const [activateModal, setActivateModal] = useState('init')
-  const [bidDetails, setBidDetails] = useState({ highestBid: 0, numberOfBids: 0 })
   const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
   const { user, fetchUser, currentUser } = useContext(UserContext);
@@ -23,14 +22,11 @@ export const AuctionDetails = () => {
   const disabled = (!currentUser || currentUser?.id == auctionItem?.userId)
 
   //listen to bid changes in other auctions
-  socket.on("bidUpdate", (obj) => {
-    if (obj.itemId == id) {
-      setBidDetails({
-        highestBid: parseInt(obj.newBid),
-        numberOfBids: parseInt(bidDetails.numberOfBids) + 1
-      })
-    }
-  });
+  useEffect(()=>{
+    socket.on("bidUpdate", (obj) => {
+      if (obj.itemId == id) fetchAuctionItem(id);
+    });
+  },[])
 
   useEffect(() => {
     fetchAuctionItem(id);
@@ -38,14 +34,7 @@ export const AuctionDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log()
-    if (auctionItem?.userId) {
-      fetchUser(auctionItem.userId);
-      setBidDetails({
-        highestBid: parseInt(auctionItem.highestBid),
-        numberOfBids: parseInt(auctionItem.numberOfBids)
-      })
-    }
+    if (auctionItem?.userId) fetchUser(auctionItem.userId)
   }, [auctionItem?.userId]);
 
   async function handleBigImg(i) {
@@ -104,15 +93,15 @@ export const AuctionDetails = () => {
           <tbody >
             <tr>
               <th className={util.th}>
-                {bidDetails.highestBid ? "Highest Bid" : "Starting price"}
+                {auctionItem.highestBid ? "Highest Bid" : "Starting price"}
               </th>
               <th className={util.th}>Ends</th>
               <th className={util.th}>Bids</th>
             </tr>
             <tr>
-              <td>{bidDetails.highestBid || auctionItem.startPrice}</td>
+              <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
               <td>{auctionItem.endTime}</td>
-              <td>{bidDetails.numberOfBids}</td>
+              <td>{auctionItem.numberOfBids}</td>
             </tr>
           </tbody>
         </table>
