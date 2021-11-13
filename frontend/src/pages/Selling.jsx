@@ -8,33 +8,32 @@ export const Selling = () => {
   const [activeItems, setActivateItems] = useState([]);
   const [inactiveItems, setInactivateItems] = useState([]);
 
-  const now = new Date();
-
-
-  useEffect(() => {
-    if (!currentUser) return;  
-    fetchUserSellingItems(currentUser.id);    
-  }, [currentUser]);
+  const now = new Date().getTime()
 
     useEffect(() => {
-    if (!userSellingItems) return
+    if (!currentUser) return;  
+    fetchUserSellingItems(currentUser.id);    
+    let activeTemp=[]
+    let inactiveTemp=[]
       userSellingItems.map((item) => {
-        item.endTime > now ? setActivateItems(i=>[...i,item]): setInactivateItems(i=>[...i,item]);
+        item.endTime > now ? activeTemp.push(item): inactiveTemp.push(item);
       });
-    }, [userSellingItems]);
+      setActivateItems(activeTemp)
+      setInactivateItems(inactiveTemp)
+    }, [userSellingItems,currentUser]);
 
   return (
     <div>
       <div style={{ fontSize: "40px", textAlign: "center" }}> Current sellings </div>
       {activeItems.map((item) => (
         <div key={item.id}>
-          <div style={{ color: "green" }}>{item.title} actives</div>
+          <div style={{ color: "green" }}>{item.title} active</div>
         </div>
       ))}
       <div style={{ fontSize: "30px", textAlign: "center" }}> History</div>
       {inactiveItems.map((item) => (
         <div key={item.id}>
-          <div style={{ color: "red" }}>{item.title} inactives </div>
+          <div style={{ color: "red" }}>{item.title} inactive </div>
         </div>
       ))}
     </div>
