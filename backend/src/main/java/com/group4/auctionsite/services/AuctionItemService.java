@@ -66,6 +66,10 @@ public class AuctionItemService {
         return auctionItemRepository.findAllByUserId(userId);
     }
 
+    public List<AuctionItem> getAuctionItemsByUserBuying(long userId) {
+        return auctionItemRepository.findByUserBuying(userId);
+    }
+
     public String placeBid(String bidx, long userId) {
         LinkedHashMap placedBid = (LinkedHashMap) objectMapperHelper.objectMapper(bidx);
         User user = userRepository.findById(userId).get();

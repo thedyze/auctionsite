@@ -78,4 +78,6 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
                                               @Param("priceTo") int priceTo,
                                               @Param("limit") int limit,
                                               @Param("offset") int offset);
+
+    List<AuctionItem> findByUserBuying(long userId);
 }

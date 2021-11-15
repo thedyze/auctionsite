@@ -30,6 +30,11 @@ public class AuctionItemController {
         return auctionItemService.getAuctionItemsByUserId(userId);
     }
 
+    @GetMapping("/userBuying/{userId}")
+    public List<AuctionItem> getAuctionItemsByUserBuying(@PathVariable long userId) {
+        return auctionItemService.getAuctionItemsByUserBuying(userId);
+    }
+
     @PostMapping
     public AuctionItem createAuctionItem(@RequestBody AuctionItem auctionItem) {
         return auctionItemService.createAuctionItem(auctionItem);
