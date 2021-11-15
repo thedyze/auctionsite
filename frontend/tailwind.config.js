@@ -12,6 +12,10 @@ module.exports = {
         myAw: "#F9F7F5",
         myRe: "#d62b36",
       },
+      fontFamily: {
+        myPtext: ['"Open Sans Condensed"', 'sans-serif'],
+        myHtext: ['"Dosis"', 'sans-serif'] // Ensure fonts with spaces have " " surrounding it.
+      },
     },
   },
   variants: {

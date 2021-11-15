@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Datepicker from "../components/Datepicker";
 let formData = new FormData()
+import util from "../styles/util"
 
 export const CreateListing = () => {
 
@@ -169,87 +170,82 @@ export const CreateListing = () => {
 
   return (
     <div>
-      <div className="font-bold text-2xl text-center p-8">Create a listing</div>
+      <div className=" font-myHtext text-2xl text-center py-10 bg-myAw">Create a listing</div>
+      <div className="p-6">
 
-      {/* Image upload */}
-      <div className="pt-8">Upload photo (max 3)</div>
-      <div className="w-full p-4 flex justify-center font-medium text-indigo-600">
-        Click an image to upload
+        {/* Image upload */}
+        <label className="font-myPtext font-bold font-block text-base">Upload photo</label>
+        <form className="pt-2">
+          <div className="w-full h-32 grid grid-rows-2 grid-cols-3 gap-4">
+
+            <div className="image-upload w-40 h-32 row-span-2 col-span-2">
+              <label htmlFor="image1">
+                <img className="object-cover max-h-32" src={preview1} alt="" />
+              </label>
+              <input id="image1" accept="image/*" type="file" onChange={e => onAddImage(e, 1)} />
+            </div>
+
+            <div className="image-upload">
+              <label htmlFor="image2">
+                <img className="object-cover max-h-16" src={preview2} alt="" />
+              </label>
+              <input accept="image/*" type="file" id="image2" onChange={e => onAddImage(e, 2)} />
+            </div>
+
+            <div className="image-upload">
+              <label htmlFor="image3">
+                <img className="object-cover max-h-16" src={preview3} alt="" />
+              </label>
+              <input accept="image/*" type="file" id="image3" onChange={e => onAddImage(e, 3)} />
+            </div>
+          </div >
+          {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
+        </form>
       </div>
-      <form className="">
-        <div className="w-full h-32 px-8 grid grid-rows-2 grid-cols-3 gap-4">
-
-          <div className="image-upload w-40 h-32 row-span-2 col-span-2">
-            <label htmlFor="image1">
-              <img className="object-cover max-h-32" src={preview1} alt="" />
-            </label>
-            <input id="image1" accept="image/*" type="file" onChange={e => onAddImage(e, 1)} />
-          </div>
-
-          <div className="image-upload">
-            <label htmlFor="image2">
-              <img className="object-cover max-h-16" src={preview2} alt="" />
-            </label>
-            <input accept="image/*" type="file" id="image2" onChange={e => onAddImage(e, 2)} />
-          </div>
-
-          <div className="image-upload">
-            <label htmlFor="image3">
-              <img className="object-cover max-h-16" src={preview3} alt="" />
-            </label>
-            <input accept="image/*" type="file" id="image3" onChange={e => onAddImage(e, 3)} />
-          </div>
-        </div >
-        {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
-      </form>
 
       <form className="p-6" onSubmit={imageUploadSubmit}>
 
         {/* Title input */}
-        <div className="pt-8">
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <input
-              type="text"
-              name="title"
-              id="title"
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
-              placeholder="Title"
-              onChange={(e) => {
-                setAuctionData((prev) => ({ ...prev, title: e.target.value }));
-              }}
-              required
-            />
-          </div>
+        <div className="">
+          <label htmlFor="title" className="font-myPtext font-bold block text-base">Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            className={util.input}
+            placeholder="Title"
+            onChange={(e) => {
+              setAuctionData((prev) => ({ ...prev, title: e.target.value }));
+            }}
+            required
+          />
         </div>
 
         {/* Description input */}
-        <div className="pt-8">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <input
-              type="text"
-              name="description"
-              id="description"
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
-              placeholder="Description"
-              onChange={(e) => {
-                setAuctionData((prev) => ({ ...prev, description: e.target.value }));
-              }}
-            />
-          </div>
+        <div className="">
+          <label htmlFor="description" className="font-myPtext font-bold block text-base">Description</label>
+          <input
+            type="text"
+            name="description"
+            id="description"
+            className={"h-20 " + util.input}
+            placeholder="Description"
+            onChange={(e) => {
+              setAuctionData((prev) => ({ ...prev, description: e.target.value }));
+            }}
+          />
         </div>
 
         {/* Category input */}
-        <div className="pt-8">
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+        <div className="">
+          <label htmlFor="category" className="font-myPtext font-bold block text-base">
             Category
           </label>
-          <div>
+          <div className="text-sm">
             <select
               id="category"
               name="category"
-              className="w-full focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+              className={"pl-0.5 " + util.input}
               onChange={(e) => {
                 setAuctionData((prev) => ({ ...prev, category: e.target.value }));
               }}
@@ -261,95 +257,68 @@ export const CreateListing = () => {
         </div>
 
         {/* Price input */}
-        <div className="pt-8">
-          <label htmlFor="starting-price" className="block text-sm font-medium text-gray-700">Starting price</label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <input
-              type="text"
-              name="starting-price"
-              id="starting-price"
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
-              placeholder="0"
-              onChange={(e) => {
-                setAuctionData((prev) => ({ ...prev, startPrice: e.target.value }));
-              }}
-              required
-            />
-            <div className="absolute inset-y-0 right-0 flex items-center">
-              <label htmlFor="currency" className="sr-only">
-                Currency
-              </label>
-              <select
-                id="currency"
-                name="currency"
-                className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-                required
-              >
-                <option>SEK</option>
-              </select>
-            </div>
-          </div>
+        <div className="">
+          <label htmlFor="starting-price" className="font-myPtext font-bold block text-base">Starting price</label>
+          <input
+            type="text"
+            name="starting-price"
+            id="starting-price"
+            className={util.input}
+            placeholder="0"
+            onChange={(e) => {
+              setAuctionData((prev) => ({ ...prev, startPrice: e.target.value }));
+            }}
+            required
+          />
         </div>
 
         {/* Buy Now input */}
-        <div className="flex justify-between pt-8">
-          <div className="flex items-center">
+        <div className="flex justify-between ">
+          <div className="flex items-center pr-2 py-2.5 mb-8 mt-1">
             <input
               id="buy-now"
               name="buy-now"
               type="checkbox"
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 font-myPtext text-sm rounded"
+              placeholder="0"
               onChange={(e) => {
                 setBuyNowCheckBox(e.target.checked)
               }
               }
             />
-            <label htmlFor="buy-now" className="ml-2 block text-sm text-gray-900">
+            <label htmlFor="buy-now" className="ml-2 font-myPtext font-bold block text-base">
               Buy now
             </label>
           </div>
-          <div className="mt-1 relative rounded-md shadow-sm w-40">
-            {buyNowCheckBox &&
-              <input
-                type="buy-now-price"
-                name="buy-now-price"
-                id="buy-now-price"
-                className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
-                placeholder="0"
-                onChange={(e) => {
-                  setAuctionData((prev) => ({ ...prev, buyNowPrice: e.target.value }));
-                }}
-              />
-            }
-            <div className="absolute inset-y-0 right-0 flex items-center">
-              <label htmlFor="currency" className="sr-only">
-                Currency
-              </label>
-              <select
-                id="currency"
-                name="currency"
-                className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-                required
-              >
-                <option>SEK</option>
-              </select>
-            </div>
-          </div>
+
+          {buyNowCheckBox &&
+            <input
+              type="buy-now-price"
+              name="buy-now-price"
+              id="buy-now-price"
+              className={"w-1/2 mb-0" + util.input}
+              placeholder="0"
+              onChange={(e) => {
+                setAuctionData((prev) => ({ ...prev, buyNowPrice: e.target.value }));
+              }}
+            />
+          }
+
         </div>
 
         {/* Set end Date */}
-        <div className="pt-8">
-          <label htmlFor="end-date" className="ml-2 block text-sm text-gray-900">
+        <div className="">
+          <label htmlFor="end-date" className="ml-2 block font-myPtext font-bold text-base">
             End Date
           </label>
           <Datepicker callback={setAuctionData} />
         </div>
 
         {/* Submit button */}
-        <div className="flex justify-center pt-8">
+        <div className="flex justify-center pt-2 pb-4">
           <button
             type="submit"
-            className="group relative w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative w-1/2 flex justify-center py-2 px-4 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Done
           </button>
