@@ -45,7 +45,7 @@ function App() {
                       <Route exact path="/Messages" component={MessagesPage} />
                       <Route exact path="/conversation/:itemId/:userId" component={Conversation} />
                       <Route exact path="/Selling" component={Selling} />
-                      <Route exact path="/create-listing" component={CreateListing} />
+                      <Route exact path="/Create" component={CreateListing} />
                       <Route exact path="/About" component={About} />
                       <Route path="*" component={NotFound404} />
                     </Switch>

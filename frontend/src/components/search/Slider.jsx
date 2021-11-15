@@ -8,7 +8,7 @@ import debounce from "lodash/debounce";
 // }
 
 export default function RangeSlider({ handleFilters, range }) {
-  const [value, setValue] = useState([0, 1000]);
+  const [value, setValue] = useState([0, 2000]);
 
   const handleDebounce = useCallback(
     debounce((range) => {
