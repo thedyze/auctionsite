@@ -28,19 +28,19 @@ export const AuctionCard = ({auction}) => {
         <div className="w-full flex flex-row justify-evenly ">
           <div className="w-1/2 font-myPtext text-black text-base font-bold text-left mt-2">
             {auction.highestBid === "0"
-              ? "startPrice"
+              ? `${auction.startPrice} kr`
               : `${auction.highestBid} kr`}
           </div>
           <div className="w-1/2"></div>
         </div>
         <div className=" w-full flex flex-row justify-evenly mt-0">
-          <div className=" w-1/3 text-black text-sm text-left align-text-bottom mt-1">
+          <div className=" w-1/3 font-myPtext text-black text-sm text-left align-text-bottom mt-1">
             
             {auction.numberOfBids - 1} bids
             
           </div>
           {/* <div className="">Category: {auction.categoryId}</div> */}
-          <div className=" w-2/3 font-myPtext font-bold text-right text-myRe">
+          <div className=" w-2/3 font-myPtext font-medium text-sm text-right text-black">
             {<CountdownTimer auctionEndTime={auction.endTime} />}
           </div>
         </div>

@@ -111,7 +111,7 @@ export const AuctionDetails = () => {
             </tr>
             <tr>
               <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
-              <td className="text-myRe">{<CountdownTimer auctionEndTime={auctionItem?.endTime} />}</td>
+              <td key={auctionItem.id}className="text-myPtext">{<CountdownTimer auctionEndTime={auctionItem?.endTime} />}</td>
               <td>{auctionItem.numberOfBids}</td>
             </tr>
           </tbody>
