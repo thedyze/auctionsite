@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
 
 /* @layer utilities {
   .image-upload>input {
@@ -32,5 +36,10 @@ input[type='radio']:after {
 
 input[type='radio']:checked:after {
   background-color: green;
+}
+
+/* filters underline */
+.MuiTabs-scroller > span {
+  background-color:#6ACF9D;
 }
 
