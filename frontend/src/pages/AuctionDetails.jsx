@@ -20,7 +20,8 @@ export const AuctionDetails = () => {
   const [bigImg, setBigImg] = useState('_img1.jpg')
   const [secondImg, setSecondImg] = useState('_img2.jpg')
   const [thirdImg, setThirdImg] = useState('_img3.jpg')
-  const disabled = (!currentUser || currentUser?.id == auctionItem?.userId)
+  const [disabled, setDisabled] = useState(false)
+  const [isInactive, setIsInactive] = useState(false)
 
   //listen to bid changes in other auctions
   useEffect(()=>{
@@ -35,8 +36,12 @@ export const AuctionDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    if (auctionItem?.userId) fetchUser(auctionItem.userId)
-  }, [auctionItem?.userId]);
+    if (auctionItem?.userId) {
+      fetchUser(auctionItem.userId)
+      setDisabled(!currentUser || currentUser?.id == auctionItem?.userId)
+      setIsInactive(auctionItem?.endTime < new Date().getTime() || auctionItem?.highestBid >= auctionItem?.buyNowPrice)
+    } 
+  }, [auctionItem?.userId, currentUser]);
 
   async function handleBigImg(i) {
     const bi = bigImg[4]
@@ -44,10 +49,10 @@ export const AuctionDetails = () => {
   }
 
   const handleBtnClick = (e) => {
-    if(!disabled) {
-      setActivateModal(!activateModal)
-    } else {
+    if(disabled || isInactive) {
       handleDisable(e, "Place bid", "Not allowed to place bid")
+    } else {
+      setActivateModal(!activateModal)
     }
   }
 
@@ -55,17 +60,17 @@ export const AuctionDetails = () => {
     if(!disabled) {
       history.push(`/conversation/${auctionItem.id}/${user.id}`);
     } else {
-      handleDisable(e, "Chat with seller", "You can't chat with yourself")
+      handleDisable(e, "Chat with seller", "You can't chat with yourself", 1)
     }
   }
 
-  const handleDisable = (e, placeholder, replacer) => {
-    if (currentUser) {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "This is your item...<br>" + replacer : placeholder
+  const handleDisable = (e, placeholder, replacer, skip) => {
+    if(isInactive && !skip) {
+      e.target.innerHTML = "This item has expired"
+    } else if (currentUser) {
+      e.target.innerHTML = "This is your item...<br>" + replacer
     } else {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "Sign in to " + placeholder : placeholder
+      e.target.innerHTML = "Sign in to " + placeholder
 
       let icon = document.getElementById('userCircleIcon')
       const s = icon.style
@@ -76,6 +81,9 @@ export const AuctionDetails = () => {
         icon.style = s
       }, 1000)
     }
+    setTimeout(() => {
+      e.target.innerHTML = placeholder
+    }, 1000)
   }
 
   return (
@@ -87,14 +95,14 @@ export const AuctionDetails = () => {
         <img className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
         <img className="max-w-14 max-h-14 object-contain px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
-      <div className="text-xl font-medium my-2">{auctionItem.title}</div>
+      <div className="font-myPtext font-bold block text-xl my-2">{auctionItem.title}</div>
 
       <div className="flex align-middle">
         <table className="table-fixed  w-full text-center my-2 mx-4">
           <tbody >
             <tr>
               <th className={util.th}>
-                {auctionItem.highestBid ? "Highest Bid" : "Starting price"}
+                {auctionItem.highestBid ? "Current bid" : "Starting price" }
               </th>
               <th className={util.th}>Ends</th>
               <th className={util.th}>Bids</th>
@@ -110,7 +118,7 @@ export const AuctionDetails = () => {
       <div className="w-full text-center px-4">
         <button 
         onClick={(e) => handleBtnClick(e)}
-        className={'w-full ' + util.btn + util.btnGreen + util.btnDisabled({disabled})}
+          className={'w-full ' + util.btn + util.btnGreen + util.btnDisabled(disabled || isInactive)}
         >Place bid</button>
       </div>
 
@@ -155,7 +163,7 @@ export const AuctionDetails = () => {
           </div>
           <button 
           onClick={(e)=>goChatWithSeller(e)} 
-          className={'float-right ' + util.btn + util.btnGreen + util.btnDisabled({disabled})}
+          className={'float-right ' + util.btn + util.btnGreen + util.btnDisabled(disabled)}
           >Chat with seller</button>
         </div>
       </div>

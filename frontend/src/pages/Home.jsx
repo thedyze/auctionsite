@@ -49,7 +49,7 @@ export const Home = () => {
         <Search handleFilters={setFilterParams} class/>
         <Categories  handleFilters={setFilterParams} />
         <HomeAuctionList filteredAuctionItems={filteredAuctionItems} />
-        <button className="bg-myGr-light my-2 py-2 px-8 text-sm text-white rounded focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark" onClick={() => {setPage(page + 1)}}>Show more</button>
+        <button className="bg-myPr-dark my-2 py-2 px-8 text-sm text-white rounded focus:bg-myPr-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myPr-dark" onClick={() => {setPage(page + 1)}}>Show more</button>
       </div>
     </div>
   );

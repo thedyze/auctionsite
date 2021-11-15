@@ -35,7 +35,7 @@ export default function RangeSlider({ handleFilters, range }) {
       <Slider
         max={2010}
         min={-10}
-        style={{ zIndex: 0, color: "#6ACF9D" }}
+          style={{ zIndex: 0, color: "#9540A6" }}
         step={10}
         value={value}
         onChange={handleChange}

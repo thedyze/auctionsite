@@ -17,8 +17,8 @@ export default {
     'focus:ring-myGr-dark',
     ''
   ].join(' '),
-  btnDisabled: ({disabled}) => [
-    disabled ? 
+  btnDisabled: (bol) => [
+    bol ? 
     'bg-myGr-disabled ' 
     : ' '
   ],
@@ -26,6 +26,7 @@ export default {
     'max-h-2',
     'text-sm',
     'font-medium',
+    'font-myPtext',
     ''
   ].join(' '),
   icon: [
@@ -54,6 +55,7 @@ export default {
     'px-2',
     'py-2',
     'mb-8',
+    'mt-1',
     'text-primary',
     'border',
     'rounded-md',
@@ -62,7 +64,8 @@ export default {
     'transition',
     'duration-150',
     'ease-in-out',
+    'focus:ring-myGr-light focus:border-myGr-light',
     ''
-  ].join(' ')
+  ].join(' '),
 
 }

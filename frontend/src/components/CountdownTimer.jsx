@@ -35,7 +35,7 @@ export default function CountdownTimer({ auctionEndTime }) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-        setCountdown(countdown - 1000);
+      setCountdown(countdown ? countdown - 1000 : +auctionEndTime - currentTime);
         setFormattedTime(formatTime());
     }, 1000);
     return ()=> clearInterval(timer);
