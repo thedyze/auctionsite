@@ -5,9 +5,8 @@ import util from "../styles/util"
 
 
 const FORM_STYLE = `flex flex-col justify-center items-center px-8`;
-const FORM_ELEMENT_SYLE = `w-full`;
-
-const H1 = `font-bold text-xl items-center p-4 mt-8 `;
+const FORM_ELEMENT_SYLE = `font-myPtext text-lg w-full`;
+const H1 = `font-myHtext font-bold text-2xl items-center p-4 mt-8 `;
 
 export const Registration = () => {
   const history=useHistory()
