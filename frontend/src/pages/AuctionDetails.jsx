@@ -8,6 +8,8 @@ import { socket } from "../socket";
 import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid"; 
 import { useHistory } from "react-router-dom";
 import util from "../styles/util"
+import CountdownTimer from "../components/CountdownTimer";
+
 
 
 export const AuctionDetails = () => {
@@ -36,7 +38,7 @@ export const AuctionDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    if (auctionItem?.userId && currentUser) {
+    if (auctionItem?.userId) {
       fetchUser(auctionItem.userId)
       setDisabled(!currentUser || currentUser?.id == auctionItem?.userId)
       setIsInactive(auctionItem?.endTime < new Date().getTime() || auctionItem?.highestBid >= auctionItem?.buyNowPrice)
@@ -60,14 +62,14 @@ export const AuctionDetails = () => {
     if(!disabled) {
       history.push(`/conversation/${auctionItem.id}/${user.id}`);
     } else {
-      handleDisable(e, "Chat with seller", "You can't chat with yourself")
+      handleDisable(e, "Chat with seller", "You can't chat with yourself", 1)
     }
   }
 
-  const handleDisable = (e, placeholder, replacer) => {
-    if(isInactive) {
+  const handleDisable = (e, placeholder, replacer, skip) => {
+    if(isInactive && !skip) {
       e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "This item has been sold" : placeholder
+        "This item has expired" : placeholder
     } else if (currentUser) {
       e.target.innerHTML = e.target.innerHTML == placeholder ?
         "This is your item...<br>" + replacer : placeholder
@@ -108,8 +110,8 @@ export const AuctionDetails = () => {
               <th className={util.th}>Bids</th>
             </tr>
             <tr>
-              <td>{auctionItem.highestBid || auctionItem.startPrice} kr</td>
-              <td>{auctionItem.endTime}</td>
+              <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
+              <td className="text-myRe">{<CountdownTimer auctionEndTime={auctionItem?.endTime} />}</td>
               <td>{auctionItem.numberOfBids}</td>
             </tr>
           </tbody>
