@@ -51,4 +51,15 @@ public class AuctionItem {
                 "\"numberOfBids\":\""+numberOfBids+"\"" +
                 "}";
     }
+    public String buyingToJson(int highestBid, int userBid) {
+        return "{" +
+                "\"id\":\""+this.id+"\", " +
+                "\"userId\":\""+this.userId+"\", " +
+                "\"title\":\""+this.title+"\", " +
+                "\"endTime\":\""+this.endTime+"\", " +
+                "\"imagePath\":\""+this.imagePath+"\", " +
+                "\"highestBid\":\""+highestBid+"\", " +
+                "\"userBid\":\""+userBid+"\"" +
+                "}";
+    }
 }

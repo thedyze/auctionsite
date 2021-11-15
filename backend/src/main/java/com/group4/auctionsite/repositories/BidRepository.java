@@ -18,5 +18,4 @@ public interface BidRepository extends JpaRepository<Bid, Long> {
     @Query(value = "SELECT COUNT(bid) FROM bid WHERE item_id = ?1", nativeQuery = true)
     int numberOfBidsByItemId(long itemId);
 
-    List<Bid> findAllByUserId(long userId);
 }

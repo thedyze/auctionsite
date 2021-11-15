@@ -66,8 +66,13 @@ public class AuctionItemService {
         return auctionItemRepository.findAllByUserId(userId);
     }
 
-    public List<AuctionItem> getAuctionItemsByUserBuying(long userId) {
-        return auctionItemRepository.findByUserBuying(userId);
+    public String getAuctionItemsByUserBuying(long userId) {
+        List<AuctionItem> auctionItems = auctionItemRepository.findByUserBuying(userId);
+        List<String> listToJson = new ArrayList<String>();
+        for(AuctionItem ai: auctionItems){
+            listToJson.add(ai.buyingToJson());
+        }
+        return frontEndHelper.ToJson(listToJson);
     }
 
     public String placeBid(String bidx, long userId) {

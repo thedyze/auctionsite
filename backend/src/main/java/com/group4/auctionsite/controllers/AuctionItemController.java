@@ -31,7 +31,7 @@ public class AuctionItemController {
     }
 
     @GetMapping("/userBuying/{userId}")
-    public List<AuctionItem> getAuctionItemsByUserBuying(@PathVariable long userId) {
+    public String getAuctionItemsByUserBuying(@PathVariable long userId) {
         return auctionItemService.getAuctionItemsByUserBuying(userId);
     }
 

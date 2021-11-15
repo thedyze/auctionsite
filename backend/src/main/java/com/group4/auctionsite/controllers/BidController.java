@@ -1,7 +1,9 @@
 package com.group4.auctionsite.controllers;
 
+import com.group4.auctionsite.entities.AuctionItem;
 import com.group4.auctionsite.entities.User;
 import com.group4.auctionsite.services.AuctionItemService;
+import com.group4.auctionsite.services.BidService;
 import com.group4.auctionsite.services.UserService;
 import com.group4.auctionsite.springSocket.socket.SocketModule;
 import com.group4.auctionsite.utils.ObjectMapperHelper;
@@ -9,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class BidController {
 
+    @Autowired
+    private BidService bidService;
     @Autowired
     private AuctionItemService auctionItemService;
     @Autowired
