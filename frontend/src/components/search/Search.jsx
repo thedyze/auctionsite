@@ -20,6 +20,8 @@ export const Search = ({ handleFilters }) => {
       handleFilters((prev)=>({ ...prev, page: 0, buttonSelection: event.target.name }));};
   };
 
+  
+
   return (
     <div>
       <SearchInput handleFilters={handleFilters} />

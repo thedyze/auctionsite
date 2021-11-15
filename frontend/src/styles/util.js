@@ -63,6 +63,6 @@ export default {
     'duration-150',
     'ease-in-out',
     ''
-  ].join(' ')
+  ].join(' '),
 
 }
