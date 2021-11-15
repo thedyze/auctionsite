@@ -38,11 +38,11 @@ export const Selling = () => {
           <div>{item.title}</div>
           <div className="flex justify-between text-xs">
             <div className="bg-myPr-dark px-2">
-              <span className="text-myGr-light">Bids: </span>
+              <span className="text-myGr-light">Bids : </span>
               <span className="text-white">{item.numberOfBids}</span>
             </div>
             <div className="bg-myGr-light px-2">
-              <span className="text-myPr-dark">Curent Bid: </span>
+              <span className="text-myPr-dark">Curent Bid : </span>
               <span className="text-white">{item.highestBid}</span>
             </div>
             <div key={item.id}>{<LocalCountdown className="text-black" auctionEndTime={item.endTime}/>}</div>
@@ -61,8 +61,8 @@ export const Selling = () => {
             <div className="flex justify-end">
               <div> {new Date(+item.endTime).toLocaleDateString()}  </div>
               <div className="bg-gray-500 px-2">
-               <span className="text-black">Price</span>
-               <span className="text-white font-bold">{item.currentBid} 150</span>
+               <span className="text-black">Price : </span>
+               <span className="text-white font-bold">{item.highestBid}</span>
               </div>
             </div>
           </div>

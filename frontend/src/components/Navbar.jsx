@@ -109,7 +109,7 @@ export default function Navbar() {
                 {/* Profile dropdown */}
                 <Menu  as="div" className="ml-3 relative">
                     <Menu.Button className="flex text-sm rounded-full ">
-                     <div ref={iconRef}>
+                     <div id="iconRef" ref={iconRef}>
                       <UserCircleIcon id="userCircleIcon" className="h-11 w-11" aria-hidden="true" />
                      </div>
                     </Menu.Button>
