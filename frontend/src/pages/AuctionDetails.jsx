@@ -19,7 +19,8 @@ export const AuctionDetails = () => {
   const [bigImg, setBigImg] = useState('_img1.jpg')
   const [secondImg, setSecondImg] = useState('_img2.jpg')
   const [thirdImg, setThirdImg] = useState('_img3.jpg')
-  const disabled = (!currentUser || currentUser?.id == auctionItem?.userId)
+  const [disabled, setDisabled] = useState(false)
+  const [isInactive, setIsInactive] = useState(false)
 
   //listen to bid changes in other auctions
   useEffect(()=>{
@@ -34,8 +35,12 @@ export const AuctionDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    if (auctionItem?.userId) fetchUser(auctionItem.userId)
-  }, [auctionItem?.userId]);
+    if (auctionItem?.userId && currentUser) {
+      fetchUser(auctionItem.userId)
+      setDisabled(!currentUser || currentUser?.id == auctionItem?.userId)
+      setIsInactive(auctionItem?.endTime < new Date().getTime() || auctionItem?.highestBid >= auctionItem?.buyNowPrice)
+    } 
+  }, [auctionItem?.userId, currentUser]);
 
   async function handleBigImg(i) {
     const bi = bigImg[4]
@@ -43,10 +48,10 @@ export const AuctionDetails = () => {
   }
 
   const handleBtnClick = (e) => {
-    if(!disabled) {
-      setActivateModal(!activateModal)
-    } else {
+    if(disabled || isInactive) {
       handleDisable(e, "Place bid", "Not allowed to place bid")
+    } else {
+      setActivateModal(!activateModal)
     }
   }
 
@@ -59,7 +64,10 @@ export const AuctionDetails = () => {
   }
 
   const handleDisable = (e, placeholder, replacer) => {
-    if (currentUser) {
+    if(isInactive) {
+      e.target.innerHTML = e.target.innerHTML == placeholder ?
+        "This item has been sold" : placeholder
+    } else if (currentUser) {
       e.target.innerHTML = e.target.innerHTML == placeholder ?
         "This is your item...<br>" + replacer : placeholder
     } else {
@@ -109,7 +117,7 @@ export const AuctionDetails = () => {
       <div className="w-full text-center px-4">
         <button 
         onClick={(e) => handleBtnClick(e)}
-        className={'w-full ' + util.btn + util.btnGreen + util.btnDisabled({disabled})}
+          className={'w-full ' + util.btn + util.btnGreen + util.btnDisabled(disabled || isInactive)}
         >Place bid</button>
       </div>
 
@@ -154,7 +162,7 @@ export const AuctionDetails = () => {
           </div>
           <button 
           onClick={(e)=>goChatWithSeller(e)} 
-          className={'float-right ' + util.btn + util.btnGreen + util.btnDisabled({disabled})}
+          className={'float-right ' + util.btn + util.btnGreen + util.btnDisabled(disabled)}
           >Chat with seller</button>
         </div>
       </div>
