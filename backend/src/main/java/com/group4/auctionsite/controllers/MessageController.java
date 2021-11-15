@@ -47,4 +47,15 @@ public class MessageController {
         return messageService.getMessagesByItemIdAndUserId(itemId, userId, user.getId());
 
     }
+
+    @GetMapping("/my-messages")
+    public  List<Message> getMessages() {
+
+        User user = userService.findCurrentUser();
+
+        if(user==null) {return null; }
+
+        return messageService.getMessages(user.getId());
     }
+
+}

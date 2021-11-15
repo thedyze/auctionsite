@@ -21,4 +21,11 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findMessageByItemIdAndUserIdAndCurrentUserId(long itemId, long userId, long currentUserId);
 
 
+
+    @Query(value = "SELECT * FROM message " +
+            "WHERE (sender_id IS ?1 OR receiver_id IS ?1) " +
+            "AND id in (select max(id) from message group by item_id)", nativeQuery = true)
+    List<Message>   findMessagesBySenderIdOrReceiverId(long currentUserId);
+
+
 }

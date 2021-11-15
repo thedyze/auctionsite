@@ -55,7 +55,7 @@ export default function Navbar() {
     iconRef.current.click()
   }
 
-  const pagesArray = ["Buying", "Selling", "Messages"];
+  const pagesArray = ["Buying", "Selling", "Messages","About"];
 
 
   return (

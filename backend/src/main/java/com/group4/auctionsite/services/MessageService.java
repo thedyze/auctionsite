@@ -60,4 +60,9 @@ public class MessageService {
 
         return map;
     }
+
+    public List<Message> getMessages(long userId) {
+
+        return messageRepository.findMessagesBySenderIdOrReceiverId(userId);
+    }
 }
