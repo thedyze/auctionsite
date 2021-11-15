@@ -87,12 +87,13 @@ public class AuctionItemService {
             highestBid = (int) (highestBid * (user.getRole().matches("organization") ? 0.8 : 1));
             return "{\"highestBid\":" + highestBid + "}";
         }
-
-
+        if(auctionItem.get().getStartPrice() >= bid) {
+            highestBid = (int) (auctionItem.get().getStartPrice() * (user.getRole().matches("organization") ? 0.8 : 1));
+            return "{\"highestBid\":" + highestBid + "}";
+        }
 
         if(highestBid > 0) notificationService.createNotification(itemId, userId);
         bidRepository.save(new Bid(itemId, userId, bid));
-
 
         return "{" +
                 "\"itemId\":" + itemId + "," +

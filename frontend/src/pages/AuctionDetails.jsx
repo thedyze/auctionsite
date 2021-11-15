@@ -68,14 +68,11 @@ export const AuctionDetails = () => {
 
   const handleDisable = (e, placeholder, replacer, skip) => {
     if(isInactive && !skip) {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "This item has expired" : placeholder
+      e.target.innerHTML = "This item has expired"
     } else if (currentUser) {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "This is your item...<br>" + replacer : placeholder
+      e.target.innerHTML = "This is your item...<br>" + replacer
     } else {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "Sign in to " + placeholder : placeholder
+      e.target.innerHTML = "Sign in to " + placeholder
 
       let icon = document.getElementById('userCircleIcon')
       const s = icon.style
@@ -86,6 +83,9 @@ export const AuctionDetails = () => {
         icon.style = s
       }, 1000)
     }
+    setTimeout(() => {
+      e.target.innerHTML = placeholder
+    }, 1000)
   }
 
   return (
