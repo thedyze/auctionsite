@@ -22,19 +22,19 @@ export const Search = ({ handleFilters }) => {
 
   return (
     <div>
-      <SearchInput  handleFilters={handleFilters} />
-      <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-        <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="Price" name="default" />
-          <Tab label="Popular" name="popular" />
-          <Tab label="Latest" name="latest" />
+      <SearchInput handleFilters={handleFilters} />
+      <Box sx={{ width: "100%", bgcolor: "rgba(255,255,255,0.15)" }}>
+        <Tabs sx={{ marginTop: "1.4em"}} value={value} onChange={handleChange} centered>
+          <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000"}} label="Price" name="default" />
+          <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000" }} label="Popular" name="popular" />
+          <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000" }} label="Latest" name="latest" />
         </Tabs>
       </Box>
       {showSlider && (
         <RangeFilter  handleFilters={handleFilters} />
       )}
       <br />
-      <Categories handleFilters={handleFilters} />
+      <Categories  handleFilters={handleFilters} />
     </div>
   );
 };

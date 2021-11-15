@@ -15,12 +15,12 @@ export const HomeAuctionList = ({ filters }) => {
   const renderedAuctionItems = filteredAuctionItems.map((auction) => {
     return (
       <AuctionCard
-        className={"h-12 w-20 border-solid border-gray-200 border-2"}
+        className={"h-12  w-20 border-solid border-gray-200 border-2"}
         auction={auction}
         key={auction.id}
       />
     )
   })
 
-  return <div className="h-auto grid grid-cols-2">{renderedAuctionItems}</div>
+  return <div className="h-auto p-2 flex flex-col col-span-1">{renderedAuctionItems}</div>
 };

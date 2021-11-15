@@ -59,23 +59,23 @@ export default function Navbar() {
 
 
   return (
-    <Disclosure as="nav" className="bg-myGr-dark fixed w-screen -mt-16 z-50">
+    <Disclosure as="nav" className="bg-myPr-light fixed w-screen top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white ">
-            <div className="relative flex items-center justify-between h-16">
+            <div className="relative flex items-center justify-between h-14 ">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden"></div>
-              <div className="flex-1 flex items-center justify-left sm:items-stretch sm:justify-start">
+              <div className="flex-1 flex items-center justify-left sm:items-stretch sm:justify-start ">
                 <div className="flex-shrink-0 flex items-center">
                   <button
                     onClick={pathTo}
                     id="logo"
-                    className="block lg:hidden h-8 w-auto"
-                  >
-                    logo
+                    style={{ textShadow: "1px 2px 0px #000000" }}
+                    className="font-logo text-3xl block lg:hidden h-8 w-auto ">
+                    Kwik
                   </button>
                 </div>
                 <div className="hidden sm:block sm:ml-6"></div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {currentUser && (
                   <Menu as="div" className="ml-3 relative">
                     <div className="relative">
@@ -113,7 +113,7 @@ export default function Navbar() {
                       <UserCircleIcon id="userCircleIcon" className="h-11 w-11" aria-hidden="true" />
                      </div>
                     </Menu.Button>
-                  <Menu.Items className="fixed bg-white border-l-2 border-b-2 border-myGr-dark   w-44 right-0 top-16">
+                  <Menu.Items className="fixed bg-white border-l-2 border-b-2 border-myPr-dark   w-44 right-0 top-14">
                     {currentUser ? (
                       <div>
                         <Menu.Item>

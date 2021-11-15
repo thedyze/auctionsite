@@ -28,9 +28,11 @@ export const Home = () => {
   }, [filterParams])
 
   return (
-    <div>
-      <div className="text-center font-logoFont bg-myGreen p-14">find something unique</div>
-      <div className="grid place-items-center pt-9">
+    <div className="">
+      <div className="bg-homebg bg-cover h-48 text-center font-logoFont bg-myGreen -mt-2 -mb-40">
+      </div>
+      {/* <div className="grid place-items-center pt-9"> */}
+      <div className=" flex flex-col place-items-center pt-9 -mt-8">
         <Search handleFilters={setFilterParams} class/>
         <HomeAuctionList filters={filterParams} />
         <button className="bg-myGr-light my-2 py-2 px-8 text-sm text-white rounded focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark" onClick={() => {setPage(page + 1)}}>Show more</button>
