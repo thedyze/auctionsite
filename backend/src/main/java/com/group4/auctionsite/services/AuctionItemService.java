@@ -110,9 +110,10 @@ public class AuctionItemService {
 
         List<AuctionItem> auctionItems = null;
         String[] q = createQuery(filterContent);
-        if(q[6].equals("default")) auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), 20, Integer.parseInt(q[5]));
-        else if(q[6].equals("popular")) auctionItems = auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), 20, Integer.parseInt(q[5]));
-        else if(q[6].equals("latest")) auctionItems = auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), 20, Integer.parseInt(q[5]));
+        long now = new Date().getTime();
+        if(q[6].equals("default")) auctionItems = auctionItemRepository.getFilteredAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), now, 20, Integer.parseInt(q[5]));
+        else if(q[6].equals("popular")) auctionItems = auctionItemRepository.getFilteredPopularAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), now, 20, Integer.parseInt(q[5]));
+        else if(q[6].equals("latest")) auctionItems = auctionItemRepository.getFilteredLatestAuctionItems(q[0], "%"+q[0]+"%", Integer.parseInt(q[1]), Integer.parseInt(q[2]), Integer.parseInt(q[3]), Integer.parseInt(q[4]), now, 20, Integer.parseInt(q[5]));
 
         List<String> auctionItemsAsJson = new ArrayList<>();
         User user = userService.findCurrentUser();
