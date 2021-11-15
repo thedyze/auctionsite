@@ -17,8 +17,8 @@ export default {
     'focus:ring-myGr-dark',
     ''
   ].join(' '),
-  btnDisabled: ({disabled}) => [
-    disabled ? 
+  btnDisabled: (bol) => [
+    bol ? 
     'bg-myGr-disabled ' 
     : ' '
   ],
