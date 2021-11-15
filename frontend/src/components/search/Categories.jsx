@@ -40,7 +40,8 @@ export const Categories = ({ handleFilters }) => {
 
   return (
     <>
-      <div style={{ width: "300px", display: "flex", overflow: "scroll" }}>
+      
+      <div style={{ width: "95%", display: "flex", overflow: "scroll", paddingLeft: "0.5em", paddingRight: "1.5em" }}>
         {categories.map((cat) => (
           <button
             style={cat.isActive ? { color: "white", background:"#35825C" } : { color: "white" }}
