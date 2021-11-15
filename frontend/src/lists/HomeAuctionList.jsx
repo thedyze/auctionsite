@@ -1,16 +1,6 @@
-import { useContext, useEffect } from 'react';
 import { AuctionCard } from "../cards/AuctionCard";
-import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 
-export const HomeAuctionList = ({ filters }) => {
-  const { filteredAuctionItems, fetchFilteredAuctionItems } = useContext(AuctionDetailsContext)
-
-  useEffect(() => {
-    setTimeout(() => {
-      fetchFilteredAuctionItems(filters);
-    }, 250);
-    return clearTimeout()
-  }, [filters]);
+export const HomeAuctionList = ({ filteredAuctionItems }) => {
 
   const renderedAuctionItems = filteredAuctionItems.map((auction) => {
     return (
