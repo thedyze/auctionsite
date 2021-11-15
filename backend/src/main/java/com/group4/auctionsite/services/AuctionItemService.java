@@ -70,7 +70,9 @@ public class AuctionItemService {
         List<AuctionItem> auctionItems = auctionItemRepository.findByUserBuying(userId);
         List<String> listToJson = new ArrayList<String>();
         for(AuctionItem ai: auctionItems){
-            listToJson.add(ai.buyingToJson());
+            int highestBid = bidRepository.findMaxBidByItemId(ai.getId());
+            int userBid = bidRepository.findMaxBidByUserId(userId, ai.getId());
+            listToJson.add(ai.buyingToJson(highestBid, userBid));
         }
         return frontEndHelper.ToJson(listToJson);
     }
