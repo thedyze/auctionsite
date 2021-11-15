@@ -88,7 +88,7 @@ export default function Navbar() {
                         </span>
                       )}
                     </div>
-                    <Menu.Items className="fixed bg-gray-700 w-44 right-0 top-16">
+                <Menu.Items className="font-myHtext fixed bg-gray-700 w-44 right-0 top-16">
                       <div>
                         {notifications &&
                           notifications.map((n) => (
@@ -96,12 +96,12 @@ export default function Navbar() {
                               <div className="bg-white px-2 py-2 text-sm text-gray-700" href="/myPage" >
                                 <div className="font-semibold">{n?.title}</div>
                                 <div className="text-red-600">
-                                  {n.highestBid ? ( <span>New bid: {n.highestBid}</span> ) : (<span>New bid!</span>)}
+                                  {n.highestBid ? ( <span>New bid: {n.highestBid} kr</span> ) : (<span>New bid!</span>)}
                                 </div>
                               </div>
                             </Menu.Item>
                           ))}
-                        {notifications.length > 0 && (<div className=" bg-white py-2 text-xs text-myGr-dark text-center"  onClick={() => {clearAll()}}> clear all </div> )}
+                        {notifications.length > 0 && (<div className=" bg-white py-2 text-xs text-myPr-dark text-center"  onClick={() => {clearAll()}}> clear all </div> )}
                       </div>
                     </Menu.Items>
                   </Menu>
