@@ -2,14 +2,18 @@
 
 export const About = () => {
     return (
+        <div>
+            <div className="relative bg-homebg bg-cover h-48 w-full text-center ">
+                <div className='absolute inset-x-0 font-bold text-6xl font-myHtext text-white pt-16'>About us</div>
+            </div>
         <div className='w-full px-2 flex-col flex items-center'>
-            <h1 className='font-bold text-4xl text-indigo-600 items-center p-4 mt-8 '>About us</h1>
             <br />
-            <div className=" font-medium px-6">Selling clothes in a sustainable way since October 2021. We care about the planet, that's why we made our service free.</div>
+            <div className="font-myPtext text-2xl text-black font-medium px-6">Selling clothes in a sustainable way since October 2021. We care about a green planet, that's why we made our service free.</div>
             <br />
         
-            <a className="font-medium text-indigo-600 fixed bottom-16 px-2 underline" href="mailto:nope@haha.se">Contact us</a>
-            <div className="fixed bottom-2">Copyright 2021, Group4</div>
+            <a className="font-myPtext text-lg font-medium text-myPr-dark fixed bottom-24 px-2 underline" href="mailto:nope@haha.se">Contact us</a>
+            <div className="font-myPtext text-sm fixed bottom-2">Copyright 2021, Group4</div>
+            </div>
         </div>
     )
 }

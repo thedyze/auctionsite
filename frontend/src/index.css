@@ -37,7 +37,7 @@ input[type='radio']:after {
 }
 
 input[type='radio']:checked:after {
-  background-color: green;
+  background-color: #9540A6;
 }
 
 /* filters underline */

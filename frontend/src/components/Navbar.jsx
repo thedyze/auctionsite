@@ -113,7 +113,7 @@ export default function Navbar() {
                       <UserCircleIcon id="userCircleIcon" className="h-11 w-11" aria-hidden="true" />
                      </div>
                     </Menu.Button>
-                  <Menu.Items className="fixed bg-white border-l-2 border-b-2 border-myPr-dark   w-44 right-0 top-14">
+                  <Menu.Items className="fixed bg-white border-l-2 border-b-2 w-44 right-0 top-14">
                     {currentUser ? (
                       <div>
                         <Menu.Item>
