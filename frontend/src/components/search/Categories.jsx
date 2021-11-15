@@ -43,10 +43,10 @@ export const Categories = ({ handleFilters }) => {
       <div style={{ width: "300px", display: "flex", overflow: "scroll" }}>
         {categories.map((cat) => (
           <button
-            style={cat.isActive ? { color: "red" } : { color: undefined }}
+            style={cat.isActive ? { color: "white", background:"#35825C" } : { color: "white" }}
             key={cat.id}
             name={cat.id}
-            className={"bg-myPr-light font-logoFont text-white py-2 font-bold px-4 rounded-full"}
+            className={"bg-myGr-light font-medium text-white py-2 px-3 mt-4 mb-2 rounded-3xl"}
             onClick={handleClick}
           >
             {cat.name}

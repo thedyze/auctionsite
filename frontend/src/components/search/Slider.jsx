@@ -22,7 +22,7 @@ export default function RangeSlider({ handleFilters, range }) {
   );
 
   const handleChange = (e, data) => {
-    if (data[0] < -9 || data[1] > 1009) return;
+    if (data[0] < -9 || data[1] > 2009) return;
     range((p) => ({ ...p, min: data[0], max: data[1] }));
     setValue(data);
     handleDebounce(data);
@@ -30,10 +30,12 @@ export default function RangeSlider({ handleFilters, range }) {
   };
 
   return (
+    <div className="mt-6">
     <Box style={{ zIndex: 0 }} sx={{ width: 200, alignItems: "center" }}>
       <Slider
-        max={1010}
+        max={2010}
         min={-10}
+        style={{ zIndex: 0, color: "#6ACF9D" }}
         step={10}
         value={value}
         onChange={handleChange}
@@ -41,6 +43,7 @@ export default function RangeSlider({ handleFilters, range }) {
         //getAriaValueText={valuetext}
         //size="big"
       />
-    </Box>
+      </Box>
+    </div>
   );
 }
