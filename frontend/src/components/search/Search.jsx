@@ -4,7 +4,6 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Categories } from "./Categories";
 
 export const Search = ({ handleFilters }) => {
   const [value, setValue] = useState(0);
@@ -36,7 +35,6 @@ export const Search = ({ handleFilters }) => {
         <RangeFilter  handleFilters={handleFilters} />
       )}
       <br />
-      <Categories  handleFilters={handleFilters} />
     </div>
   );
 };
