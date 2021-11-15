@@ -27,7 +27,7 @@ function App() {
 
 
   return (
-    <div className="mt-16">
+    <div className="mt-14">
       <UserProvider>
         <NotificationContextProvider>
           <MessageProvider>
