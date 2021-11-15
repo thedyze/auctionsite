@@ -35,7 +35,7 @@ export const AuctionCard = ({auction}) => {
         </div>
           <div className="">Category: {auction.categoryId}</div>
           <div className="w-full text-right text-myRe mt-2">
-            {<CountdownTimer auctionEndTime={auction.endTime} />}
+            <CountdownTimer auctionEndTime={auction.endTime} />
           </div>
         </div>
       </div>

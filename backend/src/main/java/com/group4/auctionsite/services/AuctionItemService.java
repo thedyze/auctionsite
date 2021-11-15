@@ -62,9 +62,18 @@ public class AuctionItemService {
         }
         return  auctionItemsx;
     }
-    public List<AuctionItem> getAuctionItemsByUserId(long userId) {
-        return auctionItemRepository.findAllByUserId(userId);
+    public String getAuctionItemsByUserId(long userId) {
+            List<String> updatedList=new ArrayList<>();
+
+        List<AuctionItem> itemList =auctionItemRepository.findAllByUserId(userId);
+        for(AuctionItem item:itemList){
+            updatedList.add(item.toJson(bidRepository.findMaxBidByItemId(item.getId()), bidRepository.numberOfBidsByItemId(item.getId())));
+        }
+        return frontEndHelper.ToJson(updatedList);
     }
+
+
+
 
     public String placeBid(String bidx, long userId) {
         LinkedHashMap placedBid = (LinkedHashMap) objectMapperHelper.objectMapper(bidx);

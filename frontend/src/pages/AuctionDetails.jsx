@@ -8,6 +8,7 @@ import { socket } from "../socket";
 import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid"; 
 import { useHistory } from "react-router-dom";
 import util from "../styles/util"
+import CountdownTimer from "../components/CountdownTimer";
 
 export const AuctionDetails = () => {
   const history = useHistory();
@@ -100,7 +101,7 @@ export const AuctionDetails = () => {
             </tr>
             <tr>
               <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
-              <td>{auctionItem.endTime}</td>
+              <td key={auctionItem.id}><CountdownTimer auctionEndTime={auctionItem.endTime} /></td>
               <td>{auctionItem.numberOfBids}</td>
             </tr>
           </tbody>
