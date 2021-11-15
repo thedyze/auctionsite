@@ -25,7 +25,7 @@ export const Search = ({ handleFilters }) => {
     <div>
       <SearchInput handleFilters={handleFilters} />
       <Box sx={{ width: "100%", bgcolor: "rgba(255,255,255,0.12)" }}>
-        <Tabs sx={{ marginTop: "1.4em"}} value={value} onChange={handleChange} centered>
+        <Tabs sx={{ marginTop: "1.45em"}} value={value} onChange={handleChange} centered>
           <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000"}} label="Price" name="default" />
           <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000" }} label="Popular" name="popular" />
           <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000" }} label="Latest" name="latest" />

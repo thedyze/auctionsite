@@ -24,19 +24,23 @@ export const AuctionCard = ({auction}) => {
         )}
         <div className="h-32 flex "></div>
       <div className="h-32 p-2 w-full flex flex-col bg-myAw">
-        <div className="h-1/2 black font-medium col-span-3 align-top leading-tight">{auction.title}</div>
+        <div className="h-1/2 font-myHtext font-bold col-span-3 align-top leading-tight">{auction.title}</div>
         <div className="w-full flex flex-row justify-evenly ">
-          <div className="w-1/2 text-black font-bold text-left mt-2">
+          <div className="w-1/2 font-myPtext text-black text-base font-bold text-left mt-2">
             {auction.highestBid === "0"
               ? "startPrice"
               : `${auction.highestBid} kr`}
           </div>
           <div className="w-1/2"></div>
         </div>
-        <div className=" w-full flex flex-row justify-evenly  mt-0 align-bottom">
-          <div className="w-1/3 text-black text-left">{auction.numberOfBids -1} bids</div>
+        <div className=" w-full flex flex-row justify-evenly mt-0">
+          <div className=" w-1/3 text-black text-sm text-left align-text-bottom mt-1">
+            
+            {auction.numberOfBids - 1} bids
+            
+          </div>
           {/* <div className="">Category: {auction.categoryId}</div> */}
-          <div className="w-2/3 text-right text-myRe">
+          <div className=" w-2/3 font-myPtext font-bold text-right text-myRe">
             {<CountdownTimer auctionEndTime={auction.endTime} />}
           </div>
         </div>

@@ -7,12 +7,12 @@ export const Categories = ({ handleFilters }) => {
   const [categories, setCategories] = useState([
     { id: 1, name: "Shoes", isActive: false },
     { id: 4, name: "Accessories", isActive: false },
-    { id: 600, name: "Cat3", isActive: false },
-    { id: 603, name: "cat7", isActive: false },
-    { id: 604, name: "cat6", isActive: false },
-    { id: 602, name: "cat5", isActive: false },
-    { id: 601, name: "cat4", isActive: false },
-    { id: 605, name: "cat8", isActive: false },
+    { id: 600, name: "Dresses", isActive: false },
+    { id: 603, name: "Shirts", isActive: false },
+    { id: 604, name: "Pants", isActive: false },
+    { id: 602, name: "Hats", isActive: false },
+    { id: 601, name: "Shorts", isActive: false },
+    { id: 605, name: "Jackets", isActive: false },
   ]);
 
   const handleClick = (e) => {
@@ -47,7 +47,7 @@ export const Categories = ({ handleFilters }) => {
             style={cat.isActive ? { color: "white", background:"#35825C" } : { color: "white" }}
             key={cat.id}
             name={cat.id}
-            className={"bg-myGr-light font-medium text-white py-2 px-3 mt-2 mb-2 rounded-3xl"}
+            className={"bg-myGr-light font-myPtext font-bold text-white py-1 px-3 mt-2 mb-2 rounded-3xl"}
             onClick={handleClick}
           >
             {cat.name}

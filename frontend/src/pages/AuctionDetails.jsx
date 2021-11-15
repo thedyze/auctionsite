@@ -9,6 +9,7 @@ import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid";
 import { useHistory } from "react-router-dom";
 import util from "../styles/util"
 
+
 export const AuctionDetails = () => {
   const history = useHistory();
   const { id } = useParams();
@@ -94,20 +95,20 @@ export const AuctionDetails = () => {
         <img className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
         <img className="max-w-14 max-h-14 object-contain px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
-      <div className="text-xl font-medium my-2">{auctionItem.title}</div>
+      <div className="font-myPtext font-bold block text-xl my-2">{auctionItem.title}</div>
 
       <div className="flex align-middle">
         <table className="table-fixed  w-full text-center my-2 mx-4">
           <tbody >
             <tr>
               <th className={util.th}>
-                {auctionItem.highestBid ? "Highest Bid" : "Starting price"}
+                {auctionItem.highestBid ? "Current bid" : "Starting price" }
               </th>
               <th className={util.th}>Ends</th>
               <th className={util.th}>Bids</th>
             </tr>
             <tr>
-              <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
+              <td>{auctionItem.highestBid || auctionItem.startPrice} kr</td>
               <td>{auctionItem.endTime}</td>
               <td>{auctionItem.numberOfBids}</td>
             </tr>

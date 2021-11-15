@@ -26,6 +26,7 @@ export default {
     'max-h-2',
     'text-sm',
     'font-medium',
+    'font-myPtext',
     ''
   ].join(' '),
   icon: [
