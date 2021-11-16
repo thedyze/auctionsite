@@ -14,14 +14,26 @@ export const Buying = () => {
     useEffect(() => {
     if (!currentUser) return;  
     fetchUserBuyingItems(currentUser.id); 
+
     let currentAuctions = []
     let endedAuctions = []
-      userBuyingItems.map((item) => {
-        item.endTime > currentTime ? currentAuctions.push(item): endedAuctions.push(item);
-      });
-      setCurrentAuctions(currentAuctions)
-      setEndedAuctions(endedAuctions)
+    let wonAuctions = []
+    let lostAuctions = []
+
+    userBuyingItems.map((item) => {
+      item.endTime > currentTime ? currentAuctions.push(item): endedAuctions.push(item);
+    });
+    setCurrentAuctions(currentAuctions)
+    setEndedAuctions(endedAuctions)
+
+    endedAuctions.map((item) => {
+      item.highestBid > item.userBid ? lostAuctions.push(item): wonAuctions.push(item);
+    });
+    setWonAuctions(wonAuctions)
+    setLostAuctions(lostAuctions)
+
     }, [userBuyingItems,currentUser]);
+    
 
   return (
     <div>
