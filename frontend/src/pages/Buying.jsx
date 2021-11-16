@@ -6,38 +6,42 @@ import { useHistory } from "react-router-dom";
 export const Buying = () => {
   const {userBuyingItems, fetchUserBuyingItems} = useContext(AuctionDetailsContext);
   const {currentUser} = useContext(UserContext);
+
+  //for render mapping
   const [currentAuctions, setCurrentAuctions] = useState([]);
-  const [endedAuctions, setEndedAuctions] = useState([]);
   const [wonAuctions, setWonAuctions] = useState([]);
   const [lostAuctions, setLostAuctions] = useState([]);
-  const currentTime = new Date().getTime();
+  
+  //toggles
   const [toggleBidding, setToggleBidding] = useState(true);
   const [toggleWon, setToggleWon] = useState(true);
   const [toggleLost, setToggleLost] = useState(true);
+
   const history = useHistory();
+  const currentTime = new Date().getTime();
 
-    useEffect(() => {
-    if (!currentUser) return;  
+    
+  
+  useEffect(() => {
+    if (!currentUser) return;
+    if(userBuyingItems.length < 1)
     fetchUserBuyingItems(currentUser.id); 
-
-    let currentAuctions = []
-    let endedAuctions = []
-    let wonAuctions = []
-    let lostAuctions = []
-
+    let currentAuctionsTemp = []
+    let wonAuctionsTemp = []
+    let lostAuctionsTemp = []
     userBuyingItems.map((item) => {
-      item.endTime > currentTime ? currentAuctions.push(item): endedAuctions.push(item);
+      item.endTime > currentTime
+        ? currentAuctionsTemp.push(item)
+        : item.highestBid > item.userBid
+        ? lostAuctionsTemp.push(item)
+        : wonAuctionsTemp.push(item);
     });
-    setCurrentAuctions(currentAuctions)
-    setEndedAuctions(endedAuctions)
+    setCurrentAuctions(currentAuctionsTemp)
+    setWonAuctions(wonAuctionsTemp)
+    setLostAuctions(lostAuctionsTemp)
 
-    endedAuctions.map((item) => {
-      item.highestBid > item.userBid ? lostAuctions.push(item): wonAuctions.push(item);
-    });
-    setWonAuctions(wonAuctions)
-    setLostAuctions(lostAuctions)
 
-    }, [userBuyingItems,currentUser]);
+    },[userBuyingItems,currentUser]);
     
 
   return (

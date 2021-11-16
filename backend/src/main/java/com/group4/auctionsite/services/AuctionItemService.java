@@ -75,7 +75,7 @@ public class AuctionItemService {
 
     public String getAuctionItemsByUserBuying(long userId) {
         List<AuctionItem> auctionItems = auctionItemRepository.findByUserBuying(userId);
-        List<String> listToJson = new ArrayList<String>();
+        List<String> listToJson = new ArrayList<>();
         for(AuctionItem ai: auctionItems){
             int highestBid = bidRepository.findMaxBidByItemId(ai.getId());
             int userBid = bidRepository.findMaxBidByUserId(userId, ai.getId());

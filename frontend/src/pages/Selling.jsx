@@ -12,7 +12,7 @@ export const Selling = () => {
   const [toggleHistory, setToggleHistory] = useState(true);
   const history=useHistory()
 
-  const [now] = useState(new Date())
+  const [now] = useState(new Date().getTime())
 
     useEffect(() => {
     if (!currentUser) return;  
