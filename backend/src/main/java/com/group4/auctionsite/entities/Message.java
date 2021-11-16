@@ -25,4 +25,22 @@ public class Message {
     private long itemId;
     private String messageContent;
 
+
+    public String toJson(AuctionItem obj, String username){
+
+        return "{" +
+                "\"id\":\""+this.id+"\", " +
+                "\"receiverId\":\""+this.receiverId+"\", " +
+                "\"senderId\":\""+this.senderId+"\", " +
+                "\"timestamp\":"+this.timestamp+", " +
+                "\"itemId\":\""+this.itemId+"\", " +
+                "\"messageContent\":\""+this.messageContent+"\", " +
+                "\"title\":\""+obj.getTitle()+"\", " +
+                "\"imagePath\":\""+obj.getImagePath()+"\", " +
+                "\"username\":\""+username+"\" " +
+                "}";
+
+    };
+
+
 }

@@ -10,7 +10,6 @@ import { useHistory } from "react-router-dom";
 import util from "../styles/util"
 import CountdownTimer from "../components/CountdownTimer";
 
-
 export const AuctionDetails = () => {
   const history = useHistory();
   const { id } = useParams();
@@ -73,13 +72,10 @@ export const AuctionDetails = () => {
     } else {
       e.target.innerHTML = "Sign in to " + placeholder
 
-      let icon = document.getElementById('userCircleIcon')
-      const s = icon.style
-      icon.style.borderRadius = '50%'
-      icon.style.color = '#B37ECF'
-      icon.style.boxShadow = '0 0 0 2px #B37ECF, 0 0 0 4px #A969C1, 0 0 0 6px #9F55B4, 0 0 0 8px #9540A6'
+      let icon = document.getElementById('iconRef')
+      icon.click()
       setTimeout(() => {
-        icon.style = s
+        icon.click();
       }, 1000)
     }
     setTimeout(() => {
@@ -96,21 +92,21 @@ export const AuctionDetails = () => {
         <img className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
         <img className="max-w-14 max-h-14 object-contain px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
-      <div className="text-xl font-medium my-2">{auctionItem.title}</div>
+      <div className="font-myPtext font-bold block text-xl my-2">{auctionItem.title}</div>
 
       <div className="flex align-middle">
         <table className="table-fixed  w-full text-center my-2 mx-4">
           <tbody >
             <tr>
               <th className={util.th}>
-                {auctionItem.highestBid ? "Highest Bid" : "Starting price"}
+                {auctionItem.highestBid ? "Current bid" : "Starting price" }
               </th>
               <th className={util.th}>Ends</th>
               <th className={util.th}>Bids</th>
             </tr>
             <tr>
               <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
-              <td className="text-myRe">{<CountdownTimer auctionEndTime={auctionItem?.endTime} />}</td>
+              <td key={auctionItem.id}><CountdownTimer auctionEndTime={auctionItem.endTime} /></td>
               <td>{auctionItem.numberOfBids}</td>
             </tr>
           </tbody>

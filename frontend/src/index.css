@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 
 
@@ -35,11 +37,23 @@ input[type='radio']:after {
 }
 
 input[type='radio']:checked:after {
-  background-color: green;
+  background-color: #9540A6;
 }
 
 /* filters underline */
 .MuiTabs-scroller > span {
-  background-color:#6ACF9D;
+  background-color:#B37ECF;
+  height: 4px;
+}
+
+.css-1wf8b0h-MuiTabs-flexContainer > button {
+  text-transform: none;
+  font-size: medium;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.MuiInputLabel-root{
+  background-color: inherit;
+  border-radius: 4px;
 }
 

@@ -22,6 +22,7 @@ import AuctionContextProvider from "./contexts/AuctionContextProvider";
 import { Registration } from "./pages/Registration";
 import { About } from "./pages/About";
 import { Conversation } from "./pages/Conversation";
+import { MessagesPage } from "./pages/Messages";
 import { API } from "./pages/API";
 
 function App() {
@@ -43,10 +44,11 @@ function App() {
                         <Route exact path="/auction-details/:id" component={AuctionDetails} />
                         <Route exact path="/registration" component={Registration} />
                         <Route exact path="/Buying" component={Buying} />
+                        <Route exact path="/Messages" component={MessagesPage} />
                         <Route exact path="/conversation/:itemId/:userId" component={Conversation} />
                         <Route exact path="/Selling" component={Selling} />
-                        <Route exact path="/create-listing" component={CreateListing} />
-                        <Route exact path="/about" component={About} />
+                        <Route exact path="/Create" component={CreateListing} />
+                        <Route exact path="/About" component={About} />
                         <Route exact path="/API" component={API} />
                         <Route path="*" component={NotFound404} />
                       </Switch>

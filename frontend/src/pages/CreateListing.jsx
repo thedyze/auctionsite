@@ -174,33 +174,35 @@ export const CreateListing = () => {
       <div className="p-6">
 
         {/* Image upload */}
-        <label className="font-myPtext font-bold font-block text-base">Upload photo</label>
-        <form className="pt-2">
-          <div className="w-full h-32 grid grid-rows-2 grid-cols-3 gap-4">
+        
+        <label className="w-full p-4 flex justify-center font-myPtext font-bold font-block text-base">Upload photos</label>
+        <div className="w-full px-4 flex flex-wrap justify-center mt-4">
+          <form className="w-96 flex flex-wrap justify-center">
+            <div className="w-80 h-48 px-5 grid grid-rows-2 grid-cols-3 gap-x-4 gap-y-4 ">
+              <div className="image-upload h-48 w-48 row-span-2 col-span-2">
+                <label htmlFor="image1">
+                  <img className="object-contain h-48 w-48" src={preview1} alt="" />
+                </label>
+                <input id="image1" accept="image/*" type="file" onChange={e => onAddImage(e, 1)} />
+              </div>
 
-            <div className="image-upload w-40 h-32 row-span-2 col-span-2">
-              <label htmlFor="image1">
-                <img className="object-cover max-h-32" src={preview1} alt="" />
-              </label>
-              <input id="image1" accept="image/*" type="file" onChange={e => onAddImage(e, 1)} />
-            </div>
+              <div className=" h-20 w-24 image-upload flex flex-wrap justify-center ">
+                <label htmlFor="image2">
+                  <img className="object-contain h-20 " src={preview2} alt="" />
+                </label>
+                <input accept="image/*" type="file" id="image2" onChange={e => onAddImage(e, 2)} />
+              </div>
 
-            <div className="image-upload">
-              <label htmlFor="image2">
-                <img className="object-cover max-h-16" src={preview2} alt="" />
-              </label>
-              <input accept="image/*" type="file" id="image2" onChange={e => onAddImage(e, 2)} />
+              <div className=" h-20 w-24 image-upload flex flex-wrap -mt-4 justify-center">
+                <label htmlFor="image3">
+                  <img className="object-contain h-20 " src={preview3} alt="" />
+                </label>
+                <input accept="image/*" type="file" id="image3" onChange={e => onAddImage(e, 3)} />
+              </div>
+            </div >
+            {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
+          </form>
             </div>
-
-            <div className="image-upload">
-              <label htmlFor="image3">
-                <img className="object-cover max-h-16" src={preview3} alt="" />
-              </label>
-              <input accept="image/*" type="file" id="image3" onChange={e => onAddImage(e, 3)} />
-            </div>
-          </div >
-          {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
-        </form>
       </div>
 
       <form className="p-6" onSubmit={imageUploadSubmit}>
@@ -318,7 +320,7 @@ export const CreateListing = () => {
         <div className="flex justify-center pt-2 pb-4">
           <button
             type="submit"
-            className="group relative w-1/2 flex justify-center py-2 px-4 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative w-1/2 flex justify-center py-2 px-4 border border-transparent text-base font-medium rounded-md text-white bg-myPr-dark hover:bg-myPr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Done
           </button>

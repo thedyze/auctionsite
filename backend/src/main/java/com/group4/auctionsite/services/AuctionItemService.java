@@ -62,8 +62,26 @@ public class AuctionItemService {
         }
         return  auctionItemsx;
     }
-    public List<AuctionItem> getAuctionItemsByUserId(long userId) {
-        return auctionItemRepository.findAllByUserId(userId);
+    
+    public String getAuctionItemsByUserId(long userId) {
+            List<String> updatedList=new ArrayList<>();
+
+        List<AuctionItem> itemList =auctionItemRepository.findAllByUserId(userId);
+        for(AuctionItem item:itemList){
+            updatedList.add(item.toJson(bidRepository.findMaxBidByItemId(item.getId()), bidRepository.numberOfBidsByItemId(item.getId())));
+        }
+        return frontEndHelper.ToJson(updatedList);
+    }
+
+    public String getAuctionItemsByUserBuying(long userId) {
+        List<AuctionItem> auctionItems = auctionItemRepository.findByUserBuying(userId);
+        List<String> listToJson = new ArrayList<String>();
+        for(AuctionItem ai: auctionItems){
+            int highestBid = bidRepository.findMaxBidByItemId(ai.getId());
+            int userBid = bidRepository.findMaxBidByUserId(userId, ai.getId());
+            listToJson.add(ai.buyingToJson(highestBid, userBid));
+        }
+        return frontEndHelper.ToJson(listToJson);
     }
 
     public String placeBid(String bidx, long userId) {

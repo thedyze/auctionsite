@@ -7,9 +7,11 @@ import com.group4.auctionsite.repositories.AuctionItemRepository;
 import com.group4.auctionsite.repositories.MessageRepository;
 import com.group4.auctionsite.repositories.UserRepository;
 import com.group4.auctionsite.springSocket.socket.SocketModule;
+import com.group4.auctionsite.utils.FrontEndHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,8 @@ public class MessageService {
     @Autowired
     private UserRepository userRepository;
 
+    FrontEndHelper frontEndHelper = new FrontEndHelper();
+
     public List<Message> getAllMessages(){
         return messageRepository.findAll();
     }
@@ -41,9 +45,20 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public List<Message> getMyMessages(long userId) {
+    public String getMyMessages(long userId) {
 
-        return messageRepository.findAllByReceiverIdOrSenderId(userId, userId);
+        List<String> messages =new ArrayList<>();
+        List<Message>  updateList= messageRepository.findMessagesBySenderIdOrReceiverId(userId);
+
+        for(Message message: updateList){
+            var a= auctionItemRepository.findById(message.getItemId()).get();
+            var u=userRepository.findById(userId== message.getSenderId()?message.getReceiverId() :message.getSenderId()).get().getUsername();
+
+            messages.add(message.toJson(a,u));
+        }
+
+
+        return frontEndHelper.ToJson(messages);
     }
 
     public HashMap getMessagesByItemIdAndUserId(long itemId, long userId, long currentUserId) {
