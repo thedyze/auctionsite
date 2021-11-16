@@ -29,7 +29,7 @@ export const Selling = () => {
 
   return (
     <div className="bg-myAw h-full pb-20">
-      <div className="w-full text-center font-myHtext text-4xl pt-10 pb-6">Selling</div>
+      <div className="w-full text-center font-myHtext text-4xl  py-6">Selling</div>
       <div className="font-bold font-myHtext py-2 mx-3 border-b-4 flex justify-between">
         <span>Currently selling</span>
         <button className="text-base underline" onClick={()=>setToggleSelling(p=>!p)}> {toggleSelling?"Hide":"Show"}</button>

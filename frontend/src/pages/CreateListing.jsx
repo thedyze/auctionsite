@@ -166,12 +166,12 @@ export const CreateListing = () => {
 
   return (
     <div>
-      <div className=" font-myHtext text-2xl text-center py-10 bg-myAw">Create a listing</div>
+      <div className=" font-myHtext text-2xl text-center  py-6 bg-myAw">Create a listing</div>
       <div className="p-6">
 
         {/* Image upload */}
 
-        <label className="w-full p-4 flex justify-center font-myPtext font-bold font-block text-base">Upload photos</label>
+        <label className="w-full p-4 flex justify-center font-myPtext font-bold font-block text-base">Upload photos*</label>
         <div className="w-full px-4 flex flex-wrap justify-center mt-4">
           <form className="w-96 flex flex-wrap justify-center">
             <div className="w-80 h-48 px-5 grid grid-rows-2 grid-cols-3 gap-x-4 gap-y-4 ">
@@ -205,7 +205,7 @@ export const CreateListing = () => {
 
         {/* Title input */}
         <div className="">
-          <label htmlFor="title" className="font-myPtext font-bold block text-base">Title</label>
+          <label htmlFor="title" className="font-myPtext font-bold block text-base">Title*</label>
           <input
             type="text"
             name="title"
@@ -237,7 +237,7 @@ export const CreateListing = () => {
         {/* Category input */}
         <div className="">
           <label htmlFor="category" className="font-myPtext font-bold block text-base">
-            Category
+            Category*
           </label>
           <div className="text-sm">
             <select
@@ -271,7 +271,7 @@ export const CreateListing = () => {
 
         {/* Price input */}
         <div className="">
-          <label htmlFor="starting-price" className="font-myPtext font-bold block text-base">Starting price</label>
+          <label htmlFor="starting-price" className="font-myPtext font-bold block text-base">Starting price*</label>
           <input
             type="text"
             name="starting-price"

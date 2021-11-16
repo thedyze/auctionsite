@@ -36,7 +36,7 @@ export const AuctionCard = ({auction}) => {
         <div className=" w-full flex flex-row justify-evenly mt-0">
           <div className=" w-1/3 font-myPtext text-black text-sm text-left align-text-bottom mt-1">
             
-            {auction.numberOfBids - 1} bids
+            {auction.numberOfBids} bids
             
           </div>
           {/* <div className="">Category: {auction.categoryId}</div> */}

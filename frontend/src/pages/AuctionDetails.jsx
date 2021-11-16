@@ -40,7 +40,7 @@ export const AuctionDetails = () => {
     if (auctionItem?.userId) {
       fetchUser(auctionItem.userId)
       setDisabled(!currentUser || currentUser?.id == auctionItem?.userId)
-      setIsInactive(auctionItem?.endTime < new Date().getTime() || auctionItem?.highestBid >= auctionItem?.buyNowPrice)
+      setIsInactive(auctionItem?.endTime < new Date().getTime())
     }
   }, [auctionItem?.userId, currentUser]);
 
@@ -52,7 +52,7 @@ export const AuctionDetails = () => {
   const handleBtnClick = (e) => {
     userWon()
     if (disabled) {
-      handleDisable(e, "Place bid", "Not allowed to place bid")
+      handleDisable(e, "Place bid","")
     } else {
       setActivateModal(!activateModal)
     }
@@ -72,17 +72,15 @@ export const AuctionDetails = () => {
     } else if (currentUser) {
       e.target.innerHTML = "This is your item...<br>" + replacer
     } else {
-      e.target.innerHTML = "Sign in to " + placeholder
+      e.target.innerHTML = "Sign in!"
 
       let icon = document.getElementById('iconRef')
       icon.click()
-      setTimeout(() => {
-        icon.click();
-      }, 1000)
-    }
+      }
     setTimeout(() => {
       e.target.innerHTML = placeholder
-    }, 1000)
+      e.target.blur();
+    }, 1500)
   }
 
 
