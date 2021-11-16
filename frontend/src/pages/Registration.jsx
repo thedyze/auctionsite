@@ -1,7 +1,8 @@
 import { RegOrg } from "../components/RegOrg";
-import {useState } from "react";
+import {useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import util from "../styles/util"
+import { UserContext } from "../contexts/UserContext";
 
 
 const FORM_STYLE = `flex flex-col justify-center items-center px-8`;
@@ -9,6 +10,7 @@ const FORM_ELEMENT_SYLE = `font-myPtext text-lg w-full`;
 const H1 = `font-myHtext font-bold text-2xl items-center p-4 mt-8 `;
 
 export const Registration = () => {
+  const{setCurrentUser}=useContext(UserContext)
   const history=useHistory()
   const [badCred,setBadCred]=useState(false)
   const [userData, setUserData] = useState({
@@ -65,11 +67,19 @@ export const Registration = () => {
         password:newUser.password,
       };
 
-      await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUserLogin),
-    })
+      try {
+        let res =await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUserLogin),
+      })
+      res=await res.json()
+      setCurrentUser(res)
+        
+      } catch (error) {
+        console.log(error);        
+      }
+
     history.goBack()
     } catch (error) {
       console.log("probably email is already taken",error);

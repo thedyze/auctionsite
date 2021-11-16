@@ -127,7 +127,7 @@ export default function Navbar() {
                       <div>
                         <Menu.Item>
                           <div className="block px-4 py-2 text-sm text-myGr-dark text-center" href="/myPage">
-                            {currentUser.email}
+                            {currentUser.username}
                           </div>
                         </Menu.Item>
                         {pagesArray.map((page, i) => (

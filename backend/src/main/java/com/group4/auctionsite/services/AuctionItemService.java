@@ -50,7 +50,7 @@ public class AuctionItemService {
 
     public AuctionItem createAuctionItem(String auctionItem, long userId) {
         LinkedHashMap x = (LinkedHashMap) objectMapperHelper.objectMapper(auctionItem);
-        String tagsx = x.get("tags").toString();
+
 
         AuctionItem a = new AuctionItem();
         a.setUserId(userId);
@@ -64,6 +64,9 @@ public class AuctionItemService {
 
        a = auctionItemRepository.save(a);
        bidRepository.save(new Bid(a.getId(),userId,a.getStartPrice()));
+
+        if(x.get("tags")==null) return a;
+        String tagsx = x.get("tags").toString();        
 
        String[] tags = tagsx.split(" ");
 
@@ -120,6 +123,8 @@ public class AuctionItemService {
 
         Optional<AuctionItem> auctionItem = auctionItemRepository.findById(itemId);
         if(auctionItem.isEmpty()) return "";
+
+        if(new Date().getTime() > auctionItem.get().getEndTime()) return "";
 
         int highestBid = bidRepository.findMaxBidByItemId(itemId);
         if(highestBid >= bid) {
