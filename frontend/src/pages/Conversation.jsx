@@ -118,7 +118,7 @@ export const Conversation = () => {
         {messages?.messages?.map((m) => (
           <div className=" m-2 p-1 rounded-lg w-7/12" key={(`${m.id}-${currentUser?.id}`)} style={ currentUser.id == m.receiverId ? { textAlign: "left" } : { textAlign: "right", marginLeft: "38%"} } >
             <div className="text-xs opacity-50">  {new Date(m.timestamp).toLocaleTimeString()} </div>
-            <div style={ currentUser.id == m.receiverId? {backgroundColor:"wheat", padding: "10px",  borderRadius: "18px 18px 18px 0px"}:
+            <div className="break-words"  style={ currentUser.id == m.receiverId? {backgroundColor:"wheat", padding: "10px",  borderRadius: "18px 18px 18px 0px"}:
              {backgroundColor: "#6acf9d",   padding: "10px",  borderRadius: "18px 18px 0px 18px"  }}>
               {m.messageContent}
             </div>

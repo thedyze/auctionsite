@@ -93,17 +93,17 @@ export const AuctionDetails = () => {
     <div className="grid place-items-center gap-5 mb-9">
       <BidModal activateModal={activateModal} id={id} auctionEndTime={auctionItem.endTime} />
 
-      <img className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
+      <img id="image1" className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
       <div className=" w-full flex flex-row justify-center">
-        <img className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
+        <img id="image2" className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
         <img className="max-w-14 max-h-14 object-contain px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
       <div className="text-xl font-myPtext">{auctionItem.title}</div>
 
       <div className="flex align-middle w-full text-center mx-4 font-myPtext">
         <div className="w-1/3 border-r-2 border-gray-100">
-          <div className="font-bold">{auctionItem.highestBid ? "Highest Bid" : "Starting price"}</div>
-          <div>{auctionItem.highestBid || auctionItem.startPrice}</div>
+          <div className="font-bold">{auctionItem.numberOfBids > 0 ? "Highest Bid" : "Starting price"}</div>
+          <div>{auctionItem.highestBid}</div>
         </div>
         <div className="w-1/3 border-r-2 border-gray-100">
           <div className="font-bold">Ends</div>

@@ -222,7 +222,7 @@ export const CreateListing = () => {
         {/* Description input */}
         <div className="">
           <label htmlFor="description" className="font-myPtext font-bold block text-base">Description</label>
-          <input
+          <textarea
             type="text"
             name="description"
             id="description"

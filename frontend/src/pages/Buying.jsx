@@ -23,9 +23,11 @@ export const Buying = () => {
 
 
   useEffect(() => {
-    if (!currentUser) return;
-    if (userBuyingItems.length < 1)
-      fetchUserBuyingItems();
+    if (!currentUser) return
+    fetchUserBuyingItems();
+  }, [currentUser]);
+
+  useEffect(() => {
     let currentAuctionsTemp = []
     let wonAuctionsTemp = []
     let lostAuctionsTemp = []
@@ -41,7 +43,8 @@ export const Buying = () => {
     setLostAuctions(lostAuctionsTemp)
 
 
-  }, [userBuyingItems, currentUser]);
+  }, [userBuyingItems]);
+
 
   return (
     <div className="bg-myAw h-full pb-20">
