@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useHistory } from "react-router-dom";
 
-export const LoginTemplate = ({setCurrentUser,callback}) => {
+export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin}) => {
   const history=useHistory()
 
   const [email, setEmail] = useState("");
@@ -29,6 +29,12 @@ export const LoginTemplate = ({setCurrentUser,callback}) => {
     }
     if (response.status == 200) {
       setCurrentUser(user);
+      toastLogin(p => !p);
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false)
+      },2500)
+
       callback() //this will remove the dropdown menu from the icon
     }
   }
