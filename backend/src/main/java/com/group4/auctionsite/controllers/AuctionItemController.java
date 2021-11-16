@@ -1,8 +1,11 @@
 package com.group4.auctionsite.controllers;
 
 import com.group4.auctionsite.entities.AuctionItem;
+import com.group4.auctionsite.entities.User;
 import com.group4.auctionsite.services.AuctionItemService;
+import com.group4.auctionsite.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,10 +13,12 @@ import java.util.List;
 // import org.springframework.security.core.AuctionItemDetails.AuctionItemDetailsService;
 
 @RestController
-@RequestMapping("rest/auctionItem")
+@RequestMapping("/rest/auctionItem")
 public class AuctionItemController {
     @Autowired
     private AuctionItemService auctionItemService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public List<AuctionItem> getAllAuctionItems() {
@@ -25,19 +30,26 @@ public class AuctionItemController {
         return auctionItemService.getById(id);
     }
 
-    @GetMapping("/user/{userId}")
-    public String getAuctionItemsByUserId(@PathVariable long userId) {
-        return auctionItemService.getAuctionItemsByUserId(userId);
+    @GetMapping("/userSelling")
+    public ResponseEntity<String> getAuctionItemsByUserId() {
+        User user = userService.findCurrentUser();
+        if(user == null) return ResponseEntity.status(403).build();
+        return ResponseEntity.ok(auctionItemService.getAuctionItemsByUserId(user.getId()));
     }
 
-    @GetMapping("/userBuying/{userId}")
-    public String getAuctionItemsByUserBuying(@PathVariable long userId) {
-        return auctionItemService.getAuctionItemsByUserBuying(userId);
+    @GetMapping("/userBuying")
+    public ResponseEntity<String> getAuctionItemsByUserBuying() {
+        User user = userService.findCurrentUser();
+        if(user == null) return ResponseEntity.status(403).build();
+        return ResponseEntity.ok(auctionItemService.getAuctionItemsByUserBuying(user.getId()));
     }
 
     @PostMapping
-    public AuctionItem createAuctionItem(@RequestBody String auctionItem) {
-        return auctionItemService.createAuctionItem(auctionItem);
+
+    public ResponseEntity<AuctionItem> createAuctionItem(@RequestBody String auctionItem) {
+        User user = userService.findCurrentUser();
+        if(user == null) return ResponseEntity.status(403).build();
+        return ResponseEntity.ok(auctionItemService.createAuctionItem(auctionItem, user.getId()));
     }
 
     @PostMapping("/s")

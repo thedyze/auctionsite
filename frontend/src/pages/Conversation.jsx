@@ -42,10 +42,10 @@ export const Conversation = () => {
     e.preventDefault();
 
     let msgOb = {
-      senderId: currentUser.id, // me sending to userId
+      senderId: null, // me sending to userId, done in backend
       receiverId: userId, // userId is the receiver in the url
       messageContent: savedTextMsg||textMsg,
-      timestamp: new Date().getTime(),
+      timestamp: null,
       itemId: itemId,
     };
 

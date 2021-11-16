@@ -41,8 +41,8 @@ export const Home = () => {
 
 
   return (
-    <div className="">
-      <div className="bg-homebg bg-cover h-48 text-center font-logoFont bg-myGreen -mt-2 -mb-40">
+    <div className="bg-myAw">
+      <div className="bg-homebg bg-cover h-56 text-center font-logoFont -mt-2 -mb-40">
       </div>
       {/* <div className="grid place-items-center pt-9"> */}
       <div className=" flex flex-col place-items-center pt-9 -mt-8">

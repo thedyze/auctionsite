@@ -1,21 +1,21 @@
 import API from "../../styles/API"
 
-export const APIGet = ({gets, activateModal, mauro}) => {
+export const APIDelete = ({ deletes, activateModal, mauro }) => {
 
   const showModal = (api) => {
     mauro(api)
     activateModal(p => !p)
   }
 
-  return(
+  return (
     <div>
       <div>
-        {gets.map(api => (
+        {deletes.map(api => (
           <div
-          key={api.id}
-          className={API.card + API.getCard}
+            key={api.id}
+            className={API.card + API.deleteCard}
             onClick={() => showModal(api)}>
-            <div className={API.method + API.getMethod}>
+            <div className={API.method + API.deleteMethod}>
               {api.method}
             </div>
             <div className={API.url}>

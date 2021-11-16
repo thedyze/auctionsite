@@ -5,6 +5,7 @@ import com.group4.auctionsite.services.APIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -14,7 +15,7 @@ public class APIController {
     private APIService apiService;
 
     @GetMapping
-    public List<API> getAllAPIs() {
+    public HashMap getAllAPIs() {
         return apiService.getAllAPIs();
     }
 

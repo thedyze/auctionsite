@@ -16,7 +16,7 @@ export const CreateListing = () => {
   const [preview3, setPreview3] = useState('src/images/upload.png')
   const [noFiles, setNoFiles] = useState(false)
   // const [buyNowCheckBox, setBuyNowCheckBox] = useState(false)
-  
+
 
   //dynamically gathers input values into an object which will be passed on submit
   const [auctionData, setAuctionData] = useState({
@@ -24,9 +24,8 @@ export const CreateListing = () => {
     description: "",
     category: "",
     startPrice: 0,
-    endTime: new Date().getTime(),
-    // buyNowPrice: 0,
-    tags: ""
+    buyNowPrice: 0,
+    endTime: new Date().getTime() + 86399000, // if calendar is not clicked default value is  today + 1 day
   });
 
   const categories = [
@@ -50,9 +49,6 @@ export const CreateListing = () => {
       return;
     }
 
-    //timestamp when submitted
-    let currentDateAndTime = new Date();
-    setAuctionData({ ...auctionData, startTime: currentDateAndTime.getTime() });
 
     let a = auctionData;
     let u = currentUser;
@@ -65,10 +61,9 @@ export const CreateListing = () => {
     });
 
     let newAuctionObj = {
-      userId: u.id,
+      userId: null,
       description: a.description,
       title: a.title,
-      startTime: new Date().getTime(),
       endTime: a.endTime,
       currentBid: 0,
       startPrice: a.startPrice,

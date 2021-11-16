@@ -1,9 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
 
+import Alert from '@mui/material/Alert';
 import { Disclosure, Menu } from "@headlessui/react";
 import { BellIcon, UserCircleIcon } from "@heroicons/react/solid";
 import { LoginTemplate } from "../components/LoginForm";
-import { useContext,useRef } from "react";
+import { useContext,useRef, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import { NotificationContext } from "../contexts/NotificationContext";
@@ -19,11 +20,19 @@ export default function Navbar() {
 
   const { currentUser,setCurrentUser } = useContext(UserContext);
   const { notifications, setNotifications, deleteNotification, deleteNotifications } = useContext(NotificationContext)
+  const [toggleToast, setToggleToast] = useState(false)
+  const [toastLogin, setToastLogin] = useState()
 
   const logout = async () => {
     await fetch("/logout");
     setCurrentUser("")
     history.push("/");
+    setToggleToast(true);
+    setToastLogin(p => !p);
+    setTimeout(() => {
+      setToggleToast(false)
+    },2500)
+    setToastLogin('');
   };
 
   const pathTo = (e) => {
@@ -130,13 +139,16 @@ export default function Navbar() {
                       </div>
                        ) : (
                       <Menu.Item>
-                        <LoginTemplate callback={removeCallback} setCurrentUser={setCurrentUser} />
+                        <LoginTemplate callback={removeCallback} setCurrentUser={setCurrentUser} toggleToast={setToggleToast} toastLogin={setToastLogin}/>
                       </Menu.Item>
                     )}
                   </Menu.Items>
                 </Menu>
               </div>
             </div>
+            {toggleToast && <Alert variant="filled" severity="success" style={{backgroundColor: '#6acf9d'}}>
+            {toastLogin ? "You have been logged in!" : "You have been successfully logged out!"}
+            </Alert>}
           </div>
     </Disclosure>
   );

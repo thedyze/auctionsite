@@ -48,23 +48,22 @@ public class AuctionItemService {
         return auctionItem.get().toJson(highestBid, numberOfBids);
     }
 
-    public AuctionItem createAuctionItem(String auctionItem) {
+    public AuctionItem createAuctionItem(String auctionItem, long userId) {
         LinkedHashMap x = (LinkedHashMap) objectMapperHelper.objectMapper(auctionItem);
         String tagsx = x.get("tags").toString();
 
         AuctionItem a = new AuctionItem();
-        a.setUserId(Long.parseLong(x.get("userId").toString()));
+        a.setUserId(userId);
         a.setCategoryId(Long.parseLong(x.get("categoryId").toString()));
         a.setDescription(x.get("description").toString());
         a.setTitle(x.get("title").toString());
-        a.setStartTime(Long.parseLong(x.get("startTime").toString()));
+        a.setStartTime(new Date().getTime());
         a.setEndTime(Long.parseLong(x.get("endTime").toString()));
         a.setStartPrice(Integer.parseInt(x.get("startPrice").toString()));
         a.setImagePath(x.get("imagePath").toString());
 
        a = auctionItemRepository.save(a);
-       User user = userService.findCurrentUser();
-       bidRepository.save(new Bid(a.getId(),user.getId(),a.getStartPrice()));
+       bidRepository.save(new Bid(a.getId(),userId,a.getStartPrice()));
 
        String[] tags = tagsx.split(" ");
 
@@ -97,7 +96,7 @@ public class AuctionItemService {
 
     public String getAuctionItemsByUserBuying(long userId) {
         List<AuctionItem> auctionItems = auctionItemRepository.findByUserBuying(userId);
-        List<String> listToJson = new ArrayList<String>();
+        List<String> listToJson = new ArrayList<>();
         for(AuctionItem ai: auctionItems){
             int highestBid = bidRepository.findMaxBidByItemId(ai.getId());
             int userBid = bidRepository.findMaxBidByUserId(userId, ai.getId());
