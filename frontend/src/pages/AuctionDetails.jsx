@@ -115,7 +115,7 @@ export const AuctionDetails = () => {
         </div>
         <div className="w-1/3 border-r-2 border-gray-100">
           <div className="font-bold">Ends</div>
-          <CountdownTimer auctionEndTime={auctionItem.endTime} />
+          <CountdownTimer key={auctionItem.id} auctionEndTime={auctionItem.endTime} />
         </div>
         <div className="w-1/3">
           <div className="font-bold">Bids</div>

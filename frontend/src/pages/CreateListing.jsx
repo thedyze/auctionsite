@@ -24,7 +24,7 @@ export const CreateListing = () => {
     category: "",
     startPrice: 0,
     buyNowPrice: 0,
-    endTime: new Date().getTime(),
+    endTime: new Date().getTime() + 86399000, // if calendar is not clicked default value is  today + 1 day
   });
 
   const categories = [
@@ -48,9 +48,6 @@ export const CreateListing = () => {
       return;
     }
 
-    //timestamp when submitted
-    let currentDateAndTime = new Date();
-    setAuctionData({ ...auctionData, startTime: currentDateAndTime.getTime() });
 
     let a = auctionData;
     let u = currentUser;
@@ -66,13 +63,12 @@ export const CreateListing = () => {
       userId: null,
       description: a.description,
       title: a.title,
-      startTime: null,
       endTime: a.endTime,
       currentBid: 0,
       startPrice: a.startPrice,
       categoryId: catId,
       buyNowPrice: a.buyNowPrice,
-      imagePath: value
+      imagePath: value,
     };
     console.log("newAuctionObj before fetch", newAuctionObj);
 
