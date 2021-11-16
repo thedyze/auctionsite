@@ -2,8 +2,9 @@
 import { Fragment, useEffect, useRef, useState, useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { AuctionDetailsContext } from '../contexts/AuctionDetailsContext';
+import CountdownTimer from "../components/CountdownTimer"
 
-export default function BidModal({activateModal, id}) {
+export default function BidModal({activateModal, id, auctionEndTime}) {
 
   const [open, setOpen] = useState(false)
   const [bid, setBid] = useState('');
@@ -78,7 +79,7 @@ export default function BidModal({activateModal, id}) {
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-white">
-                      Time left: coming soon!
+                      Time left: <CountdownTimer auctionEndTime={auctionEndTime}/>
                     </Dialog.Title>
                   </div>
                 </div>
@@ -89,7 +90,7 @@ export default function BidModal({activateModal, id}) {
                   className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-2 py-2 bg-white text-base font-medium text-black text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
                   onChange={(e) => setBid(e.target.value)}
                   value={bid}
-                  placeholder="Place bid"
+                  placeholder="SEK"
                 />
                 <button
                   type="button"

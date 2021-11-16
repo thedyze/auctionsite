@@ -5,6 +5,7 @@ export default {
     'px-8',
     'text-sm', 
     'rounded',
+    'font-bold',
     ''
   ].join(' '),
   btnGreen: [
@@ -15,6 +16,7 @@ export default {
     'focus:ring-2',
     'focus:ring-offset-2',
     'focus:ring-myGr-dark',
+    'font-bold',
     ''
   ].join(' '),
   btnDisabled: (bol) => [

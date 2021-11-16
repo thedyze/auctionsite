@@ -15,7 +15,7 @@ export const AuctionCard = ({auction}) => {
  
 
   return (
-    <div onClick={goToAuctionDetails} className="h-30 flex bg-white pb-3">
+    <div onClick={goToAuctionDetails} className="h-30 flex bg-white mb-3 p-1 outline-grey">
         {false ? (
           <img src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"></img>
         ) : (
@@ -23,7 +23,7 @@ export const AuctionCard = ({auction}) => {
           // <img className="w-36 h-36" src={"/uploads/" + auction.imagePath + "_img1.jpg"} alt="Bild saknas"></img>
         )}
         <div className="h-32 flex "></div>
-      <div className="h-32 p-2 w-full flex flex-col bg-myAw">
+      <div className="h-32 p-2 w-full flex flex-col bg-white">
         <div className="h-1/2 font-myHtext font-bold col-span-3 align-top leading-tight">{auction.title}</div>
         <div className="w-full flex flex-row justify-evenly ">
           <div className="w-1/2 font-myPtext text-black text-base font-bold text-left mt-2">

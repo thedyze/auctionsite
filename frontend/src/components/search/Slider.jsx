@@ -30,8 +30,8 @@ export default function RangeSlider({ handleFilters, range }) {
   };
 
   return (
-    <div className="mt-6">
-    <Box style={{ zIndex: 0 }} sx={{ width: 200, alignItems: "center" }}>
+    <div className="mt-6 bg-myAw">
+      <Box style={{ zIndex: 0 }} sx={{ width: 200, alignItems: "center", background: "#F9F7F5"}}>
       <Slider
         max={2010}
         min={-10}

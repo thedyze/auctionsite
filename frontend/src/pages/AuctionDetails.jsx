@@ -5,10 +5,10 @@ import { TagContext } from "../contexts/TagContext";
 import { UserContext } from "../contexts/UserContext";
 import BidModal from "../components/bidModal";
 import { socket } from "../socket";
-import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid"; 
+import { DocumentTextIcon, TagIcon, UserIcon } from "@heroicons/react/solid";
 import { useHistory } from "react-router-dom";
 import util from "../styles/util"
-import CountdownTimer from "../components/CountdownTimer";
+import CountdownTimer from "../components/CountdownTimer"
 
 export const AuctionDetails = () => {
   const history = useHistory();
@@ -22,13 +22,14 @@ export const AuctionDetails = () => {
   const [thirdImg, setThirdImg] = useState('_img3.jpg')
   const [disabled, setDisabled] = useState(false)
   const [isInactive, setIsInactive] = useState(false)
+  const [currentTime] = useState(new Date().getTime());
 
   //listen to bid changes in other auctions
-  useEffect(()=>{
+  useEffect(() => {
     socket.on("bidUpdate", (obj) => {
       if (obj.itemId == id) fetchAuctionItem(id);
     });
-  },[])
+  }, [])
 
   useEffect(() => {
     fetchAuctionItem(id);
@@ -40,7 +41,7 @@ export const AuctionDetails = () => {
       fetchUser(auctionItem.userId)
       setDisabled(!currentUser || currentUser?.id == auctionItem?.userId)
       setIsInactive(auctionItem?.endTime < new Date().getTime() || auctionItem?.highestBid >= auctionItem?.buyNowPrice)
-    } 
+    }
   }, [auctionItem?.userId, currentUser]);
 
   async function handleBigImg(i) {
@@ -49,7 +50,8 @@ export const AuctionDetails = () => {
   }
 
   const handleBtnClick = (e) => {
-    if(disabled || isInactive) {
+    userWon()
+    if (disabled) {
       handleDisable(e, "Place bid", "Not allowed to place bid")
     } else {
       setActivateModal(!activateModal)
@@ -57,7 +59,7 @@ export const AuctionDetails = () => {
   }
 
   const goChatWithSeller = (e) => {
-    if(!disabled) {
+    if (!disabled) {
       history.push(`/conversation/${auctionItem.id}/${user.id}`);
     } else {
       handleDisable(e, "Chat with seller", "You can't chat with yourself", 1)
@@ -83,48 +85,61 @@ export const AuctionDetails = () => {
     }, 1000)
   }
 
+  const userWon = () => {
+    console.log("auctionItem?.highestBid ", auctionItem?.highestBid)
+    console.log("auctionItem ", auctionItem)
+    console.log("auctionItem?.userId ", auctionItem?.userId)
+    console.log("currentUser?.id ", currentUser?.id)
+    //if(isInactive && currentUser.id === auctionItem?.userId && auctionItem?.highestBid === bid.bid)
+    // if(currentUser.id === this.bid.userId){
+      
+    // }
+   
+  }
+
   return (
-    <div className="grid place-items-center h-screen">
-      <BidModal activateModal={activateModal} id={id} />
+    <div className="grid place-items-center gap-5 mb-9">
+      <BidModal activateModal={activateModal} id={id} auctionEndTime={auctionItem.endTime} />
 
       <img className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
-      <div className=" w-full flex flex-row justify-center pt-2 pb-2">
+      <div className=" w-full flex flex-row justify-center">
         <img className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
         <img className="max-w-14 max-h-14 object-contain px-1" src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
-      <div className="font-myPtext font-bold block text-xl my-2">{auctionItem.title}</div>
+      <div className="text-xl font-myPtext">{auctionItem.title}</div>
 
-      <div className="flex align-middle">
-        <table className="table-fixed  w-full text-center my-2 mx-4">
-          <tbody >
-            <tr>
-              <th className={util.th}>
-                {auctionItem.highestBid ? "Current bid" : "Starting price" }
-              </th>
-              <th className={util.th}>Ends</th>
-              <th className={util.th}>Bids</th>
-            </tr>
-            <tr>
-              <td>{auctionItem.highestBid || auctionItem.startPrice}</td>
-              <td key={auctionItem.id}><CountdownTimer auctionEndTime={auctionItem.endTime} /></td>
-              <td>{auctionItem.numberOfBids}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="flex align-middle w-full text-center mx-4 font-myPtext">
+        <div className="w-1/3 border-r-2 border-gray-100">
+          <div className="font-bold">{auctionItem.highestBid ? "Highest Bid" : "Starting price"}</div>
+          <div>{auctionItem.highestBid || auctionItem.startPrice}</div>
+        </div>
+        <div className="w-1/3 border-r-2 border-gray-100">
+          <div className="font-bold">Ends</div>
+          <CountdownTimer auctionEndTime={auctionItem.endTime} />
+        </div>
+        <div className="w-1/3">
+          <div className="font-bold">Bids</div>
+          <div>{auctionItem.numberOfBids}</div>
+        </div>
+
       </div>
-      <div className="w-full text-center px-4">
-        <button 
-        onClick={(e) => handleBtnClick(e)}
-          className={'w-full ' + util.btn + util.btnGreen + util.btnDisabled(disabled || isInactive)}
-        >Place bid</button>
+      <div className="w-full text-center px-4 font-myPtext">
+        {(auctionItem.endTime - currentTime > currentTime ) ?
+        <div>Time limit passed</div>
+        :
+          <button
+            onClick={(e) => handleBtnClick(e)}
+            className={'w-3/5 h-14 text-lg ' + util.btn + util.btnGreen + util.btnDisabled(disabled || isInactive)}
+          >Place bid</button>
+        }
       </div>
 
-      <div className={util.box}>
+      <div className={"font-myPtext " + util.box}>
         <div>
           <DocumentTextIcon
             className={util.icon}
             aria-hidden="true" />
-          <div className={util.iconText}>
+          <div className={"font-bold " + util.iconText}>
             Description
           </div>
         </div>
@@ -133,12 +148,12 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className={util.box}>
+      <div className={"font-myPtext " + util.box}>
         <div>
           <TagIcon
             className={util.icon}
             aria-hidden="true" />
-          <div className={util.iconText}>
+          <div className={"font-myPtext font-bold " + util.iconText}>
             Tags
           </div>
           <div>
@@ -147,21 +162,23 @@ export const AuctionDetails = () => {
         </div>
       </div>
 
-      <div className={util.box}>
-        <div>
-          <UserIcon
-            className={util.icon}
-            aria-hidden="true" />
-          <div className={util.iconText}>
-            Seller Information
+      <div className={"font-myPtext font-bold " + util.box}>
+        <div className="flex justify-between items-center">
+          <div className="">
+            <span>
+              <UserIcon
+                className={util.icon}
+                aria-hidden="true" />
+            </span>
+            <span>
+              {user?.username}
+            </span>
           </div>
-          <div>
-            {user?.username}
-          </div>
-          <button 
-          onClick={(e)=>goChatWithSeller(e)} 
-          className={'float-right ' + util.btn + util.btnGreen + util.btnDisabled(disabled)}
-          >Chat with seller</button>
+          <button
+            onClick={(e) => goChatWithSeller(e)}
+            className={"my-0 " + util.btn + util.btnGreen + util.btnDisabled(disabled)}
+          >Chat with seller
+          </button>
         </div>
       </div>
     </div>
