@@ -28,15 +28,6 @@ public class MessageController {
         return messageService.createMessage(message);
     }
 
-    @GetMapping("/me")
-    public  List<Message> getMyMessages() {
-
-        User user = userService.findCurrentUser();
-
-        if(user==null) {return null; }
-
-        return messageService.getMyMessages(user.getId());
-    }
 
     @GetMapping("/{itemId}/{userId}")
     public HashMap getMessagesByItemIdAndUserId(@PathVariable long itemId, @PathVariable long userId) {
@@ -49,13 +40,12 @@ public class MessageController {
     }
 
     @GetMapping("/my-messages")
-    public  List<Message> getMessages() {
-
+    public  String getMessages() {
         User user = userService.findCurrentUser();
 
         if(user==null) {return null; }
 
-        return messageService.getMessages(user.getId());
+        return messageService.getMyMessages(user.getId());
     }
 
 }

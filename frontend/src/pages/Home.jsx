@@ -34,7 +34,7 @@ export const Home = () => {
   useEffect(() => {
     setTimeout(() => {
       fetchFilteredAuctionItems(filterParams);
-    }, 250);
+    }, 100);
     return clearTimeout();
   }, [filterParams]);
 
