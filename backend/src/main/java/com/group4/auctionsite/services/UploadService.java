@@ -13,9 +13,6 @@ import java.util.Random;
 @Service
 public class UploadService {
 
-  @Autowired
-  private UserService userService;
-
   public String saveFiles(List<MultipartFile> files) {
 
     String cwd = System.getProperty("user.dir");
