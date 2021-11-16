@@ -3,7 +3,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useParams,useHistory } from "react-router-dom";
 import { socket } from "../socket";
-import { ArrowCircleLeftIcon, SaveAsIcon } from "@heroicons/react/solid";
+import { ArrowCircleLeftIcon } from "@heroicons/react/solid";
 
 export const Conversation = () => {
   const { itemId, userId } = useParams();
@@ -12,7 +12,6 @@ export const Conversation = () => {
   const [textMsg, setTextMsg] = useState("");
   const [savedTextMsg, setSavedTextMsg] = useState("");
 
-  const [ er, setEr] = useState(false);
   
 
 
@@ -60,12 +59,10 @@ export const Conversation = () => {
     if (res.status==500){
      document.getElementById("inputMsg").placeholder= "Resending..."
      setSavedTextMsg(msgOb.messageContent)
-     setEr(true)
      setTimeout(()=>handleSendMessage(e),500)
 
     }
     else {
-    setEr(false)
     document.getElementById("inputMsg").placeholder ="Type here...";
     setSavedTextMsg("");
     }
@@ -110,7 +107,7 @@ export const Conversation = () => {
     <div>
       <div className="topCard z-10 w-full  bg-myAw fixed border-b-2 border-myGr-dark">
         <div className="text-xl flex items-center justify-around py-2 text-center font-bold ">
-          <ArrowCircleLeftIcon className="h-9 w-9 mb-1 text-myPr-dark " />
+          <ArrowCircleLeftIcon onClick={()=>{history.push("/Messages");}} className="h-9 w-9 mb-1 text-myPr-dark " />
           <div onClick={goItemDetails}> {messages.title}</div>
         </div>
         <div >
@@ -118,10 +115,10 @@ export const Conversation = () => {
         </div>
       </div>
       <div className="mb-16 pt-20">
-        {messages?.messages?.map((m, i) => (
-          <div className=" m-2 p-1 rounded-lg w-7/12" key={i} style={ currentUser.id == m.receiverId ? { textAlign: "left" } : { textAlign: "right", marginLeft: "38%"} } >
+        {messages?.messages?.map((m) => (
+          <div className=" m-2 p-1 rounded-lg w-7/12" key={(`${m.id}-${currentUser?.id}`)} style={ currentUser.id == m.receiverId ? { textAlign: "left" } : { textAlign: "right", marginLeft: "38%"} } >
             <div className="text-xs opacity-50">  {new Date(m.timestamp).toLocaleTimeString()} </div>
-            <div style={ currentUser.id === m.receiverId? {backgroundColor:"wheat", padding: "10px",  borderRadius: "18px 18px 18px 0px"}:
+            <div style={ currentUser.id == m.receiverId? {backgroundColor:"wheat", padding: "10px",  borderRadius: "18px 18px 18px 0px"}:
              {backgroundColor: "#6acf9d",   padding: "10px",  borderRadius: "18px 18px 0px 18px"  }}>
               {m.messageContent}
             </div>

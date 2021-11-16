@@ -37,7 +37,7 @@ export const AuctionDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    if (auctionItem?.userId && currentUser) {
+    if (auctionItem?.userId) {
       fetchUser(auctionItem.userId)
       setDisabled(!currentUser || currentUser?.id == auctionItem?.userId)
       setIsInactive(auctionItem?.endTime < new Date().getTime() || auctionItem?.highestBid >= auctionItem?.buyNowPrice)
@@ -62,30 +62,27 @@ export const AuctionDetails = () => {
     if (!disabled) {
       history.push(`/conversation/${auctionItem.id}/${user.id}`);
     } else {
-      handleDisable(e, "Chat with seller", "You can't chat with yourself")
+      handleDisable(e, "Chat with seller", "You can't chat with yourself", 1)
     }
   }
 
-  const handleDisable = (e, placeholder, replacer) => {
-    if (isInactive) {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "This item has been sold" : placeholder
+  const handleDisable = (e, placeholder, replacer, skip) => {
+    if(isInactive && !skip) {
+      e.target.innerHTML = "This item has expired"
     } else if (currentUser) {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "This is your item...<br>" + replacer : placeholder
+      e.target.innerHTML = "This is your item...<br>" + replacer
     } else {
-      e.target.innerHTML = e.target.innerHTML == placeholder ?
-        "Sign in to " + placeholder : placeholder
+      e.target.innerHTML = "Sign in to " + placeholder
 
-      let icon = document.getElementById('userCircleIcon')
-      const s = icon.style
-      icon.style.borderRadius = '50%'
-      icon.style.color = '#B37ECF'
-      icon.style.boxShadow = '0 0 0 2px #B37ECF, 0 0 0 4px #A969C1, 0 0 0 6px #9F55B4, 0 0 0 8px #9540A6'
+      let icon = document.getElementById('iconRef')
+      icon.click()
       setTimeout(() => {
-        icon.style = s
+        icon.click();
       }, 1000)
     }
+    setTimeout(() => {
+      e.target.innerHTML = placeholder
+    }, 1000)
   }
 
   const userWon = () => {

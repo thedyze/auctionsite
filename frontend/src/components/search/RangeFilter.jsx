@@ -4,7 +4,7 @@ import RangeSlider from "./Slider";
 export const RangeFilter = ({ handleFilters }) => {
   const[range,setRange] =useState({
     min: 0,
-    max:1000
+    max:2000
   })
 
   return (

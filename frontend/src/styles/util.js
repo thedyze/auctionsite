@@ -28,6 +28,7 @@ export default {
     'max-h-2',
     'text-sm',
     'font-medium',
+    'font-myPtext',
     ''
   ].join(' '),
   icon: [
@@ -67,6 +68,6 @@ export default {
     'ease-in-out',
     'focus:ring-myGr-light focus:border-myGr-light',
     ''
-  ].join(' ')
+  ].join(' '),
 
 }

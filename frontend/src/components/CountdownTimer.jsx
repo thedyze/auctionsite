@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function CountdownTimer({ auctionEndTime }) {
   const [currentTime] = useState(new Date().getTime());
   const [countdown, setCountdown] = useState(+auctionEndTime - currentTime);
-  const [formattedTime, setFormattedTime] = useState([""]);
+  const [formattedTime, setFormattedTime] = useState(["..."]);
 
   const formatTime = () => {
     let format = [];
@@ -27,7 +27,7 @@ export default function CountdownTimer({ auctionEndTime }) {
     if (countdown > 60000 && countdown < 3600000) {
       format = [minutes, " min ", seconds, " s"];
     }
-    if (countdown > 0 && countdown < 6000) {
+    if (countdown > 0 && countdown < 60000) {
       format = [seconds, " s"];
     }
     return format;
@@ -35,7 +35,7 @@ export default function CountdownTimer({ auctionEndTime }) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-        setCountdown(countdown - 1000);
+      setCountdown(countdown ? countdown - 1000 : +auctionEndTime - currentTime);
         setFormattedTime(formatTime());
     }, 1000);
     return ()=> clearInterval(timer);

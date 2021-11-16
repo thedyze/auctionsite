@@ -4,6 +4,7 @@ export const MessageContext = createContext();
 
 export default function MessageProvider(props) {
   const [messages, setMessages] = useState([])
+  const [messagesList, setMessagesList] = useState([]);
 
   const fetchMessages = async (itemId, userId) => {
     
@@ -19,9 +20,24 @@ export default function MessageProvider(props) {
   
   }
 
+  const fetchMessagesList = async () => {
+    try {
+      let res = await fetch(`/rest/conversation/my-messages`);
+      res = await res.json();
+      setMessagesList(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
+
+
   const values = {
     messages,
-    fetchMessages
+    messagesList,
+    fetchMessages,
+    fetchMessagesList
   }
 
 
