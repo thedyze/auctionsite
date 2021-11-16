@@ -99,7 +99,7 @@ export const AuctionDetails = () => {
 
   return (
     <div className="grid place-items-center gap-5 mb-9">
-      <BidModal activateModal={activateModal} id={id} />
+      <BidModal activateModal={activateModal} id={id} auctionEndTime={auctionItem.endTime} />
 
       <img className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
       <div className=" w-full flex flex-row justify-center">
