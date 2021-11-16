@@ -16,7 +16,7 @@ export const Selling = () => {
 
     useEffect(() => {
     if (!currentUser) return;  
-    fetchUserSellingItems(currentUser.id);    
+    fetchUserSellingItems();    
     let activeTemp=[]
     let inactiveTemp=[]
       userSellingItems.map((item) => {

@@ -14,14 +14,17 @@ export const API = () => {
   return (
     <div>
       {currentUser && (<APIModal activateModal={activateModal} api={api} />)}
-      <div>
-        <div className={APIstyle.h1}>
-          AuctionItem
+      {apis?.entities?.map(entity => (
+        <div
+        key={entity}>
+          <div className={APIstyle.h1}>
+            {entity}
+          </div>
+          <div>
+            <APICalls mauro={setApi} list={apis.apis.filter(a => a.entity === entity)} activateModal={setActivateModal} />
+          </div>
         </div>
-        <div>
-          <APICalls mauro={setApi} list={apis.filter(a => a.entity === "AuctionItem")} activateModal={setActivateModal}/>
-        </div>
-      </div>
+      ))}
       <textarea
         id="API-response"
         className="w-full h-40 inline-flex justify-center rounded-md border border-gray-300 shadow-sm my-1 bg-white text-base font-medium text-black"

@@ -18,7 +18,7 @@ export const Buying = () => {
 
     useEffect(() => {
     if (!currentUser) return;  
-    fetchUserBuyingItems(currentUser.id); 
+    fetchUserBuyingItems(); 
 
     let currentAuctions = []
     let endedAuctions = []

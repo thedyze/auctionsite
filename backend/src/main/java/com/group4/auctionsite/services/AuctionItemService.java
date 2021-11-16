@@ -47,7 +47,9 @@ public class AuctionItemService {
         return auctionItem.get().toJson(highestBid, numberOfBids);
     }
 
-    public AuctionItem createAuctionItem(AuctionItem auctionItem) {
+    public AuctionItem createAuctionItem(AuctionItem auctionItem, long userId) {
+       auctionItem.setUserId(userId);
+       auctionItem.setStartTime(new Date().getTime());
        auctionItem = auctionItemRepository.save(auctionItem);
        User user =userService.findCurrentUser();
        bidRepository.save(new Bid(auctionItem.getId(),user.getId(),0));

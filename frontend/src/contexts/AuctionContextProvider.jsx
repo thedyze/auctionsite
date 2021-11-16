@@ -7,11 +7,11 @@ export default function AuctionContextProvider(props) {
     const [auctions, setAuctions] = useState([]);
 
     const fetchAuctions = async () => {
-        let res = await fetch("rest/auctionItem");
+        let res = await fetch("/rest/auctionItem");
 
         try {
             res = await res.json();
-            if(res){
+            if (res) {
                 setAuctions(res)
             }
         } catch {

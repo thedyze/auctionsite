@@ -63,10 +63,10 @@ export const CreateListing = () => {
     });
 
     let newAuctionObj = {
-      userId: u.id,
+      userId: null,
       description: a.description,
       title: a.title,
-      startTime: new Date().getTime(),
+      startTime: null,
       endTime: a.endTime,
       currentBid: 0,
       startPrice: a.startPrice,
@@ -174,7 +174,7 @@ export const CreateListing = () => {
       <div className="p-6">
 
         {/* Image upload */}
-        
+
         <label className="w-full p-4 flex justify-center font-myPtext font-bold font-block text-base">Upload photos</label>
         <div className="w-full px-4 flex flex-wrap justify-center mt-4">
           <form className="w-96 flex flex-wrap justify-center">
@@ -202,7 +202,7 @@ export const CreateListing = () => {
             </div >
             {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
           </form>
-            </div>
+        </div>
       </div>
 
       <form className="p-6" onSubmit={imageUploadSubmit}>

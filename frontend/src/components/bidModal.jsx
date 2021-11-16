@@ -18,7 +18,7 @@ export default function BidModal({activateModal, id}) {
       bid: bid,
     };
 
-    let res = await fetch("/api/placeBid", {
+    let res = await fetch("/api/bid/placeBid", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(obj),
