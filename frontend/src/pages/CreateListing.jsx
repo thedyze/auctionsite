@@ -16,7 +16,7 @@ export const CreateListing = () => {
   const [preview3, setPreview3] = useState('src/images/upload.png')
   const [noFiles, setNoFiles] = useState(false)
   // const [buyNowCheckBox, setBuyNowCheckBox] = useState(false)
-  const [tags, setTags] = useState([])
+  
 
   //dynamically gathers input values into an object which will be passed on submit
   const [auctionData, setAuctionData] = useState({
@@ -26,7 +26,7 @@ export const CreateListing = () => {
     startPrice: 0,
     endTime: new Date().getTime(),
     // buyNowPrice: 0,
-    // tags: ""
+    tags: ""
   });
 
   const categories = [
@@ -75,22 +75,9 @@ export const CreateListing = () => {
       categoryId: catId,
       imagePath: value,
       // buyNowPrice: a.buyNowPrice,
-      // tags: a.tags
+      tags: a.tags
     };
     console.log("newAuctionObj before fetch", newAuctionObj);
-
-    try {
-      let res = await fetch("/rest/auctionItem", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newAuctionObj)
-      });
-      res = await res.json();
-
-      history.push(`/auction-details/${res.id}`)
-    } catch (error) {
-      console.log("the new listing was not submitted")
-    }
 
     try {
       let res = await fetch("/rest/auctionItem", {

@@ -16,7 +16,7 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
 
     List<AuctionItem> findAllByUserId(long userId);
 
-    @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, itemXtag AS x " +
+    @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, item_xtag AS x " +
             "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
             "AND LOWER(t.name) = LOWER(:search) " +
             "AND category_id BETWEEN :categoryId AND :categoryId2 " +
@@ -39,7 +39,7 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
                                                      @Param("limit") int limit,
                                                      @Param("offset") int offset);
 
-    @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, itemXtag AS x " +
+    @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, item_xtag AS x " +
             "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
             "AND LOWER(t.name) = LOWER(:search) " +
             "AND category_id BETWEEN :categoryId AND :categoryId2 " +
@@ -62,7 +62,7 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
                                                     @Param("limit") int limit,
                                                     @Param("offset") int offset);
 
-    @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, itemXtag AS x " +
+    @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, item_xtag AS x " +
             "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
             "AND LOWER(t.name) = LOWER(:search) " +
             "AND category_id BETWEEN :categoryId AND :categoryId2 " +

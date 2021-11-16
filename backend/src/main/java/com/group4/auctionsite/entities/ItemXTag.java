@@ -11,21 +11,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tag")
+@Table(name = "item_xtag")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Tag {
+public class ItemXTag {
 
 
     @Id
     @GeneratedValue
     private long id;
 
-    private String name;
+    private long itemId;
+    private long tagId;
 
-    public Tag(String name) {
-        this.name = name;
+    public ItemXTag(long tagId, long itemId) {
+        this.tagId = tagId;
+        this.itemId = itemId;
     }
 }
+

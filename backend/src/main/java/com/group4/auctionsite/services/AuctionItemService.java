@@ -1,12 +1,8 @@
 package com.group4.auctionsite.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.group4.auctionsite.entities.AuctionItem;
-import com.group4.auctionsite.entities.Bid;
-import com.group4.auctionsite.entities.User;
-import com.group4.auctionsite.repositories.AuctionItemRepository;
-import com.group4.auctionsite.repositories.BidRepository;
-import com.group4.auctionsite.repositories.UserRepository;
+import com.group4.auctionsite.entities.*;
+import com.group4.auctionsite.repositories.*;
 import com.group4.auctionsite.utils.FilterAuctionItem;
 import com.group4.auctionsite.utils.FrontEndHelper;
 import com.group4.auctionsite.utils.ObjectMapperHelper;
@@ -28,6 +24,11 @@ public class AuctionItemService {
     UserRepository userRepository;
     @Autowired
     NotificationService notificationService;
+    @Autowired
+    TagService tagService;
+    @Autowired
+    ItemXTagRepository itemXTagRepository;
+
     ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
     FrontEndHelper frontEndHelper = new FrontEndHelper();
 
@@ -48,13 +49,30 @@ public class AuctionItemService {
     }
 
     public AuctionItem createAuctionItem(String auctionItem) {
-        Object x = objectMapperHelper.objectMapper(auctionItem);
-        AuctionItem a = new AuctionItem(x);
+        LinkedHashMap x = (LinkedHashMap) objectMapperHelper.objectMapper(auctionItem);
+        String tagsx = x.get("tags").toString();
+
+        AuctionItem a = new AuctionItem();
+        a.setUserId(Long.parseLong(x.get("userId").toString()));
+        a.setCategoryId(Long.parseLong(x.get("categoryId").toString()));
+        a.setDescription(x.get("description").toString());
+        a.setTitle(x.get("title").toString());
+        a.setStartTime(Long.parseLong(x.get("startTime").toString()));
+        a.setEndTime(Long.parseLong(x.get("endTime").toString()));
+        a.setStartPrice(Integer.parseInt(x.get("startPrice").toString()));
+        a.setImagePath(x.get("imagePath").toString());
 
        a = auctionItemRepository.save(a);
-       User user =userService.findCurrentUser();
+       User user = userService.findCurrentUser();
        bidRepository.save(new Bid(a.getId(),user.getId(),a.getStartPrice()));
-       List<String> tags = x.tags.split(" ");
+
+       String[] tags = tagsx.split(" ");
+
+       List<Tag> tagList = tagService.createTags(tags);
+
+       for(Tag t: tagList){
+           itemXTagRepository.save(new ItemXTag(t.getId(), a.getId()));
+       }
        return a;
     }
                 

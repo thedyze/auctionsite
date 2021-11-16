@@ -21,6 +21,22 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
+    public List<Tag> createTags(String[] tags) {
+
+        List<Tag> tagList = new ArrayList<>();
+
+        for(String t: tags){
+            List<Tag> findTags = tagRepository.findAllByName(t);
+            if(findTags.size() == 0){
+                tagList.add(tagRepository.save(new Tag(t)));
+            } else {
+                tagList.add(findTags.get(0));
+            }
+
+        }
+        return tagList;
+    }
+
     public List<Long> getAllTagIdsOnAuctionItem(Long itemId) { return tagRepository.findAllTagIdsOnAuctionItem(itemId);}
 
     public List<Tag> getAllTagsByIds(List<Long> tagIds) { return tagRepository.findAllByIdIn(tagIds); }
