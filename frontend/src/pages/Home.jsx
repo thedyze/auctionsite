@@ -4,6 +4,7 @@ import { useEffect, useState,useContext } from "react";
 import { Search } from "../components/search/Search";
 import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { Categories } from "../components/search/Categories";
+import homeTop from "../images/homeTop.jpeg"; 
 
 
 export const Home = () => {
@@ -42,14 +43,22 @@ export const Home = () => {
 
   return (
     <div className="bg-myAw">
-      <div className="bg-homebg bg-cover h-56 text-center font-logoFont -mt-2 -mb-40">
+      <div className="h-56 text-center font-logoFont -mt-2 -mb-40">
+        <img src={homeTop} className="h-full w-full" alt="background-home-picture"  />
       </div>
       {/* <div className="grid place-items-center pt-9"> */}
       <div className=" flex flex-col place-items-center pt-9 -mt-8">
-        <Search handleFilters={setFilterParams} class/>
-        <Categories  handleFilters={setFilterParams} />
+        <Search handleFilters={setFilterParams} class />
+        <Categories handleFilters={setFilterParams} />
         <HomeAuctionList filteredAuctionItems={filteredAuctionItems} />
-        <button className="bg-myPr-dark my-2 py-2 px-8 text-sm text-white rounded focus:bg-myPr-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myPr-dark" onClick={() => {setPage(page + 1)}}>Show more</button>
+        <button
+          className="bg-myPr-dark my-2 py-2 px-8 text-sm text-white rounded focus:bg-myPr-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myPr-dark"
+          onClick={() => {
+            setPage(page + 1);
+          }}
+        >
+          Show more
+        </button>
       </div>
     </div>
   );
