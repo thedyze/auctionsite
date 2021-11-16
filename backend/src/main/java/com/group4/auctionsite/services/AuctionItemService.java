@@ -131,7 +131,7 @@ public class AuctionItemService {
             return "{\"highestBid\":" + highestBid + "}";
         }
 
-        if(highestBid > 0) notificationService.createNotification(itemId, userId);
+        if(highestBid > auctionItem.get().getStartPrice()) notificationService.createNotification(itemId, userId);
         bidRepository.save(new Bid(itemId, userId, bid));
 
         return "{" +
