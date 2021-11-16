@@ -15,7 +15,8 @@ export const Selling = () => {
   const [now] = useState(new Date().getTime())
 
     useEffect(() => {
-    if (!currentUser) return;  
+    if (!currentUser) return;
+    if(userSellingItems.length < 1)
     fetchUserSellingItems();    
     let activeTemp=[]
     let inactiveTemp=[]

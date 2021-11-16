@@ -8,6 +8,8 @@ export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [badCredentials, setBadCredentials] =useState(false)
+
   async function login(e) {
     e.preventDefault();
 
@@ -26,6 +28,7 @@ export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin
   
     if (response.status == 403) {
       console.log("Wrong email/password");
+      setBadCredentials(true)
     }
     if (response.status == 200) {
       setCurrentUser(user);
@@ -68,7 +71,7 @@ export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin
                 required
                 className="appearance-none rounded-none font-myPtext text-xl relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-myGr-dark focus:border-myGr-dark focus:z-10 sm:text-sm"
                 placeholder="Email address"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {setEmail(e.target.value),setBadCredentials(false)}}
               />
             </div>
             <div>
@@ -83,11 +86,13 @@ export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin
                 required
                 className="appearance-none rounded-none font-myPtext text-xl relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-myGr-dark focus:border-myGr-dark focus:z-10 sm:text-sm"
                 placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {setPassword(e.target.value),setBadCredentials(false)}}
               />
             </div>
           </div>
           <div className="text-xs text-center">
+            {badCredentials && (<div className="text-myRe -mt-2 mb-2 font-medium"> Bad Credentials </div>
+            )}
             <div onClick={goToReg} className="font-medium text-myGr-dark ">
               Register Account
             </div>

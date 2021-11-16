@@ -147,7 +147,7 @@ export default function Navbar() {
               </div>
             </div>
             {toggleToast && <Alert variant="filled" severity="success" style={{backgroundColor: '#6acf9d'}}>
-            {toastLogin ? "You have been logged in!" : "You have been successfully logged out!"}
+            {toastLogin ? "You have been LOGGED IN!" : "You have been LOGGED OUT!"}
             </Alert>}
           </div>
     </Disclosure>
