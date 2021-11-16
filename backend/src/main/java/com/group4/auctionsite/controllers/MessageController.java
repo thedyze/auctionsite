@@ -6,6 +6,7 @@ import com.group4.auctionsite.services.MessageService;
 import com.group4.auctionsite.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.security.core.AuctionItemDetails.AuctionItemDetailsService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -24,8 +25,12 @@ public class MessageController {
     }
 
     @PostMapping
-    public Message createMessage(@RequestBody Message message) {
-        return messageService.createMessage(message);
+    public ResponseEntity<Message> createMessage(@RequestBody Message message) {
+        User user = userService.findCurrentUser();
+        if(user == null) return ResponseEntity.status(403).build();
+        message.setSenderId(user.getId());
+        message.setTimestamp(new Date().getTime());
+        return ResponseEntity.ok(messageService.createMessage(message));
     }
 
 

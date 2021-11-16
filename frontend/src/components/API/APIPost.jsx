@@ -20,7 +20,7 @@ export const APIPost = ({posts, activateModal, mauro}) => {
               {api.method}
             </div>
             <div className={API.url}>
-              {api.basePath}{api.url}
+              {api.url}
             </div>
           </div>
         ))}

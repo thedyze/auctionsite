@@ -14,7 +14,10 @@ public class APIService {
     @Autowired
     APIRepository apiRepository;
 
-    public List<API> getAllAPIs() {
-        return apiRepository.findAll();
+    public HashMap getAllAPIs() {
+        HashMap map = new HashMap();
+        map.put("apis", apiRepository.findAll());
+        map.put("entities", apiRepository.findAllEntities());
+        return map;
     }
 }

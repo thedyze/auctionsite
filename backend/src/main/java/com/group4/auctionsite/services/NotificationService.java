@@ -63,15 +63,21 @@ public class NotificationService {
     }
 
     public void deleteNotification(long id, long userId) {
-        Notification notification = notificationRepository.findById(id).get();
-        if(notification.getUserId() == userId) notificationRepository.delete(notification);
+        Optional<Notification> notification = notificationRepository.findById(id);
+        if(notification.isEmpty()) return;
+        if(notification.get().getUserId() == userId) notificationRepository.delete(notification.get());
     }
 
     public void deleteNotifications(String notificationIds, long userId) {
         String[] ids = notificationIds.split(",");
         for(String id : ids) {
-            Notification notification = notificationRepository.findById(Long.parseLong(id)).get();
-            if(notification.getUserId() == userId) notificationRepository.delete(notification);
+            try {
+                Optional<Notification> notification = notificationRepository.findById(Long.parseLong(id));
+                if(notification.isEmpty()) return;
+                if(notification.get().getUserId() == userId) notificationRepository.delete(notification.get());
+            } catch (NumberFormatException e) {
+                return;
+            }
         }
     }
 }

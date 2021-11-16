@@ -11,7 +11,7 @@ export const Buying = () => {
   const [currentAuctions, setCurrentAuctions] = useState([]);
   const [wonAuctions, setWonAuctions] = useState([]);
   const [lostAuctions, setLostAuctions] = useState([]);
-  
+
   //toggles
   const [toggleBidding, setToggleBidding] = useState(true);
   const [toggleWon, setToggleWon] = useState(true);
@@ -20,12 +20,12 @@ export const Buying = () => {
   const history = useHistory();
   const currentTime = new Date().getTime();
 
-    
-  
+
+
   useEffect(() => {
     if (!currentUser) return;
     if(userBuyingItems.length < 1)
-    fetchUserBuyingItems(currentUser.id); 
+    fetchUserBuyingItems();
     let currentAuctionsTemp = []
     let wonAuctionsTemp = []
     let lostAuctionsTemp = []
