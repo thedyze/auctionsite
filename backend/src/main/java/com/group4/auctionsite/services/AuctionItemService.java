@@ -47,11 +47,15 @@ public class AuctionItemService {
         return auctionItem.get().toJson(highestBid, numberOfBids);
     }
 
-    public AuctionItem createAuctionItem(AuctionItem auctionItem) {
-       auctionItem = auctionItemRepository.save(auctionItem);
+    public AuctionItem createAuctionItem(String auctionItem) {
+        Object x = objectMapperHelper.objectMapper(auctionItem);
+        AuctionItem a = new AuctionItem(x);
+
+       a = auctionItemRepository.save(a);
        User user =userService.findCurrentUser();
-       bidRepository.save(new Bid(auctionItem.getId(),user.getId(),0));
-       return auctionItem;
+       bidRepository.save(new Bid(a.getId(),user.getId(),a.getStartPrice()));
+       List<String> tags = x.tags.split(" ");
+       return a;
     }
                 
     public List<AuctionItem> createAuctionItems(List<AuctionItem> auctionItems) {

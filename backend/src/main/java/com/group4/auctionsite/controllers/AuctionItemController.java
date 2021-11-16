@@ -36,7 +36,7 @@ public class AuctionItemController {
     }
 
     @PostMapping
-    public AuctionItem createAuctionItem(@RequestBody AuctionItem auctionItem) {
+    public AuctionItem createAuctionItem(@RequestBody String auctionItem) {
         return auctionItemService.createAuctionItem(auctionItem);
     }
 

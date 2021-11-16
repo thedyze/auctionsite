@@ -9,13 +9,14 @@ export const CreateListing = () => {
 
   const history = useHistory()
   const { currentUser } = useContext(UserContext)
-  const [buyNowCheckBox, setBuyNowCheckBox] = useState(false)
   const [loginAlert, setLoginAlert] = useState(false)
   //Image Upload functions
   const [preview1, setPreview1] = useState('src/images/upload.png')
   const [preview2, setPreview2] = useState('src/images/upload.png')
   const [preview3, setPreview3] = useState('src/images/upload.png')
   const [noFiles, setNoFiles] = useState(false)
+  // const [buyNowCheckBox, setBuyNowCheckBox] = useState(false)
+  const [tags, setTags] = useState([])
 
   //dynamically gathers input values into an object which will be passed on submit
   const [auctionData, setAuctionData] = useState({
@@ -23,8 +24,9 @@ export const CreateListing = () => {
     description: "",
     category: "",
     startPrice: 0,
-    buyNowPrice: 0,
     endTime: new Date().getTime(),
+    // buyNowPrice: 0,
+    // tags: ""
   });
 
   const categories = [
@@ -71,10 +73,24 @@ export const CreateListing = () => {
       currentBid: 0,
       startPrice: a.startPrice,
       categoryId: catId,
-      buyNowPrice: a.buyNowPrice,
-      imagePath: value
+      imagePath: value,
+      // buyNowPrice: a.buyNowPrice,
+      // tags: a.tags
     };
     console.log("newAuctionObj before fetch", newAuctionObj);
+
+    try {
+      let res = await fetch("/rest/auctionItem", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newAuctionObj)
+      });
+      res = await res.json();
+
+      history.push(`/auction-details/${res.id}`)
+    } catch (error) {
+      console.log("the new listing was not submitted")
+    }
 
     try {
       let res = await fetch("/rest/auctionItem", {
@@ -132,7 +148,6 @@ export const CreateListing = () => {
     catch (e) { console.error(e); }
   }
 
-
   function updateFormData(imgname, file) {
 
     const tempData = formData.getAll('files')
@@ -174,7 +189,7 @@ export const CreateListing = () => {
       <div className="p-6">
 
         {/* Image upload */}
-        
+
         <label className="w-full p-4 flex justify-center font-myPtext font-bold font-block text-base">Upload photos</label>
         <div className="w-full px-4 flex flex-wrap justify-center mt-4">
           <form className="w-96 flex flex-wrap justify-center">
@@ -202,7 +217,7 @@ export const CreateListing = () => {
             </div >
             {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
           </form>
-            </div>
+        </div>
       </div>
 
       <form className="p-6" onSubmit={imageUploadSubmit}>
@@ -258,6 +273,21 @@ export const CreateListing = () => {
           </div>
         </div>
 
+        {/* Tags input */}
+        <div className="">
+          <label htmlFor="starting-price" className="font-myPtext font-bold block text-base">#Tags</label>
+          <input
+            type="text"
+            name="tags"
+            id="tags"
+            className={util.input}
+            placeholder='seperate tags with a space (" ")'
+            onChange={(e) => {
+              setAuctionData((prev) => ({ ...prev, tags: e.target.value }));
+            }}
+          />
+        </div>
+
         {/* Price input */}
         <div className="">
           <label htmlFor="starting-price" className="font-myPtext font-bold block text-base">Starting price</label>
@@ -275,7 +305,7 @@ export const CreateListing = () => {
         </div>
 
         {/* Buy Now input */}
-        <div className="flex justify-between ">
+        {/* <div className="flex justify-between ">
           <div className="flex items-center pr-2 py-2.5 mb-8 mt-1">
             <input
               id="buy-now"
@@ -306,7 +336,7 @@ export const CreateListing = () => {
             />
           }
 
-        </div>
+        </div> */}
 
         {/* Set end Date */}
         <div className="">
