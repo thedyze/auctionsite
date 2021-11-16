@@ -14,7 +14,7 @@ export const RangeFilter = ({ handleFilters }) => {
         </div>
         <RangeSlider  range={setRange} handleFilters={handleFilters} />
       <div className="bg-white w-14 text-center mt-4 ml-2 rounded-lg">
-          {range.max}
+          {range.max==2000? `${range.max}+` : range.max}
         </div>
       </div>
   );

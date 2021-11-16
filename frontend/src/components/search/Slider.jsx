@@ -12,10 +12,12 @@ export default function RangeSlider({ handleFilters, range }) {
 
   const handleDebounce = useCallback(
     debounce((range) => {
+      let tempMax=range[1]
+      if (tempMax==2000) tempMax=null
       handleFilters((prev) => ({
         ...prev, page: 0,
         priceFrom: range[0],
-        priceTo: range[1],
+        priceTo: tempMax,
       }));
     }, 1500),
     []
