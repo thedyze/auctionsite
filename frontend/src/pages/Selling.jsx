@@ -12,12 +12,14 @@ export const Selling = () => {
   const [toggleHistory, setToggleHistory] = useState(true);
   const history=useHistory()
 
-  const [now] = useState(new Date().getTime())
+  const now =new Date().getTime()
 
     useEffect(() => {
-    if (!currentUser) return;
-    if(userSellingItems.length < 1)
-    fetchUserSellingItems();    
+      if (!currentUser) return;
+      fetchUserSellingItems();    
+    }, [currentUser]);
+
+    useEffect(() => {
     let activeTemp=[]
     let inactiveTemp=[]
       userSellingItems.map((item) => {
@@ -25,7 +27,7 @@ export const Selling = () => {
       });
       setActivateItems(activeTemp)
       setInactivateItems(inactiveTemp)
-    }, [userSellingItems,currentUser]);
+    }, [userSellingItems]);
 
 
   return (

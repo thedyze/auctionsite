@@ -97,8 +97,8 @@ export const AuctionDetails = () => {
 
       <img id="image1" className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
       <div className=" w-full flex flex-row justify-center">
-        <img id="image2" className="max-w-14 max-h-14 object-contain px-1 " onError={(e)=>{e.target.onerror=null, e.target.remove()}} src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
-        <img className="max-w-14 max-h-14 object-contain px-1"  onError={(e)=>{e.target.onerror=null, e.target.remove()}} src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
+        <img id="image2" className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
+        <img className="max-w-14 max-h-14 object-contain px-1"   src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div>
       <div className="text-xl font-myPtext">{auctionItem.title}</div>
 
