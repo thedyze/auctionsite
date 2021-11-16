@@ -70,7 +70,7 @@ export const Buying = () => {
       {toggleWon && wonAuctions.map((item) => (
         <div className="mx-3 my-2 px-2 py-1 border border-solid bg-gray-200" key={item.id}>
           <div className="text-xs flex justify-between text-gray-500">
-            <div>{item.title}</div>
+            <div className="whitespace-nowrap overflow-x-hidden font-bold overflow-ellipsis" style={{maxWidth:"150px"}} >{item.title}</div>
             <div className="flex justify-end">
               <div> {new Date(+item.endTime).toLocaleDateString()}  </div>
               <div className="bg-gray-500 px-2">
