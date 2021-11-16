@@ -62,6 +62,7 @@ public class AuctionItemService {
         }
         return  auctionItemsx;
     }
+    
     public String getAuctionItemsByUserId(long userId) {
             List<String> updatedList=new ArrayList<>();
 
@@ -72,10 +73,6 @@ public class AuctionItemService {
         return frontEndHelper.ToJson(updatedList);
     }
 
-<<<<<<< HEAD
-
-
-=======
     public String getAuctionItemsByUserBuying(long userId) {
         List<AuctionItem> auctionItems = auctionItemRepository.findByUserBuying(userId);
         List<String> listToJson = new ArrayList<String>();
@@ -86,7 +83,6 @@ public class AuctionItemService {
         }
         return frontEndHelper.ToJson(listToJson);
     }
->>>>>>> buying-page
 
     public String placeBid(String bidx, long userId) {
         LinkedHashMap placedBid = (LinkedHashMap) objectMapperHelper.objectMapper(bidx);
