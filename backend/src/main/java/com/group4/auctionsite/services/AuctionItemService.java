@@ -40,12 +40,13 @@ public class AuctionItemService {
         Optional<AuctionItem> auctionItem = auctionItemRepository.findById(id);
         User user = userService.findCurrentUser();
         int highestBid = bidRepository.findMaxBidByItemId(id);
+        boolean winner = auctionItem.get().getEndTime() < new Date().getTime() && bidRepository.findMaxBidByUserId(user.getId(), id) == highestBid;
         if (user !=null) {
             highestBid = (int) (highestBid * (user.getRole().contains("organization") ? 0.8 : 1));
             var a=0;
         }
         int numberOfBids = bidRepository.numberOfBidsByItemId(id);
-        return auctionItem.get().toJson(highestBid, numberOfBids);
+        return auctionItem.get().toJson(highestBid, numberOfBids, winner);
     }
 
     public AuctionItem createAuctionItem(String auctionItem, long userId) {
@@ -89,7 +90,7 @@ public class AuctionItemService {
 
         List<AuctionItem> itemList =auctionItemRepository.findAllByUserId(userId);
         for(AuctionItem item:itemList){
-            updatedList.add(item.toJson(bidRepository.findMaxBidByItemId(item.getId()), bidRepository.numberOfBidsByItemId(item.getId())));
+            updatedList.add(item.toJson(bidRepository.findMaxBidByItemId(item.getId()), bidRepository.numberOfBidsByItemId(item.getId()), false));
         }
         return frontEndHelper.ToJson(updatedList);
     }
@@ -164,7 +165,7 @@ public class AuctionItemService {
                 highestBid = (int) (bidRepository.findMaxBidByItemId(item.getId()) * (user.getRole().matches("organization") ? 0.8 : 1));
             }
             int numberOfBids = bidRepository.numberOfBidsByItemId(item.getId());
-            auctionItemsAsJson.add(item.toJson(highestBid, numberOfBids));
+            auctionItemsAsJson.add(item.toJson(highestBid, numberOfBids, false));
         }
 
         return frontEndHelper.ToJson(auctionItemsAsJson);
