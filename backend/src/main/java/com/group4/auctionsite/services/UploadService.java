@@ -17,25 +17,16 @@ public class UploadService {
   private UserService userService;
 
   public String saveFiles(List<MultipartFile> files) {
-    User loggedInUser = userService.findCurrentUser();
-    System.out.println(loggedInUser != null);
-
-    List<String> uploadUrls = new ArrayList<>();
 
     String cwd = System.getProperty("user.dir");
     String uploadFolder = cwd + "/src/main/resources/static/uploads/";
     String generatedString = generateString();
 
     for (var file : files) {
-    //    String fileName = Long.toString(loggedInUser.getId())+ "_" + fileNumber +".jpg";
       String fileName = generatedString + file.getOriginalFilename();
-      var uploadUrl = "/uploads/" + fileName;
-
       File toSave = new File(uploadFolder + fileName);
       try {
         file.transferTo(toSave);
-        uploadUrls.add(uploadUrl);
-        System.out.println(uploadUrls);
 
       } catch (Exception e) {
         e.printStackTrace();
