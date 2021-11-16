@@ -60,8 +60,4 @@ export const Buying = () => {
       ))}
       </div>
     </div>
-<<<<<<< HEAD
   )};
-=======
-  )};
->>>>>>> buying-page
