@@ -72,7 +72,6 @@ export const CreateListing = () => {
       // buyNowPrice: a.buyNowPrice,
       tags: a.tags
     };
-    console.log("newAuctionObj before fetch", newAuctionObj);
 
     try {
       let res = await fetch("/rest/auctionItem", {

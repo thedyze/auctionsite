@@ -67,7 +67,7 @@ export const AuctionDetails = () => {
   }
 
   const handleDisable = (e, placeholder, replacer, skip) => {
-    if(isInactive && !skip) {
+    if (isInactive && !skip) {
       e.target.innerHTML = "This item has expired"
     } else if (currentUser) {
       e.target.innerHTML = "This is your item...<br>" + replacer
@@ -85,16 +85,15 @@ export const AuctionDetails = () => {
     }, 1000)
   }
 
+
+
+  //in development
   const userWon = () => {
-    console.log("auctionItem?.highestBid ", auctionItem?.highestBid)
-    console.log("auctionItem ", auctionItem)
-    console.log("auctionItem?.userId ", auctionItem?.userId)
-    console.log("currentUser?.id ", currentUser?.id)
+    console.log("auctionItem.highestBid ", auctionItem?.highestBid)
+
     //if(isInactive && currentUser.id === auctionItem?.userId && auctionItem?.highestBid === bid.bid)
     // if(currentUser.id === this.bid.userId){
-      
     // }
-   
   }
 
   return (
@@ -124,9 +123,9 @@ export const AuctionDetails = () => {
 
       </div>
       <div className="w-full text-center px-4 font-myPtext">
-        {(auctionItem.endTime - currentTime > currentTime ) ?
-        <div>Time limit passed</div>
-        :
+        {(auctionItem.endTime - currentTime > currentTime) ?
+          <div>Time limit passed</div>
+          :
           <button
             onClick={(e) => handleBtnClick(e)}
             className={'w-3/5 h-14 text-lg ' + util.btn + util.btnGreen + util.btnDisabled(disabled || isInactive)}
