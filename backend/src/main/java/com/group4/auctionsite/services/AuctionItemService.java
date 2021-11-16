@@ -72,8 +72,21 @@ public class AuctionItemService {
         return frontEndHelper.ToJson(updatedList);
     }
 
+<<<<<<< HEAD
 
 
+=======
+    public String getAuctionItemsByUserBuying(long userId) {
+        List<AuctionItem> auctionItems = auctionItemRepository.findByUserBuying(userId);
+        List<String> listToJson = new ArrayList<String>();
+        for(AuctionItem ai: auctionItems){
+            int highestBid = bidRepository.findMaxBidByItemId(ai.getId());
+            int userBid = bidRepository.findMaxBidByUserId(userId, ai.getId());
+            listToJson.add(ai.buyingToJson(highestBid, userBid));
+        }
+        return frontEndHelper.ToJson(listToJson);
+    }
+>>>>>>> buying-page
 
     public String placeBid(String bidx, long userId) {
         LinkedHashMap placedBid = (LinkedHashMap) objectMapperHelper.objectMapper(bidx);

@@ -6,6 +6,7 @@ export default function AuctionDetailsProvider(props) {
   const [auctionItem, setAuctionItem] = useState([])
   const [filteredAuctionItems, setFilteredAuctionItems] = useState([])
   const [userSellingItems, setUserSellingItems] = useState([]);
+  const [userBuyingItems, setUserBuyingItems] = useState([]);
 
 
   const fetchAuctionItem = async (id) => {
@@ -28,13 +29,21 @@ export default function AuctionDetailsProvider(props) {
     setUserSellingItems(res)
   }
 
+  const fetchUserBuyingItems = async (userId) =>{
+    let res = await fetch(`/rest/auctionItem/userBuying/${userId}`);
+    res =await res.json()
+    setUserBuyingItems(res)
+  }
+
   const values = {
     auctionItem,
     filteredAuctionItems,
     userSellingItems,
+    userBuyingItems,
     fetchAuctionItem,
     fetchFilteredAuctionItems,
-    fetchUserSellingItems
+    fetchUserSellingItems,
+    fetchUserBuyingItems
   }
 
   return (

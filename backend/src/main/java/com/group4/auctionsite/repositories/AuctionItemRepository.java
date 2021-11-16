@@ -14,7 +14,7 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
 
     AuctionItem save(AuctionItem auctionItem);
 
-    List<AuctionItem> findAllByUserId( long userId);
+    List<AuctionItem> findAllByUserId(long userId);
 
     @Query(value = "SELECT i.*, (SELECT MAX(bid) FROM bid WHERE item_id = i.id) AS highest_bid, (SELECT COUNT(item_id) FROM bid WHERE item_id = i.id) AS number_of_bids FROM auction_item AS i, tag AS t, itemXtag AS x " +
             "WHERE (x.item_id = i.id AND x.tag_id = t.id) " +
@@ -84,4 +84,7 @@ public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> 
                                               @Param("now") long now,
                                               @Param("limit") int limit,
                                               @Param("offset") int offset);
+    @Query(value = "SELECT auction_item.* FROM auction_item, bid WHERE NOT auction_item.user_id = 32 AND (item_id = auction_item.id AND bid.user_id = 32 AND bid > 0)Group BY auction_item.id"
+    , nativeQuery = true)
+    List<AuctionItem> findByUserBuying(long userId);
 }
