@@ -40,14 +40,24 @@ export const Buying = () => {
       <div> Items you have bid on </div>
       {currentAuctions.map((item) => (
         <div key={item.id}>
-          <div style={{ color: "green" }}>{item.title} active</div>
+          <div style={{ color: "red" }}>{item.title}</div>
         </div>
       ))}
-      <div> History</div>
-      {endedAuctions.map((item) => (
+      <div>
+        <div> Won Auctions</div>
+        {wonAuctions.map((item) => (
         <div key={item.id}>
-          <div style={{ color: "red" }}>{item.title} inactive </div>
+          <div style={{ color: "green" }}>{item.title}</div>
         </div>
       ))}
+      </div>
+      <div>
+        <div> Lost Auctions</div>
+        {lostAuctions.map((item) => (
+        <div key={item.id}>
+          <div style={{ color: "gray" }}>{item.title}</div>
+        </div>
+      ))}
+      </div>
     </div>
   )};
