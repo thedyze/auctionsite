@@ -40,8 +40,8 @@ export const Categories = ({ handleFilters }) => {
 
   return (
     <>
-      
-      <div style={{ width: "95%", display: "flex", overflow: "scroll", paddingLeft: "0.5em", paddingRight: "1.5em" }}>
+      <div className="bg-myAw w-full grid justify-items-center">
+        <div style={{ width: "95%", display: "flex", overflow: "scroll", paddingLeft: "0.5em", paddingRight: "1.5em", paddingTop: "0.0em", background: "#F9F7F5" }}>
         {categories.map((cat) => (
           <button
             style={cat.isActive ? { color: "white", background:"#35825C" } : { color: "white" }}
@@ -53,6 +53,7 @@ export const Categories = ({ handleFilters }) => {
             {cat.name}
           </button>
         ))}
+        </div>
       </div>
     </>
   );

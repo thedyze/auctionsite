@@ -22,10 +22,10 @@ export const Search = ({ handleFilters }) => {
   
 
   return (
-    <div>
+    <div className="grid place-items-center -mt-4">
       <SearchInput handleFilters={handleFilters} />
-      <Box sx={{ width: "100%", bgcolor: "rgba(255,255,255,0.12)" }}>
-        <Tabs sx={{ marginTop: "1.45em"}} value={value} onChange={handleChange} centered>
+      <Box sx={{ width: "28em", marginTop: "2.3em", bgcolor: "rgba(255,255,255,0.12)", borderTopLeftRadius: "0.25rem", borderTopRightRadius: "0.25rem" }}>
+        <Tabs sx={{ marginTop: "0.15em"}} value={value} onChange={handleChange} centered>
           <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000"}} label="Price" name="default" />
           <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000" }} label="Popular" name="popular" />
           <Tab style={{ fontWeight: "bold", color: "white", marginRight: "0.1em", textShadow: "1px 1px 0px #000000" }} label="Latest" name="latest" />
