@@ -2,6 +2,8 @@ import { useContext, useEffect } from "react"
 import { MessageContext } from "../contexts/MessageContext"
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import { socket } from "../socket";
+
 
 
 
@@ -23,6 +25,25 @@ export const MessagesPage=()=>{
    else
       history.push(`/conversation/${m.itemId}/${m.receiverId}`);
  }
+
+
+ useEffect(async () => {
+   let currentUser2 = await fetch("/api/whoami");
+   currentUser2 = await currentUser2.json();
+   socket.on("messageUp", (obj) => {
+     if (currentUser2.id == obj.receiverId) {
+       try {
+         fetchMessagesList();
+       } catch (e) {
+         console.log("error in messages", e);
+       }
+     }
+   });
+   return () => {
+     socket.disconnect();
+   };
+ }, []);
+
 
   return (
     <div className="bg-myAw h-screen">
