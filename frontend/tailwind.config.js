@@ -16,7 +16,7 @@ module.exports = {
         grey: '1px solid #ebebeb', 
       },
       backgroundImage: {
-        'homebg': "url('src/images/home-top.jpeg')",
+        'homebg': "url('src/images/homeTop.jpeg')",
       },
       colors: {
         myGr: { dark: "#35825C", light: "#6ACF9D", disabled: "#CAEABF" },
