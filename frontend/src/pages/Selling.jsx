@@ -31,7 +31,7 @@ export const Selling = () => {
     <div>
       <div className="font-bold py-2 mx-3 border-b-4 flex justify-between">
         <span>Currently selling</span>
-        <button onClick={()=>setToggleSelling(p=>!p)}> {toggleSelling?"up":"down"}</button>
+        <button onClick={()=>setToggleSelling(p=>!p)}> {toggleSelling?"Hide":"Show"}</button>
       </div>
       {toggleSelling&& activeItems.map((item) => (
         <div className="mx-3 my-2 px-2 py-1 border border-solid" key={item.id} onClick={()=>{history.push(`/auction-details/${item.id}`)}} >
@@ -52,7 +52,7 @@ export const Selling = () => {
       <br />
        <div className="font-bold py-2 mx-3 border-b-4 flex justify-between">
         <span>Passed items</span>
-        <button onClick={()=>setToggleHistory(p=>!p)}> {toggleHistory?"up":"down"}</button>
+        <button onClick={()=>setToggleHistory(p=>!p)}> {toggleHistory?"Hide":"Show"}</button>
       </div>
       {toggleHistory && inactiveItems.map((item) => (
         <div className="mx-3 my-2 px-2 py-1 border border-solid bg-gray-200" key={item.id}>

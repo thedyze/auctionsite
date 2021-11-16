@@ -51,11 +51,11 @@ export const Buying = () => {
           <div>{item.title}</div>
           <div className="flex justify-between text-xs">
             <div className="bg-myPr-dark px-2">
-              <span className="text-myGr-light">Bids : </span>
-              <span className="text-white">{item.numberOfBids}</span>
+              <span className="text-myGr-light">Your bid : </span>
+              <span className="text-white">{item.userBid}</span>
             </div>
             <div className="bg-myGr-light px-2">
-              <span className="text-myPr-dark">Current Bid : </span>
+              <span className="text-myPr-dark">Highest Bid : </span>
               <span className="text-white">{item.highestBid}</span>
             </div>
             <div key={item.id}>{<LocalCountdown className="text-black" auctionEndTime={item.endTime}/>}</div>
