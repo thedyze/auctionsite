@@ -30,11 +30,12 @@ public class AuctionItem {
     private int currentViews;
     private String imagePath;
 
+
     private boolean isActive(){
         return this.endTime > new Date().getTime();
     }
 
-    public String toJson(int highestBid, int numberOfBids) {
+    public String toJson(int highestBid, int numberOfBids, boolean winner) {
         return "{" +
                 "\"id\":\""+this.id+"\", " +
                 "\"userId\":\""+this.userId+"\", " +
@@ -48,7 +49,8 @@ public class AuctionItem {
                 "\"currentViews\":\""+this.currentViews+"\", " +
                 "\"imagePath\":\""+this.imagePath+"\", " +
                 "\"highestBid\":\""+highestBid+"\", " +
-                "\"numberOfBids\":\""+numberOfBids+"\"" +
+                "\"numberOfBids\":\""+numberOfBids+"\", " +
+                "\"winner\":\""+winner+"\"" +
                 "}";
     }
     public String buyingToJson(int highestBid, int userBid) {

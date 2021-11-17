@@ -14,7 +14,7 @@ export const AuctionDetails = () => {
   const history = useHistory();
   const { id } = useParams();
   const [activateModal, setActivateModal] = useState('init')
-  const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
+  const { auctionItem, fetchAuctionItem, userBuyingItems, fetchUserBuyingItems } = useContext(AuctionDetailsContext);
   const { tags, fetchTags } = useContext(TagContext);
   const { user, fetchUser, currentUser } = useContext(UserContext);
   const [bigImg, setBigImg] = useState('_img1.jpg')
@@ -24,6 +24,7 @@ export const AuctionDetails = () => {
   const [isInactive, setIsInactive] = useState(false)
   const [currentTime] = useState(new Date().getTime());
   const topRef=useRef(null)
+  const [wonAuction, setWonAuction] = useState([]);
 
   //listen to bid changes in other auctions
   useEffect(() => {
@@ -37,6 +38,12 @@ export const AuctionDetails = () => {
     fetchAuctionItem(id);
     fetchTags(id);
   }, [id]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    if (userBuyingItems.length < 1)
+      fetchUserBuyingItems();
+  }, [userBuyingItems, currentUser]);
 
   useEffect(() => {
     if (auctionItem?.userId) {
@@ -70,9 +77,8 @@ export const AuctionDetails = () => {
   }
 
   const handleBtnClick = (e) => {
-    userWon()
     if (disabled) {
-      handleDisable(e, "Place bid","")
+      handleDisable(e, "Place bid", "")
     } else {
       setActivateModal(!activateModal)
     }
@@ -96,22 +102,12 @@ export const AuctionDetails = () => {
 
       let icon = document.getElementById('iconRef')
       icon.click()
-      }
+    }
     setTimeout(() => {
       e.target.innerHTML = placeholder
       e.target.blur();
     }, 1500)
   }
-
-  const userWon = () => {
-    console.log("auctionItem.highestBid ", auctionItem?.highestBid)
-
-    //if(isInactive && currentUser.id === auctionItem?.userId && auctionItem?.highestBid === bid.bid)
-    // if(currentUser.id === this.bid.userId){
-    // }
-  }
-
-  
 
   return (
     <div className="grid place-items-center gap-5 mb-9">
@@ -127,7 +123,7 @@ export const AuctionDetails = () => {
 
       <div className="flex align-middle w-full text-center mx-4 font-myPtext">
         <div className="w-1/3 border-r-2 border-gray-100">
-          <div className="font-bold">{auctionItem.numberOfBids >0 ? "Highest Bid" : "Starting price"}</div>
+          <div className="font-bold">{auctionItem.numberOfBids > 0 ? "Highest Bid" : "Starting price"}</div>
           <div>{auctionItem.highestBid}</div>
         </div>
         <div className="w-1/3 border-r-2 border-gray-100">
@@ -141,8 +137,8 @@ export const AuctionDetails = () => {
 
       </div>
       <div className="w-full text-center px-4 font-myPtext">
-        {(auctionItem.endTime - currentTime > currentTime) ?
-          <div>Time limit passed</div>
+        {auctionItem.winner == 'true' ?
+          <div className="bg-myGr-light w-full h-12 flex justify-center items-center font-myHtext text-white">Congratulations you won!</div>
           :
           <button
             onClick={(e) => handleBtnClick(e)}
