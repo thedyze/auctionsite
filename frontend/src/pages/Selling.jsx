@@ -33,7 +33,7 @@ export const Selling = () => {
   return (
     <div className="bg-myAw h-full pb-20">
       <div className="w-full text-center font-myHtext text-4xl  py-6">Selling</div>
-      <div className="font-bold font-myHtext py-2 mx-3 border-b-4 flex justify-between">
+      <div className="font-bold text-xl font-myHtext py-2 mx-3 border-b-4 flex justify-between">
         <span>Currently selling</span>
         <button className="text-base underline" onClick={()=>setToggleSelling(p=>!p)}> {toggleSelling?"Hide":"Show"}</button>
       </div>
@@ -46,7 +46,7 @@ export const Selling = () => {
               <span className="text-white">{item.numberOfBids}</span>
             </div>
             <div className="w-4/12 bg-myGr-light p-px mr-1 rounded-sm text-center">
-              <span className="text-myPr-dark">Curent Bid : </span>
+              <span className="text-myPr-dark">{item.numberOfBids > 0 ? "Highest Bid: " : "Start price: "}</span>
               <span className="text-white">{item.highestBid}</span>
             </div>
             <div className="w-5/12 text-right" key={item.id}>{<LocalCountdown className="text-black" auctionEndTime={item.endTime}/>}</div>
@@ -54,7 +54,7 @@ export const Selling = () => {
         </div>
       ))}
       <br />
-      <div className="font-bold font-myHtext text-xl py-2 mx-3 border-b-4 flex justify-between">
+      <div className="font-bold font-myHtext py-2 mx-3 border-b-4 flex justify-between">
         <span>Passed items</span>
         <button className="text-base underline" onClick={()=>setToggleHistory(p=>!p)}> {toggleHistory?"Hide":"Show"}</button>
       </div>

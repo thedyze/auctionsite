@@ -134,7 +134,7 @@ export default function Navbar() {
                 {currentUser ? (
                   <div>
                     <Menu.Item>
-                      <div className="block px-4 py-2 text-sm text-myGr-dark text-center" href="/myPage">
+                      <div className="block px-4 py-2 text-sm font-bold text-myGr-dark text-center" href="/myPage">
                         {currentUser.username}
                       </div>
                     </Menu.Item>
