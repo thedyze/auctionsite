@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { TagContext } from "../contexts/TagContext";
@@ -23,6 +23,7 @@ export const AuctionDetails = () => {
   const [disabled, setDisabled] = useState(false)
   const [isInactive, setIsInactive] = useState(false)
   const [currentTime] = useState(new Date().getTime());
+  const topRef=useRef(null)
 
   //listen to bid changes in other auctions
   useEffect(() => {
@@ -30,6 +31,7 @@ export const AuctionDetails = () => {
       if (obj.itemId == id) fetchAuctionItem(id);
     });
   }, [])
+  
 
   useEffect(() => {
     fetchAuctionItem(id);
@@ -40,9 +42,27 @@ export const AuctionDetails = () => {
     if (auctionItem?.userId) {
       fetchUser(auctionItem.userId)
       setDisabled(!currentUser || currentUser?.id == auctionItem?.userId)
-      setIsInactive(auctionItem?.endTime < new Date().getTime())
+      setIsInactive(auctionItem?.endTime < new Date().getTime())   
     }
-  }, [auctionItem?.userId, currentUser]);
+
+    if (bigImg ==="_img1.jpg" && auctionItem.id) {
+      let x = document.getElementById(`${auctionItem.id}-1`);
+      x.onerror = () => {
+        x.remove();
+      };
+      let y = document.getElementById(`${auctionItem.id}-2`);
+      y.onerror = () => {
+        y.remove();
+      };
+      let z = document.getElementById(`${auctionItem.id}-3`);
+      z.onerror = () => {
+        z.remove();
+      };
+      topRef.current.scrollIntoView({ behaviour: "smooth" });
+    }
+
+
+  }, [auctionItem?.userId, currentUser,bigImg]);
 
   async function handleBigImg(i) {
     const bi = bigImg[4]
@@ -91,15 +111,18 @@ export const AuctionDetails = () => {
     // }
   }
 
+  
+
   return (
     <div className="grid place-items-center gap-5 mb-9">
       <BidModal activateModal={activateModal} id={id} auctionEndTime={auctionItem.endTime} />
+      <div ref={topRef}></div>
 
-      <img id="image1" className="bg-myAw w-full max-h-96 h-96 object-contain p-2 " src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
-      <div className=" w-full flex flex-row justify-center">
-        <img id="image2" className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
-        <img className="max-w-14 max-h-14 object-contain px-1"   src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
-      </div>
+      <img  id={`${auctionItem.id}-1`} className="bg-myAw w-full max-h-96 h-96 object-contain p-2 "  src={"/uploads/" + auctionItem.imagePath + bigImg}></img>
+      <div className=" w-full flex flex-row justify-center">  
+        <img id={`${auctionItem.id}-2`} className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
+        <img  id={`${auctionItem.id}-3`} className="max-w-14 max-h-14 object-contain px-1"  src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
+      </div >
       <div className="text-xl font-myPtext">{auctionItem.title}</div>
 
       <div className="flex align-middle w-full text-center mx-4 font-myPtext">

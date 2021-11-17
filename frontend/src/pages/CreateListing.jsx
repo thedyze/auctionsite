@@ -159,6 +159,8 @@ export const CreateListing = () => {
             handleFormSubmit(e, value)
           }
         })
+        formData.delete("files");
+
       } catch (error) {
         console.error(e);
       }

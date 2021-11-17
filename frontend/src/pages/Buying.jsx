@@ -57,8 +57,8 @@ export const Buying = () => {
         <div className="bg-white mx-3 my-2 px-2 py-1 border border-solid" key={item.id} onClick={()=>{history.push(`/auction-details/${item.id}`)}} >
           <div className="font-myPtext text-lg">{item.title}</div>
           <div className="w-full flex justify-items-start text-xs py-0.5">
-            <div className="w-3/12 bg-myPr-dark p-1 rounded-sm mr-1 text-center">
-              <span className="text-myGr-light">Bid : </span>
+            <div className="w-4/12 bg-myPr-dark p-1 rounded-sm mr-1 text-center">
+              <span className="text-myGr-light">Your bid : </span>
               <span className="text-white">{item.userBid + " €"}</span>
             </div>
             <div className="w-4/12 bg-myGr-light p-1 mr-1 rounded-sm text-center">
