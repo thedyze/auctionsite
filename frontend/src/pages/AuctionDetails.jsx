@@ -22,9 +22,7 @@ export const AuctionDetails = () => {
   const [thirdImg, setThirdImg] = useState('_img3.jpg')
   const [disabled, setDisabled] = useState(false)
   const [isInactive, setIsInactive] = useState(false)
-  const [currentTime] = useState(new Date().getTime());
   const topRef=useRef(null)
-  const [wonAuction, setWonAuction] = useState([]);
 
   //listen to bid changes in other auctions
   useEffect(() => {
@@ -53,21 +51,13 @@ export const AuctionDetails = () => {
     }
 
     if (bigImg ==="_img1.jpg" && auctionItem.id) {
-      let x = document.getElementById(`${auctionItem.id}-1`);
-      x.onerror = () => {
-        x.remove();
-      };
-      let y = document.getElementById(`${auctionItem.id}-2`);
-      y.onerror = () => {
-        y.remove();
-      };
-      let z = document.getElementById(`${auctionItem.id}-3`);
-      z.onerror = () => {
-        z.remove();
-      };
-      topRef.current.scrollIntoView({ behaviour: "smooth" });
-    }
 
+    if (bigImg === "_img1.jpg" && auctionItem.id) {
+      let elems = document.querySelectorAll(`img[id^="${auctionItem.id}"]`)
+      elems.forEach( (el)=>{ el.onerror = () => {  el.remove()}})
+      topRef.current.scrollIntoView({ behaviour: "smooth" })
+    }
+    }
 
   }, [auctionItem?.userId, currentUser,bigImg]);
 
