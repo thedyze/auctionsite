@@ -27,4 +27,11 @@ public class Notification {
         this.itemId = itemId;
         this.userId = userId;
     }
+
+    public Notification(long itemId, long userId, long messageId) {
+        this.itemId = itemId;
+        this.userId = userId;
+        this.messageId= messageId;
+    }
+
 }

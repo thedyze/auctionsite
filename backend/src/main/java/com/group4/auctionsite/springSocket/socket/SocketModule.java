@@ -38,9 +38,14 @@ public class SocketModule {
         server.getBroadcastOperations().sendEvent(event,data);
     }
 
-    public void emit2(String event, Notification notification, String title){
+    public void emit2(String event, Notification notification, String title , long correctUserId){
         //  System.out.printf( event, data);
-        server.getBroadcastOperations().sendEvent(event,notification, title);
+        server.getBroadcastOperations().sendEvent(event,notification, title, correctUserId);
+    }
+
+
+    public void emit3(String event, Notification notification, String title, long correctUserId) {
+        server.getBroadcastOperations().sendEvent(event,notification, title,correctUserId);
     }
 
  //  private DataListener<Bid> onBidReceived() {
@@ -57,7 +62,6 @@ public class SocketModule {
     private DisconnectListener onDisconnected(){
         return  client-> System.out.printf("Client[%s] - disconnected.\n",client.getSessionId().toString());
     }
-
 
 
 }

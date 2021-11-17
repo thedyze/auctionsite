@@ -40,21 +40,28 @@ export default function Navbar() {
   }
 
   const handleNotification = async (n) => {
-    await deleteNotification(n.id)
-    history.push(`/auction-details/${n.itemId}`)
+     await deleteNotification(n.id);
+
+    if(n.messageId) history.push(`/conversation/${n.itemId}/${n.correctUserId || n.userId}`)
+    else  history.push(`/auction-details/${n.itemId}`);
+
+    
   }
 
   const clearAll = async () => {
     await deleteNotifications(notifications.map(n => n.id))
   }
 
-  socket.on("notification", (n, t) => {
+
+  
+  socket.on("notification", (n, t, u) => {
     if (n.userId == currentUser.id) {
       let list = []
       for (let i = 0; i < notifications.length; i++) {
         list.push(notifications[i])
       }
       n.title = t
+      n.correctUserId=u
       list.push(n)
       setNotifications(list)
     }
@@ -104,9 +111,10 @@ export default function Navbar() {
                         <Menu.Item key={n.id} onClick={() => handleNotification(n)} >
                           <div className="bg-white px-2 py-2 text-sm text-gray-700" href="/myPage" >
                             <div className="font-semibold">{n?.title}</div>
-                            <div className="text-red-600">
-                              {n.highestBid ? (<span>New bid: {n.highestBid} kr</span>) : (<span>New bid!</span>)}
-                            </div>
+                            <div>
+                              {n.messageId ?<span className="text-myGr-dark">New message!</span>: n.highestBid ? <span  className="text-myRe">New bid: {n.highestBid} kr</span> : <span className="text-myRe" >New bid!</span>}
+
+                            </div>  
                           </div>
                         </Menu.Item>
                       ))}

@@ -5,8 +5,6 @@ import { useHistory } from "react-router-dom";
 import { socket } from "../socket";
 
 
-
-
 export const MessagesPage=()=>{
   const history =useHistory()
 

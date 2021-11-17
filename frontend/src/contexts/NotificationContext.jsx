@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { UserContext, UserProvider } from './UserContext';
+import { UserContext } from './UserContext';
 
 export const NotificationContext = createContext();
 

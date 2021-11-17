@@ -30,6 +30,9 @@ public class MessageService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
     FrontEndHelper frontEndHelper = new FrontEndHelper();
 
     public List<Message> getAllMessages(){
@@ -42,8 +45,14 @@ public class MessageService {
 
     public Message createMessage(Message message) {
         socketModule.emit("messageUp", message);
-        return messageRepository.save(message);
+
+        message = messageRepository.save(message);
+
+        notificationService.createNotification(message.getItemId(),message.getReceiverId(),message.getSenderId(),message.getId());
+
+        return message;
     }
+
 
     public String getMyMessages(long userId) {
 
