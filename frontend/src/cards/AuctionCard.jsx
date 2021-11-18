@@ -19,7 +19,7 @@ export const AuctionCard = ({auction}) => {
         {false ? (
           <img src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"></img>
         ) : (
-          <img className="w-32 h-32" src={`uploads/${auction.imagePath}_img1.jpg`} alt="Bild saknas"></img>
+          <img className="w-32 h-32" src={`uploads/${auction.imagePath}_img1.jpg`} alt="pic missing"></img>
           // <img className="w-36 h-36" src={"/uploads/" + auction.imagePath + "_img1.jpg"} alt="Bild saknas"></img>
         )}
         <div className="h-32 flex "></div>
