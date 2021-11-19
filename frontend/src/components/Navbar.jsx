@@ -23,8 +23,8 @@ export default function Navbar() {
   const [toggleToast, setToggleToast] = useState(false)
   const [toastLogin, setToastLogin] = useState()
 
-  const logout = async () => {
-    await fetch("/logout");
+  const logout = () => {
+    fetch("/logout");
     setCurrentUser("")
     history.push("/");
     setToggleToast(true);

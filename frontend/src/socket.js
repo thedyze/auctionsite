@@ -1,4 +1,4 @@
-export const socket = io("http://10.250.84.76:9092");
+export const socket = io("http://192.168.1.231:9092");
 
 
 socket.on("connect", () => {
