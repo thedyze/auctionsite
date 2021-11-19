@@ -4,22 +4,23 @@ import Box from "@mui/material/Box";
 import debounce  from "lodash/debounce"
 
 export const SearchInput = ({  handleFilters }) => {
-  const [state, setState] = useState(false);
+  // const [state, setState] = useState(false);
 
   const handleDebounce = useCallback(
     debounce((searchVal) => {
+      console.log("deboucne");
       handleFilters((prev)=>({ ...prev, page: 0, search: searchVal }));
-    setState(false);
+  //  setState(false);
 
-    }, 2500)
+    }, 500)
   );
 
 
   const handleSearch = (e) => {
-    setTimeout(()=>{
-      setState(true);
+    // setTimeout(()=>{
+    //   setState(true);
 
-    },1000)
+    // },1000)
     handleDebounce(e.target.value);
   };
 

@@ -33,11 +33,14 @@ export const Home = () => {
 
 
   useEffect(() => {
-    setTimeout(() => {
+    const x = setTimeout(() => {
       fetchFilteredAuctionItems(filterParams);
-    }, 100);
-    return clearTimeout();
+    }, 500);
+    return () => {
+      clearTimeout(x);
+    };
   }, [filterParams]);
+
 
 
 

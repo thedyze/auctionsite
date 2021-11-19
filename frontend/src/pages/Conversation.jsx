@@ -1,5 +1,5 @@
 import { MessageContext } from "../contexts/MessageContext";
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef, useCallback } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useParams,useHistory } from "react-router-dom";
 import { socket } from "../socket";
@@ -75,16 +75,22 @@ export const Conversation = () => {
     setTextMsg("");
   };
 
+  const cbFetchMessages =useCallback(()=>{
+     fetchMessages(itemId, userId);
+
+  },[itemId,userId])
+
   useEffect(async () => {
     let currentUser2 = await fetch("/api/whoami");
     currentUser2 = await currentUser2.json();
     socket.on("messageUp", (obj) => {
       if (
-        currentUser2.id == obj.senderId ||
-        currentUser2.id == obj.receiverId
+        (currentUser2.id == obj.senderId ||
+        currentUser2.id == obj.receiverId) &&
+        obj.itemId == itemId
       ) {
         try {
-          fetchMessages(itemId, userId);
+          cbFetchMessages();
         } catch (e) {
           console.log("error in conversation", e);
         }
@@ -115,7 +121,7 @@ export const Conversation = () => {
         </div>
       </div>
       <div className="mb-16 pt-20">
-        {messages?.messages?.map((m) => (
+        {messages.messages?.map((m) => (
           <div className=" m-2 p-1 rounded-lg w-7/12" key={(`${m.id}-${currentUser?.id}`)} style={ currentUser.id == m.receiverId ? { textAlign: "left" } : { textAlign: "right", marginLeft: "38%"} } >
             <div className="text-xs opacity-50">  {new Date(m.timestamp).toLocaleTimeString()} </div>
             <div className="break-words"  style={ currentUser.id == m.receiverId? {backgroundColor:"wheat", padding: "10px",  borderRadius: "18px 18px 18px 0px"}:

@@ -19,7 +19,7 @@ export default function RangeSlider({ handleFilters, range }) {
         priceFrom: range[0],
         priceTo: tempMax,
       }));
-    }, 1500),
+    }, 500),
     []
   );
 
