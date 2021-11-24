@@ -1,18 +1,26 @@
 import { useState } from "react";
+import shoesIcon from "../../images/Shoe.webp"
+import dressIcon from "../../images/Dress.webp";
+import hatIcon from "../../images/Hat.webp";
+import shirtIcon from "../../images/Shirt.webp";
+import accessoriesIcon from "../../images/Accessories.webp";
+import pantsIcon from "../../images/Pants.webp";
+import shortsIcon from "../../images/Shorts.webp";
+import jacketIcon from "../../images/Jacket.webp";
 
 
 
 export const Categories = ({ handleFilters }) => {
   //Temp names and id's duh.!
   const [categories, setCategories] = useState([
-    { id: 1, name: "Shoes", isActive: false },
-    { id: 4, name: "Accessories", isActive: false },
-    { id: 600, name: "Dresses", isActive: false },
-    { id: 603, name: "Shirts", isActive: false },
-    { id: 604, name: "Pants", isActive: false },
-    { id: 602, name: "Hats", isActive: false },
-    { id: 601, name: "Shorts", isActive: false },
-    { id: 605, name: "Jackets", isActive: false },
+    { id: 1,   iconSrc: shoesIcon,  isActive: false , name: "Shoes"},
+    { id: 4,   iconSrc: accessoriesIcon,  isActive: false , name: "Accessories"},
+    { id: 600, iconSrc: dressIcon,  isActive: false , name: "Dresses"},
+    { id: 603, iconSrc: shirtIcon,  isActive: false , name: "Shirts"},
+    { id: 604, iconSrc: pantsIcon,  isActive: false , name: "Pants"},
+    { id: 602, iconSrc: hatIcon,    isActive: false , name: "Hats"},
+    { id: 601, iconSrc: shortsIcon,  isActive: false , name: "Shorts"},
+    { id: 605, iconSrc: jacketIcon,  isActive: false , name: "Jackets"},
   ]);
 
   const handleClick = (e) => {
@@ -39,22 +47,16 @@ export const Categories = ({ handleFilters }) => {
   };
 
   return (
-    <>
-      <div className="bg-myAw w-full grid justify-items-center">
-        <div style={{ width: "95%", display: "flex", overflow: "scroll", paddingLeft: "0.5em", paddingRight: "1.5em", paddingTop: "0.0em", background: "#F9F7F5" }}>
-        {categories.map((cat) => (
-          <button
-            style={cat.isActive ? { color: "white", background:"#35825C" } : { color: "white" }}
-            key={cat.id}
-            name={cat.id}
-            className={"bg-myGr-light font-myPtext font-bold text-white py-1 px-3 mt-2 mb-2 rounded-3xl"}
-            onClick={handleClick}
-          >
-            {cat.name}
-          </button>
-        ))}
+        <div className="catContainer flex justify-between">
+          {categories.map((cat) => (
+               <img
+                onClick={handleClick}
+                className={`${cat.isActive ? "border-myPr-light border-2 bg-myPr-dark": "bg-myPr-light"} outline-grey font-myPtext font-bold text-white my-2 mx-1 h-14 w-14 rounded-full`}
+                key={cat.id}
+                name={cat.id}
+                src={cat.iconSrc}
+                alt={cat.name}
+              />))}
         </div>
-      </div>
-    </>
   );
 };

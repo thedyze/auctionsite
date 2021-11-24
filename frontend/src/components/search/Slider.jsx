@@ -32,19 +32,19 @@ export default function RangeSlider({ handleFilters, range }) {
   };
 
   return (
-    <div className="mt-6 bg-myAw">
-      <Box style={{ zIndex: 0 }} sx={{ width: 200, alignItems: "center", background: "#F9F7F5"}}>
-      <Slider
-        max={2010}
-        min={-10}
-          style={{ zIndex: 0, color: "#9540A6" }}
-        step={10}
-        value={value}
-        onChange={handleChange}
-        valueLabelDisplay="off"
-        //getAriaValueText={valuetext}
-        //size="big"
-      />
+    <div className="mt-6">
+      <Box sx={{ width: 200, alignItems: "center" }}>
+        <Slider
+          max={2010}
+          min={-10}
+          style={{ color: "#6ACF9D" }}
+          step={10}
+          value={value}
+          onChange={handleChange}
+          valueLabelDisplay="off"
+          //getAriaValueText={valuetext}
+          //size="big"
+        />
       </Box>
     </div>
   );
