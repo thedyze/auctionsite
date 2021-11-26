@@ -42,7 +42,7 @@ input[type='radio']:checked:after {
 
 /* filters underline */
 .MuiTabs-scroller > span {
-  background-color:#B37ECF;
+  background-color:#35825C;
   height: 4px;
 }
 
@@ -57,3 +57,12 @@ input[type='radio']:checked:after {
   border-radius: 4px;
 }
 
+.catContainer {
+    width: 95%;
+    overflow-x: scroll;
+    scrollbar-width: none; /* Firefox */
+}
+.catContainer::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+}

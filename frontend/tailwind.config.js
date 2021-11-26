@@ -13,7 +13,12 @@ module.exports = {
         '18': '4.5rem'
       },
       outline: {
-        grey: '1px solid #ebebeb', 
+        grey: '1px solid #ebebeb',
+        myGrdark: '1px solid #35825C',
+        myGrlight: '1px solid #6ACF9D',
+        myPrdark: '1px solid #9540A6',
+        myPrlight: '1px solid #B37ECF',
+        
       },
       backgroundImage: {
         'homebg': "url('src/images/homeTop.jpeg')",

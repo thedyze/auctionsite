@@ -12,5 +12,5 @@ export const HomeAuctionList = ({ filteredAuctionItems }) => {
     )
   })
 
-  return <div className="h-auto bg-myAw p-2 w-full flex flex-col col-span-1 pt-4">{renderedAuctionItems}</div>
+  return <div className="h-auto  p-2 w-full flex flex-col col-span-1 pt-4">{renderedAuctionItems}</div>
 };

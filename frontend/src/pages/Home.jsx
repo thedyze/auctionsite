@@ -33,11 +33,14 @@ export const Home = () => {
 
 
   useEffect(() => {
-    setTimeout(() => {
+    const x = setTimeout(() => {
       fetchFilteredAuctionItems(filterParams);
-    }, 100);
-    return clearTimeout();
+    }, 500);
+    return () => {
+      clearTimeout(x);
+    };
   }, [filterParams]);
+
 
 
 
@@ -52,7 +55,7 @@ export const Home = () => {
         <Categories handleFilters={setFilterParams} />
         <HomeAuctionList filteredAuctionItems={filteredAuctionItems} />
         <button
-          className="bg-myPr-dark my-2 py-2 px-8 text-sm text-white rounded focus:bg-myPr-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myPr-dark"
+          className="bg-myGr-light my-2 py-2 px-8 text-base text-white rounded focus:bg-myGr-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark"
           onClick={() => {
             setPage(page + 1);
           }}

@@ -67,7 +67,7 @@ export const AuctionDetails = () => {
   }
 
   const handleBtnClick = (e) => {
-    if (disabled) {
+    if (disabled || isInactive) {
       handleDisable(e, "Place bid", "")
     } else {
       setActivateModal(!activateModal)

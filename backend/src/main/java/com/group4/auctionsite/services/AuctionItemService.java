@@ -50,7 +50,7 @@ public class AuctionItemService {
     }
 
     public AuctionItem createAuctionItem(String auctionItem, long userId) {
-        LinkedHashMap x = (LinkedHashMap) objectMapperHelper.objectMapper(auctionItem);
+            LinkedHashMap x = (LinkedHashMap) objectMapperHelper.objectMapper(auctionItem);
 
 
         AuctionItem a = new AuctionItem();
@@ -61,7 +61,7 @@ public class AuctionItemService {
         a.setStartTime(new Date().getTime());
         a.setEndTime(Long.parseLong(x.get("endTime").toString()));
         a.setStartPrice(Integer.parseInt(x.get("startPrice").toString()));
-        a.setImagePath(x.get("imagePath").toString());
+        if(x.get("imagePath") != null) a.setImagePath(x.get("imagePath").toString());
 
        a = auctionItemRepository.save(a);
        bidRepository.save(new Bid(a.getId(),userId,a.getStartPrice()));
