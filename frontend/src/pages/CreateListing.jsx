@@ -139,12 +139,38 @@ export const CreateListing = () => {
       .forEach(file => formData.append('files', file))
 
     formData.append('files', file, imgname)
+    console.log("formdata-add", formData);
   }
+
+  function delImgFromFormData(imgname) {
+
+    const tempData = formData.getAll('files')
+    formData.delete('files')
+
+    tempData
+      .filter(file => file.name !== imgname)
+      .forEach(file => formData.append('files', file))
+    
+    
+    if (imgname === '_img1.jpg') {
+      setPreview1('src/images/upload.png')
+    }
+    if (imgname === '_img2.jpg') {
+      setPreview2('src/images/upload.png')
+    }
+    if (imgname === '_img3.jpg') {
+      setPreview3('src/images/upload.png')
+    }
+
+    console.log("formdata-del", formData);
+  }
+
 
   async function imageUploadSubmit(e) {
     e.preventDefault()
 
-    if (formData.getAll('files').length === 0) {
+    if (preview1 === 'src/images/upload.png'){
+    // if (formData.getAll('files').length === 0) {
       setNoFiles(true)
     }
     else
@@ -178,6 +204,9 @@ export const CreateListing = () => {
           <form className="w-96 flex flex-wrap justify-center">
             <div className="w-80 h-48 px-5 grid grid-rows-2 grid-cols-3 gap-x-4 gap-y-4 ">
               <div className="image-upload h-48 w-48 row-span-2 col-span-2">
+                <div className="h-4 w-4 bg--500" >
+                  <img src="src/images/x.png" onClick={() => delImgFromFormData('_img1.jpg')} alt="Remove image" />
+                </div>
                 <label htmlFor="image1">
                   <img className="object-contain h-48 w-48" src={preview1} alt="" />
                 </label>
@@ -185,6 +214,9 @@ export const CreateListing = () => {
               </div>
 
               <div className=" h-20 w-24 image-upload flex flex-wrap justify-center ">
+                <div className="h-4 w-4 bg--500" >
+                  <img src="src/images/x.png" onClick={() => delImgFromFormData('_img2.jpg')} alt="Remove image" />
+                </div>
                 <label htmlFor="image2">
                   <img className="object-contain h-20 " src={preview2} alt="" />
                 </label>
@@ -192,13 +224,16 @@ export const CreateListing = () => {
               </div>
 
               <div className=" h-20 w-24 image-upload flex flex-wrap -mt-4 justify-center">
+                <div className="h-4 w-4 bg--500" >
+                  <img src="src/images/x.png" onClick={() => delImgFromFormData('_img3.jpg')} alt="Remove image" />
+                </div>
                 <label htmlFor="image3">
                   <img className="object-contain h-20 " src={preview3} alt="" />
                 </label>
                 <input accept="image/*" type="file" id="image3" onChange={e => onAddImage(e, 3)} />
               </div>
             </div >
-            {noFiles && <div className="w-full text-center text-sm text-red-600">You must add at least one image</div>}
+            {noFiles && <div className="w-full text-center text-sm text-red-600">You must add a primary image</div>}
           </form>
         </div>
       </div>
