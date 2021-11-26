@@ -51,7 +51,7 @@ export const Categories = ({ handleFilters }) => {
           {categories.map((cat) => (
                <img
                 onClick={handleClick}
-                className={`${cat.isActive ? "border-myPr-light border-2 bg-myPr-dark": "bg-myPr-light"} outline-grey font-myPtext font-bold text-white my-2 mx-1 h-14 w-14 rounded-full`}
+                className={`${cat.isActive ? "border-myPr-light border-2 outline-myPrlight bg-myPr-dark": "bg-myPr-light"} outline-grey font-myPtext font-bold text-white my-2 mx-1 h-14 w-14 rounded-full`}
                 key={cat.id}
                 name={cat.id}
                 src={cat.iconSrc}
