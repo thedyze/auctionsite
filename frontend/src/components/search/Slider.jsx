@@ -33,11 +33,12 @@ export default function RangeSlider({ handleFilters, range }) {
 
   return (
     <div className="mt-6">
-      <Box sx={{ width: 200, alignItems: "center" }}>
+      <Box sx={{ width: 200, alignItems: "center"}}>
         <Slider
+     
           max={2010}
           min={-10}
-          style={{ color: "#6ACF9D" }}
+          style={{ color: "#6ACF9D",thumb:"250px" }}
           step={10}
           value={value}
           onChange={handleChange}

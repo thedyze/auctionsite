@@ -5,7 +5,6 @@ export const HomeAuctionList = ({ filteredAuctionItems }) => {
   const renderedAuctionItems = filteredAuctionItems.map((auction) => {
     return (
       <AuctionCard
-        className={"h-12  w-20 border-solid border-gray-200 border-2"}
         auction={auction}
         key={auction.id}
       />

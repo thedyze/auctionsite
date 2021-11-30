@@ -7,10 +7,10 @@ export default defineConfig({
   server: {
    host:true,
     proxy: {
-      "/api": "http://localhost:4000",
-      "/rest": "http://localhost:4000",
-      "/logout": "http://localhost:4000",
-      "/uploads": "http://localhost:4000",
+      "/api": "http://192.168.1.231:4000",
+      "/rest": "http://192.168.1.231:4000",
+      "/logout": "http://192.168.1.231:4000",
+      "/uploads": "http://192.168.1.231:4000",
     },
   },
 });

@@ -44,8 +44,13 @@ export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin
 
   const goToReg=()=>{
     history.push("/registration");
-    setTimeout(()=>callback(),100) //this will remove the dropdown menu from the icon
+    setTimeout(()=>callback(),50) //this will remove the dropdown menu from the icon
   }
+
+   const pathTo = (e) => {
+     history.push(`/${e.target.name}`);
+     setTimeout(() => callback(), 50); //this will remove the dropdown menu from the icon
+   };;
 
 
 
@@ -97,7 +102,6 @@ export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin
               Register Account
             </div>
           </div>
-
           <div>
             <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-myGr-light focus:bg-myGr-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myGr-dark">
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -110,6 +114,7 @@ export const LoginTemplate = ({setCurrentUser, callback, toggleToast, toastLogin
             </button>
           </div>
         </form>
+            <a name="About" onClick={pathTo} className="block px-4 py-2 text-base font-medium text-gray-700 text-center"> About </a>
       </div>
     </div>
   );

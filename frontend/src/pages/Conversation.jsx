@@ -132,9 +132,9 @@ export const Conversation = () => {
         ))}
       </div>
       <div ref={messagesEndRef} />
-      <form className="w-full fixed bottom-0  flex flex-row" onSubmit={handleSendMessage}>
-        <input required id="inputMsg"  className="border-4 w-10/12 text-left" type="text"  placeholder="type here..." value={textMsg} onChange={inputChange} />
-        <button className="w-2/12 py-2 bg-myGr-light" type="submit" name="send">
+      <form className="w-full fixed bottom-0 flex flex-row" onSubmit={handleSendMessage}>
+        <input required id="inputMsg" className="z-20 border-4 w-10/12 text-left" type="text"  placeholder="Type here..." value={textMsg} onChange={inputChange} />
+        <button className="w-2/12 py-2 bg-myGr-light z-20" type="submit" name="send">
           send
         </button>
       </form>

@@ -8,7 +8,6 @@ export const SearchInput = ({  handleFilters }) => {
 
   const handleDebounce = useCallback(
     debounce((searchVal) => {
-      console.log("deboucne");
       handleFilters((prev)=>({ ...prev, page: 0, search: searchVal }));
   //  setState(false);
 
@@ -17,19 +16,15 @@ export const SearchInput = ({  handleFilters }) => {
 
 
   const handleSearch = (e) => {
-    // setTimeout(()=>{
-    //   setState(true);
-
-    // },1000)
     handleDebounce(e.target.value);
   };
 
   return (
-    <div>
+    <div style={{ width: "75%" }}>
       {/* {state && <div>Loading....</div>} */}
-      <Box sx={{ width: 300, maxWidth: "100%" }}>
+      <Box>
         <TextField
-          className="bg-white pb-8 h-14 rounded-md justify-center align-middle"
+          className="bg-white rounded-md"
           color="secondary"
           fullWidth
           label="Search"

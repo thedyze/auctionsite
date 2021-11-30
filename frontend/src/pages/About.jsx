@@ -12,7 +12,7 @@ export const About = () => {
             <br />
         
             <a className="font-myPtext text-lg font-medium text-myPr-dark fixed bottom-24 px-2 underline" href="mailto:nope@haha.se">Contact us</a>
-            <div className="font-myPtext text-sm fixed bottom-2">Copyright 2021, Group4</div>
+            <div className="font-myPtext text-sm fixed bottom-2">Copyright 2021</div>
             </div>
         </div>
     )

@@ -10,9 +10,6 @@ import { useHistory } from "react-router-dom";
 import { NotificationContext } from "../contexts/NotificationContext";
 import { socket } from "../socket";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Navbar() {
   const history = useHistory();
@@ -53,7 +50,6 @@ export default function Navbar() {
   }
 
 
-  
   socket.on("notification", (n, t, u) => {
     if (n.userId == currentUser.id) {
       let list = []
@@ -72,7 +68,6 @@ export default function Navbar() {
   }
 
   const pagesArray = ["Create", "Buying", "Selling", "Messages", "About"];
-
 
   return (
     <Disclosure as="nav" className="bg-myPr-light fixed w-screen top-0 z-50">
@@ -132,18 +127,18 @@ export default function Navbar() {
               </Menu.Button>
               <Menu.Items className="fixed bg-white border-l-2 border-b-2 w-44 right-0 top-14">
                 {currentUser ? (
-                  <div>
+                  <div className="hola">
                     <Menu.Item>
-                      <div className="block px-4 py-2 text-sm font-bold text-myGr-dark text-center" href="/myPage">
-                        {currentUser.username}
+                      <div className="block px-4 py-3 text-sm font-bold bg-myGr-disabled text-myGr-dark text-center" href="/myPage">
+                        @{currentUser.username}
                       </div>
                     </Menu.Item>
                     {pagesArray.map((page, i) => (
                       <Menu.Item key={i}>
-                        <a name={page} onClick={pathTo} className={classNames("block px-4 py-2 text-sm text-gray-700 text-center")} > {page}</a>
+                        <a name={page} onClick={pathTo} className="block px-4 py-3 text-lg text-gray-700 text-center" > {page}</a>
                       </Menu.Item>
                     ))}
-                    <Menu.Item><a onClick={logout} className={classNames("block px-4 py-2 text-sm text-gray-700 text-center")}>Log out</a></Menu.Item>
+                    <Menu.Item><a onClick={logout} className="block px-4 py-3 text-white font-semibold text-center"><div className="bg-myGr-light py-1 rounded-md">Log out</div></a></Menu.Item>
                   </div>
                 ) : (
                   <Menu.Item>

@@ -42,8 +42,9 @@ input[type='radio']:checked:after {
 
 /* filters underline */
 .MuiTabs-scroller > span {
-  background-color:#35825C;
-  height: 4px;
+  background-color:#6acf9d;
+  height: 6px;
+  border-radius: 0px 0px 3px 3px;
 }
 
 .css-1wf8b0h-MuiTabs-flexContainer > button {
