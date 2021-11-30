@@ -42,8 +42,7 @@ public class AuctionItemService {
         int highestBid = bidRepository.findMaxBidByItemId(id);
         boolean winner = auctionItem.get().getEndTime() < new Date().getTime() && bidRepository.findMaxBidByUserId(user.getId(), id) == highestBid;
         if (user !=null) {
-            highestBid = (int) (highestBid * (user.getRole().contains("organization") ? 0.8 : 1));
-            var a=0;
+            highestBid = (int) (highestBid * (user.getRole() == User.Role.ORGANIZATION ? 0.8 : 1));
         }
         int numberOfBids = bidRepository.numberOfBidsByItemId(id);
         return auctionItem.get().toJson(highestBid, numberOfBids, winner);
@@ -117,7 +116,7 @@ public class AuctionItemService {
 
         try{
             itemId = Long.parseLong(placedBid.get("itemId").toString());
-            bid = (int) (Integer.parseInt(placedBid.get("bid").toString()) * (user.getRole().matches("organization") ? 1.25 : 1));
+            bid = (int) (Integer.parseInt(placedBid.get("bid").toString()) * (user.getRole() == User.Role.ORGANIZATION ? 1.25 : 1));
         } catch(NumberFormatException e) {
             return "";
         }
@@ -129,11 +128,11 @@ public class AuctionItemService {
 
         int highestBid = bidRepository.findMaxBidByItemId(itemId);
         if(highestBid >= bid) {
-            highestBid = (int) (highestBid * (user.getRole().matches("organization") ? 0.8 : 1));
+            highestBid = (int) (highestBid * (user.getRole() == User.Role.ORGANIZATION ? 0.8 : 1));
             return "{\"highestBid\":" + highestBid + "}";
         }
         if(auctionItem.get().getStartPrice() >= bid) {
-            highestBid = (int) (auctionItem.get().getStartPrice() * (user.getRole().matches("organization") ? 0.8 : 1));
+            highestBid = (int) (auctionItem.get().getStartPrice() * (user.getRole() == User.Role.ORGANIZATION ? 0.8 : 1));
             return "{\"highestBid\":" + highestBid + "}";
         }
 
@@ -142,7 +141,7 @@ public class AuctionItemService {
 
         return "{" +
                 "\"itemId\":" + itemId + "," +
-                "\"newBid\":" + (int) (bid * (user.getRole().matches("organization") ? 0.8 : 1)) +
+                "\"newBid\":" + (int) (bid * (user.getRole() == User.Role.ORGANIZATION ? 0.8 : 1)) +
                 "}";
     }
 
@@ -167,7 +166,7 @@ public class AuctionItemService {
 
             int highestBid = bidRepository.findMaxBidByItemId(item.getId());
             if (user !=null) {
-                highestBid = (int) (bidRepository.findMaxBidByItemId(item.getId()) * (user.getRole().matches("organization") ? 0.8 : 1));
+                highestBid = (int) (bidRepository.findMaxBidByItemId(item.getId()) * (user.getRole() == User.Role.ORGANIZATION ? 0.8 : 1));
             }
             int numberOfBids = bidRepository.numberOfBidsByItemId(item.getId());
             auctionItemsAsJson.add(item.toJson(highestBid, numberOfBids, false));

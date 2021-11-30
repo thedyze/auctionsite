@@ -1,9 +1,10 @@
 import API from "../../styles/API"
 
 
-export const APIPost = ({posts, activateModal, mauro}) => {
+export const APIPost = ({posts, activateModal, mauro, role}) => {
 
   const showModal = (api) => {
+    if(role != 'ADMIN') return
     mauro(api)
     activateModal(p => !p)
   }
@@ -21,6 +22,7 @@ export const APIPost = ({posts, activateModal, mauro}) => {
             </div>
             <div className={API.url}>
               {api.url}
+              {role != 'ADMIN' && <p className="text-xs">Only admins can post</p>}
             </div>
           </div>
         ))}

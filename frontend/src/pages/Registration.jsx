@@ -49,7 +49,7 @@ export const Registration = () => {
         username: u.userName,
         email: u.email,
         password: u.pass2,
-        role: u.role,
+        role: u.role.toUpperCase(),
         orgName: u.orgName,
         orgNr: u.orgNr,
       };

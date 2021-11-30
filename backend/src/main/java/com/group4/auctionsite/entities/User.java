@@ -20,6 +20,10 @@ import javax.persistence.Table;
 @Builder
 public class User {
 
+    public enum Role {
+        PRIVATE, ORGANIZATION, ADMIN
+    }
+
     @Id
     @GeneratedValue
     private long id;
@@ -27,7 +31,7 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private String role;
+    private Role role;
     private String orgName;
     private String orgNr;
     private String websocketId;

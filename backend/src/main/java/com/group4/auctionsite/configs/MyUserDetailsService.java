@@ -28,7 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
                     .email("jack@gmail.com")
                     .username("jack")
                     .password("123")
-                    .role("private")
+                    .role(User.Role.PRIVATE)
                     .build();
             addUser(user);
         }

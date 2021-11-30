@@ -21,7 +21,7 @@ export const API = () => {
             {entity}
           </div>
           <div>
-            <APICalls mauro={setApi} list={apis.apis.filter(a => a.entity === entity)} activateModal={setActivateModal} />
+            <APICalls role={currentUser.role} mauro={setApi} list={apis.apis.filter(a => a.entity === entity)} activateModal={setActivateModal} />
           </div>
         </div>
       ))}
