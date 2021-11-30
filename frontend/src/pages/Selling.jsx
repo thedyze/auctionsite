@@ -59,14 +59,14 @@ export const Selling = () => {
         <button className="text-base underline" onClick={()=>setToggleHistory(p=>!p)}> {toggleHistory?"Hide":"Show"}</button>
       </div>
       {toggleHistory && inactiveItems.map((item) => (
-        <div className="mx-3 my-2 px-2 py-1 border border-solid bg-gray-200 rounded-sm" key={item.id}>
-          <div className="text-sm flex justify-between text-gray-500">
+        <div className="mx-3 my-2 px-2 py-1 bg-gray-200" key={item.id}>
+          <div className="flex justify-between items-center text-gray-500">
             <div className="font-myPtext whitespace-nowrap overflow-x-hidden font-bold overflow-ellipsis" style={{ maxWidth: "150px" }} >{item.title}</div>
-            <div className="flex justify-end">
-              <div className="text-xs mr-2 leading-5"> {new Date(+item.endTime).toLocaleDateString()}  </div>
-              <div className="w-20 bg-gray-400 p-px pl-1 text-left rounded-sm">
-                <span className="text-xs font-normal text-black">Price: </span>
-                <span className="text-white font-bold">{item.highestBid + " €"}</span>
+            <div className="flex items-center ">
+              <div className="text-xs mr-2"> {new Date(+item.endTime).toLocaleDateString()}  </div>
+              <div className=" bg-gray-400 flex items-center p-px text-left">
+                <div className="text-xs font-normal px-1 text-black">Price: </div>
+                <div className="text-white w-18 text-right px-1 font-bold">{item.highestBid + " €"}</div>
               </div>
             </div>
           </div>
@@ -103,21 +103,25 @@ export default function LocalCountdown({ auctionEndTime }) {
       format = [hours, " hours"];
     }
     if (countdown > 60000 && countdown < 3600000) {
-      format = [minutes, " min ", seconds, " s"];
+      format = <span className="text-myRe">{[minutes, " min ", seconds, " s"]}</span>
     }
     if (countdown > 0 && countdown < 60000) {
-      format = [seconds, " s"];
+      format = <span className="text-myRe">{[seconds, " s"]}</span>;
     }
     return format;
   };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown(countdown - 1000);
+    if (countdown <= 3600000) {
+      const timer = setInterval(() => {
+        setCountdown(countdown - 1000);
+        setFormattedTime(formatTime());
+      }, 1000);
+      return () => clearInterval(timer);
+    } else {
       setFormattedTime(formatTime());
-    }, 1000);
-    return () => clearInterval(timer);
-  },[countdown]);
+    }
+  }, [countdown]);
 
   return <div>{formattedTime}</div>;
 }

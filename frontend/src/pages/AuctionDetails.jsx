@@ -109,19 +109,18 @@ export const AuctionDetails = () => {
         <img id={`${auctionItem.id}-2`} className="max-w-14 max-h-14 object-contain px-1 " src={"/uploads/" + auctionItem.imagePath + secondImg} onClick={() => handleBigImg(2)}></img>
         <img  id={`${auctionItem.id}-3`} className="max-w-14 max-h-14 object-contain px-1"  src={"/uploads/" + auctionItem.imagePath + thirdImg} onClick={() => handleBigImg(3)}></img>
       </div >
-      <div className="text-xl font-myPtext">{auctionItem.title}</div>
-
+      <div className="text-3xl font-myPtext">{auctionItem.title}</div>
       <div className="flex align-middle w-full text-center mx-4 font-myPtext">
-        <div className="w-1/3 border-r-2 border-gray-100">
-          <div className="font-bold">{auctionItem.numberOfBids > 0 ? "Highest Bid" : "Starting price"}</div>
-          <div>{auctionItem.highestBid}</div>
+        <div className="w-1/3 border-r-2 border-gray-100 text-xl font-bold" >
+          <div>{auctionItem.numberOfBids > 0 ? "Highest Bid" : "Starting price"}</div>
+          <div className=" text-myGr-dark">{auctionItem.highestBid}€</div>
         </div>
-        <div className="w-1/3 border-r-2 border-gray-100">
-          <div className="font-bold">Ends</div>
+        <div className="w-1/3 border-r-2 border-gray-100 text-xl font-semibold">
+          <div>Ends</div>
           <CountdownTimer key={auctionItem.id} auctionEndTime={auctionItem.endTime} />
         </div>
-        <div className="w-1/3">
-          <div className="font-bold">Bids</div>
+        <div className="w-1/3 text-xl font-bold">
+          <div>Bids</div>
           <div>{auctionItem.numberOfBids}</div>
         </div>
 
@@ -142,11 +141,11 @@ export const AuctionDetails = () => {
           <DocumentTextIcon
             className={util.icon}
             aria-hidden="true" />
-          <div className={"font-bold " + util.iconText}>
+          <div className={"font-bold text-xl " + util.iconText}>
             Description
           </div>
         </div>
-        <div>
+        <div className="text-xl">
           {auctionItem.description}
         </div>
       </div>
@@ -156,10 +155,10 @@ export const AuctionDetails = () => {
           <TagIcon
             className={util.icon}
             aria-hidden="true" />
-          <div className={"font-myPtext font-bold " + util.iconText}>
+          <div className={"font-myPtext text-xl font-bold " + util.iconText}>
             Tags
           </div>
-          <div>
+          <div className="text-xl">
             {tags.map((tag) => `#${tag.name} `)}
           </div>
         </div>
