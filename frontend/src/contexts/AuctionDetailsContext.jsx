@@ -1,3 +1,4 @@
+import { stepButtonClasses } from '@mui/material';
 import { createContext, useState } from 'react'
 
 export const AuctionDetailsContext = createContext();
@@ -7,7 +8,8 @@ export default function AuctionDetailsProvider(props) {
   const [filteredAuctionItems, setFilteredAuctionItems] = useState([])
   const [userSellingItems, setUserSellingItems] = useState([]);
   const [userBuyingItems, setUserBuyingItems] = useState([]);
-
+  const [noMoreItems, setNoMoreItems] = useState(false)
+  const [fetching, setFetching] = useState(false)
 
   const fetchAuctionItem = async (id) => {
     let res = await fetch(`/rest/auctionItem/${id}`)
@@ -21,6 +23,9 @@ export default function AuctionDetailsProvider(props) {
     res = await res.json()
     setFilteredAuctionItems(filteredAuctionItems.length == 0 || obj.includes('"page":0')
       ? res : filteredAuctionItems.concat(res))
+
+    setNoMoreItems(res.length < 10)
+    setFetching(false)
   }
 
   const fetchUserSellingItems = async () => {
@@ -40,10 +45,13 @@ export default function AuctionDetailsProvider(props) {
     filteredAuctionItems,
     userSellingItems,
     userBuyingItems,
+    noMoreItems,
+    fetching,
     fetchAuctionItem,
     fetchFilteredAuctionItems,
     fetchUserSellingItems,
-    fetchUserBuyingItems
+    fetchUserBuyingItems,
+    setFetching
   }
 
   return (

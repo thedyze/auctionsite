@@ -5,11 +5,13 @@ import { Search } from "../components/search/Search";
 import { AuctionDetailsContext } from "../contexts/AuctionDetailsContext";
 import { Categories } from "../components/search/Categories";
 import homeTop from "../images/homeTop.jpeg"; 
+import { RefreshIcon, ChevronDoubleDownIcon } from "@heroicons/react/outline";
+import util from "../styles/util";
 
 
 export const Home = () => {
   const [page, setPage] = useState(0)
-  const { filteredAuctionItems, fetchFilteredAuctionItems } = useContext(AuctionDetailsContext);
+  const { filteredAuctionItems, fetchFilteredAuctionItems, noMoreItems, fetching, setFetching } = useContext(AuctionDetailsContext);
 
   // DEFAULT FILTER PARAMETERS IN HOME PAGE. EVERYTHING IS SET TO NULL
   const [filterParams, setFilterParams] = useState({
@@ -28,11 +30,7 @@ export const Home = () => {
   }, [page])
 
   useEffect(() => {
-    if(filterParams.page == 0 && page != 0) setPage(0)
-  }, [filterParams])
-
-
-  useEffect(() => {
+    if (filterParams.page == 0 && page != 0) setPage(0)
     const x = setTimeout(() => {
       fetchFilteredAuctionItems(filterParams);
     }, 500);
@@ -41,11 +39,27 @@ export const Home = () => {
     };
   }, [filterParams]);
 
+  useEffect(() => {
+    let lastCard = document.querySelectorAll('[id^="lastCard"]')
+    if(lastCard.length === 0) return
+    
+    let observer = new IntersectionObserver((entries) => {
+      if (!entries[entries.length - 1].isIntersecting) return
+      lastCard[0].removeAttribute('id')
+      setFetching(true)
+      setPage(p => p+1)
+    })
+    let target = lastCard[0]
+    observer.observe(target)
 
+    return () => {
+      observer.disconnect()
+    }
+  },[filteredAuctionItems])
 
 
   return (
-    <div className="bg-myAw">
+    <div id="home" className="bg-myAw">
       <div className="h-56 text-center font-logoFont -mt-2 -mb-40">
         <img src={homeTop} className="h-full w-full" alt="background-home-picture"  />
       </div>
@@ -54,14 +68,17 @@ export const Home = () => {
         <Search handleFilters={setFilterParams} class />
         <Categories handleFilters={setFilterParams} />
         <HomeAuctionList filteredAuctionItems={filteredAuctionItems} />
-        <button
-          className="bg-myPr-dark my-2 py-2 px-8 text-sm text-white rounded focus:bg-myPr-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-myPr-dark"
-          onClick={() => {
-            setPage(page + 1);
-          }}
-        >
-          Show more
-        </button>
+
+        {fetching && 
+        <div id="spinner">
+          <RefreshIcon
+            className={util.icon + "mb-4 text-myGr-dark animate-spin"}
+            aria-hidden="true" />
+        </div>}
+        
+        <div>
+          {noMoreItems && <div className="-mt-2 mb-2">No more items</div>}
+        </div>
       </div>
     </div>
   );

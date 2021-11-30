@@ -5,7 +5,7 @@ import CountdownTimer from "../components/CountdownTimer";
 
 // const { auctionItem, fetchAuctionItem } = useContext(AuctionDetailsContext);
 
-export const AuctionCard = ({auction}) => {
+export const AuctionCard = ({auction, lastCard}) => {
   const history = useHistory();
 
   const goToAuctionDetails = () => {
@@ -15,7 +15,7 @@ export const AuctionCard = ({auction}) => {
  
 
   return (
-    <div onClick={goToAuctionDetails} className="h-30 flex bg-white mb-3 p-1 outline-grey">
+    <div onClick={goToAuctionDetails} id={lastCard ? `lastCard-${auction.id}`:""} className="h-30 flex bg-white mb-3 p-1 outline-grey">
         {false ? (
           <img src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"></img>
         ) : (
