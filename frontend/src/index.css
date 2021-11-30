@@ -67,3 +67,16 @@ input[type='radio']:checked:after {
     width: 0;
     height: 0;
 }
+
+
+/* remove arrows from the input TYPE = number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

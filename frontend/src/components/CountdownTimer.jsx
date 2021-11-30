@@ -25,7 +25,7 @@ export default function CountdownTimer({ auctionEndTime }) {
       format = [hours, " hours ", minutes, " min"];
     }
     if (countdown > 60000 && countdown < 3600000) {
-      format = [minutes, " min ", seconds, " s"];
+      format = <span className="text-myRe">{[minutes, " min ", seconds, " s"]}</span>;
     }
     if (countdown > 0 && countdown < 60000) {
       format = [seconds, " s"];
@@ -33,13 +33,21 @@ export default function CountdownTimer({ auctionEndTime }) {
     return format;
   };
 
+ 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown(countdown ? countdown - 1000 : +auctionEndTime - currentTime);
+    if(countdown<=3600000 ){
+      console.log("less than an hour",countdown);
+      const timer = setInterval(() => {
+        setCountdown(countdown - 1000);
         setFormattedTime(formatTime());
-    }, 1000);
-    return ()=> clearInterval(timer);
-  });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+    else{
+      console.log("more than an hour", countdown);
+      setFormattedTime(formatTime());
+    }
+  }, [countdown]);
 
   return <div>{formattedTime}</div>;
 }
