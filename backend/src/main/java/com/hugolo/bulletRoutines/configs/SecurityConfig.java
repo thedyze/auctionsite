@@ -1,4 +1,4 @@
-package com.group4.auctionsite.configs;
+package com.hugolo.bulletRoutines.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
   
-  @Autowired
-  private MyUserDetailsService myUserDetailsService;
-  
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
@@ -28,19 +25,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/rest/**").permitAll() // user is logged in
         //.antMatchers("/buying").authenticated() // user is logged in
     ;
-  }
-  
-  @Override
-  public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth
-        .userDetailsService(myUserDetailsService)
-        .passwordEncoder(myUserDetailsService.getEncoder());
-  }
-  
-  // if using custom login:
-  @Bean("authenticationManager")
-  @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
   }
 }

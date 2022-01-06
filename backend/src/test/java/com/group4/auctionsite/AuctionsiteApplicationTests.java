@@ -1,10 +1,10 @@
-package com.group4.auctionsite;
+package com.hugolo.bulletRoutines;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AuctionsiteApplicationTests {
+class BulletRoutinesApplicationTests {
 
 	@Test
 	void contextLoads() {

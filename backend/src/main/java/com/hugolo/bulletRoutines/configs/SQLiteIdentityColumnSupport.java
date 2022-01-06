@@ -1,4 +1,4 @@
-package com.group4.auctionsite.configs;
+package com.hugolo.bulletRoutines.configs;
 
 import org.hibernate.boot.MappingException;
 import org.hibernate.dialect.identity.IdentityColumnSupportImpl;

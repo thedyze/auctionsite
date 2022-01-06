@@ -1,13 +1,13 @@
-package com.group4.auctionsite;
+package com.hugolo.bulletRoutines;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AuctionsiteApplication {
+public class BulletRoutinesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuctionsiteApplication.class, args);
+		SpringApplication.run(BulletRoutinesApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.group4.auctionsite.configs;
+package com.hugolo.bulletRoutines.configs;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @Configuration
 class MyWebMvcConfigurer implements WebMvcConfigurer {
-    private final String database = "hiddenGems.db";
+    private final String database = "bulletRoutines.db";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

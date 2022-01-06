@@ -8,10 +8,10 @@
 		<version>2.5.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.group4</groupId>
-	<artifactId>auctionsite</artifactId>
+	<groupId>com.hugolo</groupId>
+	<artifactId>bulletRoutines</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>auctionsite</name>
+	<name>bulletRoutines</name>
 	<description>Spring boot auction site</description>
 	<properties>
 		<java.version>15</java.version>

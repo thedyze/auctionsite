@@ -1,4 +1,4 @@
-package com.group4.auctionsite.configs;
+package com.hugolo.bulletRoutines.configs;
 
 import java.sql.Types;
 
